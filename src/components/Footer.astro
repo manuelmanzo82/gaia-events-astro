@@ -1,0 +1,123 @@
+---
+const navLinks = [
+  { href: '/chi-sono', label: 'Chi Sono' },
+  { href: '/servizi', label: 'Servizi' },
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/contatti', label: 'Contatti' },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer data-navbar-theme="dark" class="bg-charcoal py-[4.5rem] px-6">
+  <div class="max-w-[1050px] mx-auto">
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-12 md:gap-8">
+      <!-- Column 1: Brand -->
+      <div>
+        <a href="/" class="font-serif text-[1.6rem] text-white tracking-[0.1em] block mb-4">
+          GAIA EVENTS
+        </a>
+        <p class="text-white/55 text-sm leading-relaxed max-w-xs">
+          Wedding Planner & Event Manager a Roma. Trasformo i tuoi sogni in eventi indimenticabili.
+        </p>
+        <!-- Social Icons -->
+        <div class="flex items-center gap-4 mt-6">
+          <!-- Instagram -->
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white/55 hover:text-white transition-colors duration-300"
+            aria-label="Instagram"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white/55 hover:text-white transition-colors duration-300"
+            aria-label="Facebook"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <!-- Pinterest -->
+          <a
+            href="https://pinterest.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white/55 hover:text-white transition-colors duration-300"
+            aria-label="Pinterest"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" x2="12" y1="17" y2="22"></line>
+              <path d="M5 17h2a2 2 0 0 0 2-2V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v10a2 2 0 0 0 2 2h2"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: Navigation -->
+      <div>
+        <span class="font-sans text-[0.65rem] tracking-[0.18em] uppercase text-gold block mb-6">
+          Navigazione
+        </span>
+        <ul class="space-y-3">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-white/55 text-sm hover:text-white transition-colors duration-300"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Column 3: Contacts -->
+      <div>
+        <span class="font-sans text-[0.65rem] tracking-[0.18em] uppercase text-gold block mb-6">
+          Contatti
+        </span>
+        <ul class="space-y-3 text-white/55 text-sm">
+          <li>Roma, Italia</li>
+          <li>
+            <a href="mailto:info@gaiaevents.it" class="hover:text-white transition-colors duration-300">
+              info@gaiaevents.it
+            </a>
+          </li>
+          <li>
+            <a href="tel:+39000000000" class="hover:text-white transition-colors duration-300">
+              +39 000 000 0000
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-white/35 text-xs">
+        &copy; {currentYear} Gaia Events. Tutti i diritti riservati.
+      </p>
+      <div class="flex items-center gap-6">
+        <a href="/privacy" class="text-white/35 text-xs hover:text-white/60 transition-colors duration-300">
+          Privacy Policy
+        </a>
+        <a href="/cookie" class="text-white/35 text-xs hover:text-white/60 transition-colors duration-300">
+          Cookie Policy
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

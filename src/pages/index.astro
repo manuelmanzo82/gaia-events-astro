@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/globals.css';
+import Hero from '../components/sections/Hero.astro';
+import AboutPreview from '../components/sections/AboutPreview.astro';
+import Services from '../components/sections/Services.astro';
+import PortfolioPreview from '../components/sections/PortfolioPreview';
+import Testimonials from '../components/sections/Testimonials.astro';
+import CtaSection from '../components/sections/CtaSection.astro';
+import Stats from '../components/sections/Stats';
+---
+
+<BaseLayout title="Home" description="Gaia Events — Wedding Planner & Event Manager a Roma. Esclusività e ricercatezza per il giorno più importante della tua vita.">
+  <main>
+    <Hero />
+    <AboutPreview />
+    <Services />
+    <PortfolioPreview client:visible />
+    <Testimonials />
+    <CtaSection />
+    <Stats client:visible />
+  </main>
+</BaseLayout>

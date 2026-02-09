@@ -1,0 +1,45 @@
+---
+
+---
+
+<section data-navbar-theme="light" class="py-20 px-6 bg-beige">
+  <div class="max-w-[700px] mx-auto text-center">
+    <!-- Eyebrow -->
+    <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Testimonial</p>
+
+    <!-- Stars -->
+    <div class="flex items-center justify-center gap-1 mb-8">
+      {Array.from({ length: 5 }).map(() => (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-gold">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      ))}
+    </div>
+
+    <!-- Quote -->
+    <blockquote class="font-serif text-[clamp(1.2rem,3vw,1.6rem)] font-light text-charcoal leading-[1.7] italic mb-8">
+      &ldquo;Gaia ha trasformato il nostro sogno in realtà. Ogni dettaglio era perfetto,
+      dalla scelta dei fiori alla musica. Non avremmo potuto desiderare niente di meglio
+      per il nostro giorno speciale.&rdquo;
+    </blockquote>
+
+    <!-- Attribution -->
+    <p class="font-sans text-[0.85rem] tracking-[0.08em] text-charcoal/70">
+      — Francesca & Luca
+    </p>
+
+    <!-- Link -->
+    <div class="mt-10">
+      <a
+        href="/dicono-di-me"
+        class="group inline-flex items-center gap-2 font-sans text-[0.8rem] tracking-[0.12em] uppercase text-gold hover:gap-4 transition-all duration-300"
+      >
+        Leggi tutte le recensioni
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
