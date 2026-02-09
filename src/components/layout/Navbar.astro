@@ -14,8 +14,8 @@ const navLinks = [
 ];
 ---
 
-<header id="navbar" class="fixed top-0 left-0 right-0 z-50 pt-6 lg:pt-10 transition-colors duration-500">
-  <nav class="max-w-[1280px] mx-auto px-4 lg:px-6 flex items-center justify-between h-16 lg:h-24">
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 pt-4 lg:pt-6 transition-colors duration-500">
+  <nav class="max-w-[1280px] mx-auto px-4 lg:px-6 flex items-center justify-between">
     <!-- Logo -->
     <a
       href="/"
@@ -23,7 +23,7 @@ const navLinks = [
       class="navbar-themed font-serif text-[1.4rem] font-medium tracking-[0.12em] transition-colors duration-500"
     >
       {logo ? (
-        <img src={logo} alt="Gaia Events" class="h-7" />
+        <img id="navbar-logo-img" src={logo} alt="Gaia Events" class="h-[80px] lg:h-[130px] w-auto object-contain transition-[filter] duration-500" />
       ) : (
         'GAIA EVENTS'
       )}
@@ -63,7 +63,11 @@ const navLinks = [
 >
   <div class="flex items-center justify-between px-4 pt-6 h-[calc(1.5rem+4rem)]">
     <a href="/" class="font-serif text-[1.4rem] font-medium tracking-[0.12em] text-charcoal">
-      GAIA EVENTS
+      {logo ? (
+        <img id="mobile-menu-logo-img" src={logo} alt="Gaia Events" class="h-[80px] w-auto object-contain" />
+      ) : (
+        'GAIA EVENTS'
+      )}
     </a>
     <button
       id="mobile-menu-close"
@@ -99,6 +103,7 @@ const navLinks = [
     function applyNavbarTheme() {
       var items = document.querySelectorAll('.navbar-themed');
       var sections = document.querySelectorAll('[data-navbar-theme]');
+      var logoImg = document.getElementById('navbar-logo-img');
       var navbarHeight = 112;
       var currentTheme = 'light';
 
@@ -117,6 +122,11 @@ const navLinks = [
           items[j].classList.remove('text-ivory');
           items[j].classList.add('text-charcoal');
         }
+      }
+
+      // Apply filter to logo image for dark/light sections
+      if (logoImg) {
+        logoImg.style.filter = currentTheme === 'dark' ? 'brightness(0) invert(1)' : 'none';
       }
     }
 
