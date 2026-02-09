@@ -1,13 +1,225 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/globals.css';
+import Stats from '../components/sections/Stats';
+
+const services = [
+  {
+    eyebrow: 'Full Service',
+    title: 'Wedding Planning Completo',
+    description: 'Un servizio a 360 gradi che vi accompagna dalla prima idea fino all\'ultimo ballo. Mi occupo di ogni aspetto dell\'organizzazione, permettendovi di vivere il periodo del fidanzamento senza stress.',
+    features: [
+      'Consulenza iniziale e definizione del concept',
+      'Ricerca e selezione delle location',
+      'Gestione budget e contratti fornitori',
+      'Coordinamento catering, fiori, musica',
+      'Design personalizzato degli allestimenti',
+      'Gestione inviti e RSVP',
+      'Timeline dettagliata della giornata',
+      'Coordinamento completo il giorno del matrimonio',
+    ],
+    icon: 'calendar',
+    link: '/contatti?servizio=planning',
+  },
+  {
+    eyebrow: 'Day-of',
+    title: 'Coordinamento del Giorno',
+    description: 'Avete già organizzato tutto ma desiderate un professionista che gestisca la giornata? Questo servizio è pensato per garantire che tutto proceda perfettamente mentre voi vi godete ogni istante.',
+    features: [
+      'Incontri pre-matrimonio per conoscere i dettagli',
+      'Verifica e coordinamento con tutti i fornitori',
+      'Gestione della timeline',
+      'Supervisione allestimenti',
+      'Punto di riferimento per ospiti e fornitori',
+      'Gestione imprevisti',
+      'Presenza dal setup alla chiusura',
+    ],
+    icon: 'users',
+    link: '/contatti?servizio=coordinamento',
+  },
+  {
+    eyebrow: 'Creative',
+    title: 'Design & Styling',
+    description: 'La bellezza sta nei dettagli. Creo concept unici e allestimenti che trasformano qualsiasi location in uno spazio magico, riflettendo la vostra personalità e il vostro stile.',
+    features: [
+      'Creazione mood board e concept visivo',
+      'Progettazione allestimenti personalizzati',
+      'Selezione palette colori e materiali',
+      'Coordinamento con fioristi e fornitori',
+      'Styling tavoli e aree cerimonia',
+      'Elementi decorativi personalizzati',
+      'Supervisione montaggio e smontaggio',
+    ],
+    icon: 'palette',
+    link: '/contatti?servizio=design',
+  },
+  {
+    eyebrow: 'Worldwide',
+    title: 'Destination Wedding',
+    description: 'Sognate un matrimonio in una location lontana da casa? Organizzo destination wedding in tutta Italia e all\'estero, gestendo ogni aspetto logistico con la stessa cura di un evento locale.',
+    features: [
+      'Ricerca location esclusive',
+      'Gestione logistica viaggi e alloggi',
+      'Selezione e coordinamento fornitori locali',
+      'Supporto burocratico e permessi',
+      'Organizzazione attività per gli ospiti',
+      'Welcome dinner e farewell brunch',
+      'Presenza in loco per tutto il soggiorno',
+    ],
+    icon: 'plane',
+    link: '/contatti?servizio=destination',
+  },
+];
 ---
 
-<BaseLayout title="Servizi">
+<BaseLayout title="Servizi" description="I servizi di Gaia Events: Wedding Planning, Coordinamento, Design & Styling, Destination Wedding.">
   <main>
-    <section class="section">
-      <div class="container">
-        <h1>Servizi</h1>
+    <!-- Hero -->
+    <section data-navbar-theme="dark" class="relative h-[55vh] min-h-[380px] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="text-white/10 text-xl tracking-widest uppercase select-none">Hero Background Image</span>
+        </div>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-charcoal/50 to-charcoal/70"></div>
+      <div class="relative z-10 text-center px-6 mt-12">
+        <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">Servizi</p>
+        <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15]">I Miei Servizi</h1>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section data-navbar-theme="light" class="py-20 px-6">
+      <div class="max-w-[700px] mx-auto text-center">
+        <h2 class="fade-in font-serif text-[clamp(1.8rem,4vw,2.5rem)] font-normal italic text-charcoal mb-6">
+          Ogni coppia è unica
+        </h2>
+        <p class="fade-in text-[1.05rem] font-light leading-[1.85] text-[#555]">
+          Scoprite i servizi pensati per accompagnarvi verso il giorno più bello della vostra vita.
+          Che desideriate un supporto completo o solo una guida esperta per il grande giorno,
+          troveremo insieme la soluzione perfetta per voi.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services -->
+    {services.map((service, i) => (
+      <>
+        <section data-navbar-theme="light" class={`py-20 px-6 ${i % 2 === 0 ? '' : 'bg-beige'}`}>
+          <div class={`fade-in max-w-[1050px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center ${i % 2 !== 0 ? 'direction-rtl' : ''}`}>
+            {/* Image */}
+            <div class={`relative ${i % 2 !== 0 ? 'lg:order-2' : ''}`}>
+              <div class="aspect-[4/3] bg-beige rounded-[3px] flex items-center justify-center overflow-hidden">
+                <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">{service.title} Photo</span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div class={i % 2 !== 0 ? 'lg:order-1' : ''}>
+              {/* Icon */}
+              <div class="w-[55px] h-[55px] rounded-full border-2 border-gold flex items-center justify-center mb-5">
+                {service.icon === 'calendar' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                    <path d="M8 2v4" /><path d="M16 2v4" />
+                    <rect width="18" height="18" x="3" y="4" rx="2" />
+                    <path d="M3 10h18" />
+                  </svg>
+                )}
+                {service.icon === 'users' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                )}
+                {service.icon === 'palette' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                  </svg>
+                )}
+                {service.icon === 'plane' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                    <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+                  </svg>
+                )}
+              </div>
+
+              <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-3">{service.eyebrow}</p>
+              <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.2rem)] font-normal text-charcoal mb-4">{service.title}</h2>
+              <p class="text-[0.95rem] font-light leading-[1.85] text-[#555] mb-6">{service.description}</p>
+
+              {/* Features list */}
+              <ul class="space-y-3 mb-8">
+                {service.features.map((feature) => (
+                  <li class="flex items-start gap-3 text-[0.9rem] text-[#555]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold flex-shrink-0 mt-0.5">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={service.link}
+                class="group inline-flex items-center gap-2 font-sans text-[0.8rem] tracking-[0.12em] uppercase text-gold hover:gap-4 transition-all duration-300"
+              >
+                Scopri di più
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Quote after 2nd service */}
+        {i === 1 && (
+          <section data-navbar-theme="light" class="py-20 px-6">
+            <div class="max-w-[700px] mx-auto text-center fade-in">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-gold/40 mb-8">
+                <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21z" />
+                <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 .001 0 .009 0 .009A1.99 1.99 0 0 0 15 21z" />
+              </svg>
+              <blockquote class="font-serif text-[clamp(1.2rem,3vw,1.5rem)] font-light text-charcoal leading-[1.8] italic mb-8">
+                Il mio obiettivo è trasformare la vostra visione in realtà, curando ogni dettaglio
+                con passione e dedizione per creare un giorno che superi ogni aspettativa.
+              </blockquote>
+              <div class="w-12 h-px bg-gold mx-auto mb-4"></div>
+              <p class="font-sans text-[0.85rem] tracking-[0.08em] text-charcoal/60">— Gaia</p>
+            </div>
+          </section>
+        )}
+      </>
+    ))}
+
+    <!-- Stats -->
+    <Stats client:visible />
+
+    <!-- CTA -->
+    <section data-navbar-theme="dark" class="relative py-28 px-6 overflow-hidden">
+      <div class="absolute inset-0 bg-sage"></div>
+      <div class="relative z-10 max-w-[600px] mx-auto text-center">
+        <p class="font-sans text-[0.7rem] tracking-[0.25em] uppercase text-ivory/70 mb-5">
+          Consulenza Gratuita
+        </p>
+        <h2 class="font-serif text-[clamp(1.8rem,4.5vw,2.8rem)] font-light text-ivory leading-[1.2] mb-6">
+          Non Sai Quale Servizio<br /><em class="italic">Fa per Te?</em>
+        </h2>
+        <p class="font-sans text-[0.95rem] font-light text-ivory/80 max-w-[26rem] mx-auto mb-10">
+          Contattami per una consulenza gratuita. Insieme troveremo la soluzione perfetta per le vostre esigenze.
+        </p>
+        <a
+          href="/contatti"
+          class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 bg-gold text-charcoal hover:bg-white transition-all duration-300"
+        >
+          Parliamone Insieme
+        </a>
       </div>
     </section>
   </main>

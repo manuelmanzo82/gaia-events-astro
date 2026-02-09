@@ -1,13 +1,106 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/globals.css';
+import ContactForm from '../components/sections/ContactForm';
 ---
 
-<BaseLayout title="Contatti">
+<BaseLayout title="Contatti" description="Contatta Gaia Events per organizzare il tuo matrimonio o evento speciale a Roma.">
   <main>
-    <section class="section">
-      <div class="container">
-        <h1>Contatti</h1>
+    <!-- Hero -->
+    <section data-navbar-theme="dark" class="relative h-[50vh] min-h-[350px] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="text-white/10 text-xl tracking-widest uppercase select-none">Hero Background Image</span>
+        </div>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-charcoal/50 to-charcoal/70"></div>
+      <div class="relative z-10 text-center px-6 mt-12">
+        <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">Contatti</p>
+        <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15] mb-4">Iniziamo a Conoscerci</h1>
+        <p class="font-sans text-[0.95rem] font-light text-white/80 max-w-[28rem] mx-auto">
+          Sono qui per ascoltare i vostri sogni e trasformarli in realtà
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Grid -->
+    <section data-navbar-theme="light" class="py-20 px-6">
+      <div class="max-w-[1050px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-20">
+        <!-- Left: Info -->
+        <div class="fade-in">
+          <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Informazioni</p>
+          <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.2rem)] font-normal text-charcoal mb-8">
+            Parliamo del Tuo Evento
+          </h2>
+
+          <div class="space-y-8">
+            <!-- Email -->
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                  <rect width="20" height="16" x="2" y="4" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-sans text-[0.7rem] tracking-[0.12em] uppercase text-charcoal/50 mb-1">Email</p>
+                <a href="mailto:info@gaiaevents.it" class="text-[0.95rem] text-charcoal hover:text-gold transition-colors">info@gaiaevents.it</a>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-sans text-[0.7rem] tracking-[0.12em] uppercase text-charcoal/50 mb-1">Telefono</p>
+                <a href="tel:+390612345678" class="text-[0.95rem] text-charcoal hover:text-gold transition-colors">+39 06 1234 5678</a>
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-sans text-[0.7rem] tracking-[0.12em] uppercase text-charcoal/50 mb-1">Location</p>
+                <p class="text-[0.95rem] text-charcoal">Roma, Italia</p>
+              </div>
+            </div>
+
+            <!-- Hours -->
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-sans text-[0.7rem] tracking-[0.12em] uppercase text-charcoal/50 mb-1">Orari</p>
+                <p class="text-[0.9rem] text-[#555]">Lun-Ven: 9:00 - 18:00</p>
+                <p class="text-[0.9rem] text-[#555]">Sabato: Su appuntamento</p>
+                <p class="text-[0.9rem] text-[#555]">Domenica: Chiuso</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-10 text-[0.85rem] text-[#555] font-light leading-relaxed">
+            Rispondo a tutte le richieste entro 24-48 ore. Non vedo l'ora di conoscere la vostra storia!
+          </p>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="fade-in">
+          <ContactForm client:visible />
+        </div>
       </div>
     </section>
   </main>

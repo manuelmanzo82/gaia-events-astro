@@ -1,13 +1,139 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/globals.css';
+import PortfolioPreview from '../components/sections/PortfolioPreview';
+import CtaSection from '../components/sections/CtaSection.astro';
 ---
 
-<BaseLayout title="Portfolio">
+<BaseLayout title="Portfolio" description="Scopri gli eventi realizzati da Gaia Events — Matrimoni, Corporate Events e Destination Wedding.">
   <main>
-    <section class="section">
-      <div class="container">
-        <h1>Portfolio</h1>
+    <!-- Hero -->
+    <section data-navbar-theme="dark" class="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="text-white/10 text-xl tracking-widest uppercase select-none">Hero Background Image</span>
+        </div>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-charcoal/50 to-charcoal/70"></div>
+      <div class="relative z-10 text-center px-6 mt-12">
+        <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">Portfolio</p>
+        <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15] mb-4">Storie ed Emozioni</h1>
+        <p class="font-sans text-[0.95rem] font-light text-white/80 max-w-[28rem] mx-auto">
+          Ogni evento racconta una storia unica. Scoprite alcuni dei momenti magici creati per i miei clienti.
+        </p>
+      </div>
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+        <div class="w-[1.4rem] h-[2.2rem] border-2 border-white/50 rounded-full flex items-start justify-center pt-1.5">
+          <div class="w-1 h-1 rounded-full bg-gold animate-bounce"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro -->
+    <section data-navbar-theme="light" class="py-16 px-6">
+      <div class="max-w-[700px] mx-auto text-center fade-in">
+        <p class="text-[1.05rem] font-light leading-[1.85] text-[#555]">
+          Ogni evento racconta una storia unica. Scoprite alcuni dei momenti magici
+          che ho avuto il privilegio di creare per i miei clienti.
+        </p>
+      </div>
+    </section>
+
+    <!-- Portfolio Categories -->
+    <section data-navbar-theme="light" class="pb-20 px-6">
+      <div class="max-w-[1050px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Wedding -->
+        <div class="fade-in group relative aspect-[3/4] rounded-[3px] overflow-hidden cursor-pointer">
+          <div class="absolute inset-0 bg-beige flex items-center justify-center">
+            <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Wedding Photo</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <p class="font-sans text-[0.65rem] tracking-[0.15em] uppercase text-gold mb-2">Wedding</p>
+            <h3 class="font-serif text-[1.4rem] text-white mb-2">Matrimoni</h3>
+            <p class="font-sans text-[0.8rem] text-white/60 leading-relaxed mb-4">
+              Matrimoni indimenticabili, curati in ogni dettaglio. Dal primo incontro fino all'ultimo ballo.
+            </p>
+            <span class="group-hover:gap-4 inline-flex items-center gap-2 font-sans text-[0.75rem] tracking-[0.1em] uppercase text-gold transition-all duration-300">
+              Scopri i matrimoni
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Corporate -->
+        <div class="fade-in group relative aspect-[3/4] rounded-[3px] overflow-hidden cursor-pointer">
+          <div class="absolute inset-0 bg-beige flex items-center justify-center">
+            <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Corporate Photo</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <p class="font-sans text-[0.65rem] tracking-[0.15em] uppercase text-gold mb-2">Corporate</p>
+            <h3 class="font-serif text-[1.4rem] text-white mb-2">Eventi Aziendali</h3>
+            <p class="font-sans text-[0.8rem] text-white/60 leading-relaxed mb-4">
+              Eventi aziendali che lasciano il segno. Conferenze, gala dinner, team building e celebrazioni corporate.
+            </p>
+            <span class="group-hover:gap-4 inline-flex items-center gap-2 font-sans text-[0.75rem] tracking-[0.1em] uppercase text-gold transition-all duration-300">
+              Scopri gli eventi
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Celebrations -->
+        <div class="fade-in group relative aspect-[3/4] rounded-[3px] overflow-hidden cursor-pointer">
+          <div class="absolute inset-0 bg-beige flex items-center justify-center">
+            <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Celebrations Photo</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <p class="font-sans text-[0.65rem] tracking-[0.15em] uppercase text-gold mb-2">Celebrations</p>
+            <h3 class="font-serif text-[1.4rem] text-white mb-2">Feste Private</h3>
+            <p class="font-sans text-[0.8rem] text-white/60 leading-relaxed mb-4">
+              Feste private, compleanni speciali, battesimi e anniversari. Ogni celebrazione merita di essere indimenticabile.
+            </p>
+            <span class="group-hover:gap-4 inline-flex items-center gap-2 font-sans text-[0.75rem] tracking-[0.1em] uppercase text-gold transition-all duration-300">
+              Scopri le feste
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Grid with Filters -->
+    <PortfolioPreview client:visible />
+
+    <!-- CTA -->
+    <section data-navbar-theme="dark" class="relative py-28 px-6 overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="text-white/5 text-xl tracking-widest uppercase select-none">CTA Background</span>
+        </div>
+      </div>
+      <div class="absolute inset-0 bg-bordeaux/88"></div>
+      <div class="relative z-10 max-w-[600px] mx-auto text-center">
+        <p class="font-sans text-[0.7rem] tracking-[0.25em] uppercase text-gold mb-5">
+          Il Tuo Evento
+        </p>
+        <h2 class="font-serif text-[clamp(1.8rem,4.5vw,2.8rem)] font-light text-white leading-[1.2] mb-6">
+          Vuoi Vedere il Tuo<br /><em class="italic">Evento Qui?</em>
+        </h2>
+        <p class="font-sans text-[0.95rem] font-light text-white/80 max-w-[26rem] mx-auto mb-10">
+          Raccontami la tua visione e insieme creeremo qualcosa di indimenticabile
+        </p>
+        <a
+          href="/contatti"
+          class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 bg-gold text-charcoal hover:bg-white transition-all duration-300"
+        >
+          Iniziamo Insieme
+        </a>
       </div>
     </section>
   </main>

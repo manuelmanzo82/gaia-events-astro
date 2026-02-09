@@ -14,7 +14,7 @@ const navLinks = [
     <a
       href="/"
       id="navbar-logo"
-      class="font-serif text-[1.4rem] font-medium tracking-[0.12em] transition-colors duration-500 text-charcoal"
+      class="navbar-themed font-serif text-[1.4rem] font-medium tracking-[0.12em] transition-colors duration-500"
     >
       GAIA EVENTS
     </a>
@@ -25,7 +25,7 @@ const navLinks = [
         <li>
           <a
             href={link.href}
-            class="navbar-link font-sans text-[0.8rem] tracking-[0.12em] uppercase transition-colors duration-500 text-charcoal hover:opacity-70"
+            class="navbar-themed font-sans text-[0.8rem] tracking-[0.12em] uppercase transition-colors duration-500 hover:opacity-70"
           >
             {link.label}
           </a>
@@ -37,7 +37,7 @@ const navLinks = [
     <button
       id="mobile-menu-btn"
       type="button"
-      class="lg:hidden font-sans text-[0.65rem] tracking-[0.15em] uppercase border border-current px-4 py-2 transition-colors duration-500 text-charcoal"
+      class="navbar-themed lg:hidden font-sans text-[0.65rem] tracking-[0.15em] uppercase border border-current px-4 py-2 transition-colors duration-500"
       aria-label="Apri menu"
       aria-expanded="false"
     >
@@ -83,6 +83,46 @@ const navLinks = [
   </nav>
 </div>
 
+<!-- Inline script that runs IMMEDIATELY to prevent flash of wrong colors -->
+<script is:inline>
+  (function() {
+    function applyNavbarTheme() {
+      var items = document.querySelectorAll('.navbar-themed');
+      var sections = document.querySelectorAll('[data-navbar-theme]');
+      var navbarHeight = 112;
+      var currentTheme = 'light';
+
+      for (var i = 0; i < sections.length; i++) {
+        var rect = sections[i].getBoundingClientRect();
+        if (rect.top <= navbarHeight && rect.bottom > navbarHeight) {
+          currentTheme = sections[i].getAttribute('data-navbar-theme') || 'light';
+        }
+      }
+
+      for (var j = 0; j < items.length; j++) {
+        if (currentTheme === 'dark') {
+          items[j].classList.remove('text-charcoal');
+          items[j].classList.add('text-ivory');
+        } else {
+          items[j].classList.remove('text-ivory');
+          items[j].classList.add('text-charcoal');
+        }
+      }
+    }
+
+    // Run immediately
+    applyNavbarTheme();
+
+    // Run on scroll
+    window.addEventListener('scroll', applyNavbarTheme, { passive: true });
+
+    // Run again after Astro page transitions
+    document.addEventListener('astro:page-load', applyNavbarTheme);
+    // Also after DOM is fully ready
+    document.addEventListener('DOMContentLoaded', applyNavbarTheme);
+  })();
+</script>
+
 <script>
   document.addEventListener('astro:page-load', () => {
     // --- Mobile menu ---
@@ -111,58 +151,5 @@ const navLinks = [
     mobileMenu?.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeMenu);
     });
-
-    // --- Navbar theme switching ---
-    const navbar = document.getElementById('navbar');
-    const logo = document.getElementById('navbar-logo');
-    const navbarLinks = document.querySelectorAll('.navbar-link');
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-
-    function applyTheme(theme: string) {
-      if (!navbar || !logo) return;
-
-      if (theme === 'dark') {
-        logo.classList.remove('text-charcoal');
-        logo.classList.add('text-ivory');
-        navbarLinks.forEach((link) => {
-          link.classList.remove('text-charcoal');
-          link.classList.add('text-ivory');
-        });
-        if (mobileMenuBtn) {
-          mobileMenuBtn.classList.remove('text-charcoal');
-          mobileMenuBtn.classList.add('text-ivory');
-        }
-      } else {
-        logo.classList.remove('text-ivory');
-        logo.classList.add('text-charcoal');
-        navbarLinks.forEach((link) => {
-          link.classList.remove('text-ivory');
-          link.classList.add('text-charcoal');
-        });
-        if (mobileMenuBtn) {
-          mobileMenuBtn.classList.remove('text-ivory');
-          mobileMenuBtn.classList.add('text-charcoal');
-        }
-      }
-    }
-
-    function detectTheme() {
-      const navbarHeight = 112;
-      const sections = document.querySelectorAll<HTMLElement>('[data-navbar-theme]');
-      let currentTheme = 'light';
-
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= navbarHeight && rect.bottom > navbarHeight) {
-          currentTheme = section.dataset.navbarTheme || 'light';
-        }
-      });
-
-      applyTheme(currentTheme);
-    }
-
-    // Run on scroll and on load
-    detectTheme();
-    window.addEventListener('scroll', detectTheme, { passive: true });
   });
 </script>
