@@ -1,4 +1,10 @@
 ---
+interface Props {
+  logo?: string;
+}
+
+const { logo } = Astro.props;
+
 const navLinks = [
   { href: '/chi-sono', label: 'Chi Sono' },
   { href: '/servizi', label: 'Servizi' },
@@ -16,7 +22,11 @@ const navLinks = [
       id="navbar-logo"
       class="navbar-themed font-serif text-[1.4rem] font-medium tracking-[0.12em] transition-colors duration-500"
     >
-      GAIA EVENTS
+      {logo ? (
+        <img src={logo} alt="Gaia Events" class="h-7" />
+      ) : (
+        'GAIA EVENTS'
+      )}
     </a>
 
     <!-- Desktop Nav -->

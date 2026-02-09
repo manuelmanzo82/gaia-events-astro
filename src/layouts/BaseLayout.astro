@@ -6,9 +6,26 @@ import '../styles/globals.css';
 interface Props {
   title: string;
   description?: string;
+  logo?: string;
+  email?: string;
+  telefono?: string;
+  indirizzo?: string;
+  social?: {
+    instagram?: string;
+    facebook?: string;
+    pinterest?: string;
+  };
 }
 
-const { title, description = 'Gaia Events — Wedding & Event Planner in Toscana' } = Astro.props;
+const {
+  title,
+  description = 'Gaia Events — Wedding & Event Planner in Toscana',
+  logo,
+  email,
+  telefono,
+  indirizzo,
+  social,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -31,9 +48,15 @@ const { title, description = 'Gaia Events — Wedding & Event Planner in Toscana
     <title>{title} | Gaia Events</title>
   </head>
   <body class="min-h-screen flex flex-col">
-    <Navbar />
+    <Navbar logo={logo} />
     <slot />
-    <Footer />
+    <Footer
+      logo={logo}
+      email={email}
+      telefono={telefono}
+      indirizzo={indirizzo}
+      social={social}
+    />
 
     <!-- Fade-in observer: adds .has-observer to html so CSS hides .fade-in,
          then reveals them on scroll. Without JS, content stays fully visible. -->

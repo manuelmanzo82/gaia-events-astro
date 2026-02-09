@@ -1,4 +1,24 @@
 ---
+interface Props {
+  email?: string;
+  telefono?: string;
+  indirizzo?: string;
+  social?: {
+    instagram?: string;
+    facebook?: string;
+    pinterest?: string;
+  };
+  logo?: string;
+}
+
+const {
+  email,
+  telefono,
+  indirizzo,
+  social,
+  logo,
+} = Astro.props;
+
 const navLinks = [
   { href: '/chi-sono', label: 'Chi Sono' },
   { href: '/servizi', label: 'Servizi' },
@@ -7,6 +27,13 @@ const navLinks = [
 ];
 
 const currentYear = new Date().getFullYear();
+
+const displayEmail = email || 'info@gaiaevents.it';
+const displayTelefono = telefono || '+39 000 000 0000';
+const displayIndirizzo = indirizzo || 'Roma, Italia';
+const igUrl = social?.instagram || 'https://instagram.com';
+const fbUrl = social?.facebook || 'https://facebook.com';
+const pinUrl = social?.pinterest || 'https://pinterest.com';
 ---
 
 <footer data-navbar-theme="dark" class="bg-charcoal py-[4.5rem] px-6">
@@ -16,7 +43,11 @@ const currentYear = new Date().getFullYear();
       <!-- Column 1: Brand -->
       <div>
         <a href="/" class="font-serif text-[1.6rem] text-white tracking-[0.1em] block mb-4">
-          GAIA EVENTS
+          {logo ? (
+            <img src={logo} alt="Gaia Events" class="h-8" />
+          ) : (
+            'GAIA EVENTS'
+          )}
         </a>
         <p class="text-white/55 text-sm leading-relaxed max-w-xs">
           Wedding Planner & Event Manager a Roma. Trasformo i tuoi sogni in eventi indimenticabili.
@@ -25,7 +56,7 @@ const currentYear = new Date().getFullYear();
         <div class="flex items-center gap-4 mt-6">
           <!-- Instagram -->
           <a
-            href="https://instagram.com"
+            href={igUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="text-white/55 hover:text-white transition-colors duration-300"
@@ -39,7 +70,7 @@ const currentYear = new Date().getFullYear();
           </a>
           <!-- Facebook -->
           <a
-            href="https://facebook.com"
+            href={fbUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="text-white/55 hover:text-white transition-colors duration-300"
@@ -51,7 +82,7 @@ const currentYear = new Date().getFullYear();
           </a>
           <!-- Pinterest -->
           <a
-            href="https://pinterest.com"
+            href={pinUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="text-white/55 hover:text-white transition-colors duration-300"
@@ -90,15 +121,15 @@ const currentYear = new Date().getFullYear();
           Contatti
         </span>
         <ul class="space-y-3 text-white/55 text-sm">
-          <li>Roma, Italia</li>
+          <li>{displayIndirizzo}</li>
           <li>
-            <a href="mailto:info@gaiaevents.it" class="hover:text-white transition-colors duration-300">
-              info@gaiaevents.it
+            <a href={`mailto:${displayEmail}`} class="hover:text-white transition-colors duration-300">
+              {displayEmail}
             </a>
           </li>
           <li>
-            <a href="tel:+39000000000" class="hover:text-white transition-colors duration-300">
-              +39 000 000 0000
+            <a href={`tel:${displayTelefono.replace(/\s/g, '')}`} class="hover:text-white transition-colors duration-300">
+              {displayTelefono}
             </a>
           </li>
         </ul>

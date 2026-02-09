@@ -7,16 +7,48 @@ import PortfolioPreview from '../components/sections/PortfolioPreview';
 import Testimonials from '../components/sections/Testimonials.astro';
 import CtaSection from '../components/sections/CtaSection.astro';
 import Stats from '../components/sections/Stats';
+import { sanityClient } from '../lib/sanity';
+import { impostazioniQuery } from '../lib/queries';
+
+let impostazioni: any = null;
+try {
+  impostazioni = await sanityClient.fetch(impostazioniQuery);
+} catch (e) {
+  console.error('Sanity fetch failed, using fallback values:', e);
+}
 ---
 
-<BaseLayout title="Home" description="Gaia Events — Wedding Planner & Event Manager a Roma. Esclusività e ricercatezza per il giorno più importante della tua vita.">
+<BaseLayout
+  title="Home"
+  description={impostazioni?.descrizione || 'Gaia Events — Wedding Planner & Event Manager a Roma. Esclusività e ricercatezza per il giorno più importante della tua vita.'}
+  logo={impostazioni?.logo}
+  email={impostazioni?.email}
+  telefono={impostazioni?.telefono}
+  indirizzo={impostazioni?.indirizzo}
+  social={impostazioni?.social}
+>
   <main>
-    <Hero />
-    <AboutPreview />
+    <Hero
+      titolo={impostazioni?.heroHomepage?.titolo}
+      sottotitolo={impostazioni?.heroHomepage?.sottotitolo}
+      immagine={impostazioni?.heroHomepage?.immagine}
+    />
+    <AboutPreview
+      foto={impostazioni?.chiSono?.foto}
+      titolo={impostazioni?.chiSono?.titolo}
+      testoPrincipale={impostazioni?.chiSono?.testoPrincipale}
+      testoLink={impostazioni?.chiSono?.testoLink}
+    />
     <Services />
     <PortfolioPreview client:visible />
     <Testimonials />
     <CtaSection />
-    <Stats client:visible />
+    <Stats
+      client:visible
+      eventiRealizzati={impostazioni?.statistiche?.eventiRealizzati}
+      anniEsperienza={impostazioni?.statistiche?.anniEsperienza}
+      locationPartner={impostazioni?.statistiche?.locationPartner}
+      fornitoriSelezionati={impostazioni?.statistiche?.fornitoriSelezionati}
+    />
   </main>
 </BaseLayout>

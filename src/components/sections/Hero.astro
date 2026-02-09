@@ -1,14 +1,30 @@
 ---
+interface Props {
+  titolo?: string;
+  sottotitolo?: string;
+  immagine?: string;
+}
 
+const {
+  titolo,
+  sottotitolo,
+  immagine,
+} = Astro.props;
+
+const defaultTitolo = 'Creiamo Insieme<br /><em class="italic">il Tuo Sogno</em>';
+const defaultSottotitolo = 'Esclusività e ricercatezza per il giorno più importante della tua vita';
 ---
 
 <section data-navbar-theme="dark" class="relative h-screen flex items-center justify-center overflow-hidden">
   <!-- Background -->
   <div class="absolute inset-0 bg-charcoal">
-    <!-- Placeholder for background image -->
-    <div class="absolute inset-0 flex items-center justify-center">
-      <span class="text-white/10 text-2xl tracking-widest uppercase select-none">Hero Background Image</span>
-    </div>
+    {immagine ? (
+      <img src={immagine} alt="" class="absolute inset-0 w-full h-full object-cover" />
+    ) : (
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span class="text-white/10 text-2xl tracking-widest uppercase select-none">Hero Background Image</span>
+      </div>
+    )}
   </div>
 
   <!-- Overlay -->
@@ -19,11 +35,9 @@
     <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">
       Wedding Planner & Event Manager
     </p>
-    <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15] mb-6">
-      Creiamo Insieme<br /><em class="italic">il Tuo Sogno</em>
-    </h1>
+    <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15] mb-6" set:html={titolo || defaultTitolo} />
     <p class="font-sans text-[0.95rem] font-light text-white/90 max-w-[28rem] mx-auto mb-8">
-      Esclusività e ricercatezza per il giorno più importante della tua vita
+      {sottotitolo || defaultSottotitolo}
     </p>
     <a
       href="/contatti"
