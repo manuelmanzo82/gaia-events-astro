@@ -11,10 +11,10 @@ interface PortfolioItem {
 
 const items: PortfolioItem[] = [
   { id: 1, title: 'Sara & Marco', category: 'Matrimonio', filter: 'matrimoni', location: 'Villa Cetinale, Toscana', span: true },
-  { id: 2, title: 'Gala BNL', category: 'Corporate', filter: 'corporate', location: 'Palazzo Brancaccio, Roma', span: false },
-  { id: 3, title: 'Elena & James', category: 'Destination', filter: 'destination', location: 'Borgo Egnazia, Puglia', span: false },
-  { id: 4, title: 'Giulia & Andrea', category: 'Matrimonio', filter: 'matrimoni', location: 'Villa Aurelia, Roma', span: false },
-  { id: 5, title: 'Launch Event Zurich', category: 'Corporate', filter: 'corporate', location: 'Hotel de Russie, Roma', span: false },
+  { id: 2, title: 'Corporate Gala', category: 'Corporate', filter: 'corporate', location: 'Palazzo Brancaccio, Roma', span: false },
+  { id: 3, title: 'Giulia & Alessandro', category: 'Destination', filter: 'destination', location: 'Borgo Egnazia, Puglia', span: false },
+  { id: 4, title: 'Maria & Angelo', category: 'Matrimonio', filter: 'matrimoni', location: 'Val d\'Orcia, Toscana', span: false },
+  { id: 5, title: 'Elena & Francesco', category: 'Matrimonio', filter: 'matrimoni', location: 'Ravello, Costiera', span: false },
 ];
 
 const filters = [
