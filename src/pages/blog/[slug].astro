@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { blogArticles, formatDate } from '../../data/blog-articles';
+import type { BlogArticle } from '../../data/blog-articles';
+
+export function getStaticPaths() {
+  return blogArticles.map((a) => ({
+    params: { slug: a.slug },
+    props: { article: a },
+  }));
+}
+
+const { article } = Astro.props as { article: BlogArticle };
+
+const related = blogArticles
+  .filter((a) => a.slug !== article.slug)
+  .sort((a, b) => (a.category === article.category ? -1 : 1))
+  .slice(0, 3);
+
+const canonicalUrl = `https://gaiaevents.it/blog/${article.slug}`;
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": article.title,
+  "description": article.metaDescription,
+  "datePublished": article.date,
+  "dateModified": article.date,
+  "author": {
+    "@type": "Person",
+    "name": "Gaia Crognale",
+    "jobTitle": "Wedding Planner",
+    "url": "https://gaiaevents.it/chi-sono"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Gaia Events",
+    "url": "https://gaiaevents.it"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalUrl
+  },
+  "articleSection": article.category
+});
+
+const breadcrumbJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gaiaevents.it" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://gaiaevents.it/blog" },
+    { "@type": "ListItem", "position": 3, "name": article.title, "item": canonicalUrl }
+  ]
+});
+---
+
+<BaseLayout title={article.title} description={article.metaDescription}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={article.title} />
+    <meta property="og:description" content={article.metaDescription} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonicalUrl} />
+    <script type="application/ld+json" set:html={jsonLd} />
+    <script type="application/ld+json" set:html={breadcrumbJsonLd} />
+  </Fragment>
+
+  <main>
+    <!-- Hero -->
+    <section data-navbar-theme="dark" class="relative h-[40vh] min-h-[300px] flex items-end overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="text-white/10 text-xl tracking-widest uppercase select-none">Immagine Articolo</span>
+        </div>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-charcoal/20"></div>
+      <div class="relative z-10 w-full max-w-[720px] mx-auto px-6 pb-10">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="font-sans text-[0.65rem] tracking-[0.18em] uppercase text-gold font-medium">{article.category}</span>
+          <span class="w-1 h-1 rounded-full bg-white/30"></span>
+          <time class="font-sans text-[0.75rem] text-white/60" datetime={article.date}>{formatDate(article.date)}</time>
+          <span class="w-1 h-1 rounded-full bg-white/30"></span>
+          <span class="font-sans text-[0.75rem] text-white/60">{article.readTime} di lettura</span>
+        </div>
+        <h1 class="text-[clamp(1.6rem,4vw,2.4rem)] font-light text-white leading-[1.25]">
+          {article.title}
+        </h1>
+      </div>
+    </section>
+
+    <!-- Breadcrumbs -->
+    <div data-navbar-theme="light" class="py-4 px-6 border-b border-charcoal/5">
+      <nav class="max-w-[720px] mx-auto" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2 font-sans text-[0.7rem] text-charcoal/40">
+          <li><a href="/" class="hover:text-charcoal transition-colors">Home</a></li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </li>
+          <li><a href="/blog" class="hover:text-charcoal transition-colors">Blog</a></li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </li>
+          <li class="text-charcoal/60 truncate max-w-[200px]">{article.title}</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- Article Body -->
+    <article data-navbar-theme="light" class="py-16 px-6">
+      <div class="max-w-[720px] mx-auto">
+        <div class="
+          font-sans text-[1.05rem] font-light leading-[1.9] text-[#444]
+          [&>h2]:font-serif [&>h2]:text-[clamp(1.4rem,3vw,1.8rem)] [&>h2]:font-normal [&>h2]:text-charcoal [&>h2]:mt-12 [&>h2]:mb-5 [&>h2]:leading-[1.3]
+          [&>h3]:font-serif [&>h3]:text-[1.2rem] [&>h3]:font-normal [&>h3]:text-charcoal [&>h3]:mt-8 [&>h3]:mb-3 [&>h3]:leading-[1.4]
+          [&>p]:mb-5
+          [&_a]:text-gold [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-gold/30 [&_a:hover]:decoration-gold [&_a]:transition-colors
+          [&>p>em]:text-charcoal/70
+        ">
+          <Fragment set:html={article.content} />
+        </div>
+
+        <!-- Author -->
+        <div class="mt-16 pt-8 border-t border-charcoal/10 flex items-center gap-5">
+          <div class="w-14 h-14 rounded-full bg-beige flex items-center justify-center flex-shrink-0">
+            <span class="font-serif text-[1.2rem] text-charcoal/40">G</span>
+          </div>
+          <div>
+            <p class="font-sans text-[0.85rem] font-medium text-charcoal">Gaia Crognale</p>
+            <p class="font-sans text-[0.75rem] text-charcoal/50">Wedding Planner & Event Designer — Roma</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Related Articles -->
+    <section data-navbar-theme="light" class="py-16 px-6 bg-beige">
+      <div class="max-w-[1050px] mx-auto">
+        <div class="text-center mb-12">
+          <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Continua a leggere</p>
+          <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.2rem)] font-normal text-charcoal">Ti Potrebbe Interessare</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {related.map((r) => (
+            <a href={`/blog/${r.slug}`} class="group fade-in">
+              <div class="aspect-[16/10] bg-ivory rounded-[3px] overflow-hidden mb-5 relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="text-charcoal/10 text-sm tracking-widest uppercase select-none">Immagine</span>
+                </div>
+              </div>
+              <span class="font-sans text-[0.65rem] tracking-[0.18em] uppercase text-gold font-medium">{r.category}</span>
+              <h3 class="font-serif text-[1.05rem] font-normal text-charcoal leading-[1.4] mt-2 mb-2 group-hover:text-bordeaux transition-colors duration-300">
+                {r.title}
+              </h3>
+              <time class="font-sans text-[0.7rem] text-charcoal/40" datetime={r.date}>{formatDate(r.date)}</time>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section data-navbar-theme="dark" class="py-20 px-6 bg-charcoal">
+      <div class="max-w-[600px] mx-auto text-center">
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-gold mb-5">Il Prossimo Passo</p>
+        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.2rem)] font-normal text-white leading-[1.3] mb-5">
+          Stai Organizzando il Tuo Matrimonio?
+        </h2>
+        <p class="font-sans text-[0.9rem] font-light text-white/70 leading-relaxed mb-10 max-w-[26rem] mx-auto">
+          Raccontami la vostra visione — insieme creeremo il matrimonio che avete sempre sognato.
+        </p>
+        <a
+          href="/preventivo"
+          class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-10 py-4 bg-gold text-charcoal hover:bg-gold/85 transition-all duration-300"
+        >
+          Parliamone Insieme
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
