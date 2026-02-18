@@ -199,6 +199,101 @@ import CtaSection from '../components/sections/CtaSection.astro';
       </div>
     </section>
 
+    <!-- Testimonial — Dicono di Me -->
+    <section data-navbar-theme="light" class="py-20 px-6">
+      <div class="max-w-[1050px] mx-auto">
+        <div class="text-center mb-14">
+          <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Testimonianze</p>
+          <h2 class="font-serif text-[clamp(1.8rem,4vw,2.5rem)] font-normal text-charcoal">Dicono di Me</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {[
+            {
+              quote: 'Gaia ha trasformato il nostro sogno in realtà. Ogni dettaglio era perfetto, dalla scelta dei fiori alla musica. Non avremmo potuto desiderare niente di meglio per il nostro giorno speciale.',
+              name: 'Francesca & Luca',
+              event: 'Matrimonio — Villa Cetinale, Toscana',
+              stars: 5,
+            },
+            {
+              quote: 'Professionalità, creatività e un\'attenzione maniacale per i dettagli. Gaia ha reso il nostro matrimonio un evento da sogno. Tutti gli ospiti sono rimasti a bocca aperta.',
+              name: 'Sara & Marco',
+              event: 'Matrimonio — Palazzo Brancaccio, Roma',
+              stars: 5,
+            },
+            {
+              quote: 'Abbiamo scelto Gaia per il coordinamento del giorno e siamo stati felicissimi. Ha gestito tutto con calma e competenza, permettendoci di goderci ogni momento.',
+              name: 'Elena & Andrea',
+              event: 'Matrimonio — Borgo Egnazia, Puglia',
+              stars: 5,
+            },
+            {
+              quote: 'L\'evento aziendale organizzato da Gaia ha superato ogni aspettativa. Elegante, impeccabile e perfettamente in linea con i valori del nostro brand.',
+              name: 'Maria Rossi',
+              event: 'Corporate Event — Hotel de Russie, Roma',
+              stars: 5,
+            },
+            {
+              quote: 'Il nostro destination wedding in Costiera Amalfitana è stato perfetto grazie a Gaia. Ha gestito ogni aspetto logistico e ci ha fatto sentire come se fossimo a casa.',
+              name: 'Sophie & James',
+              event: 'Destination Wedding — Ravello, Costiera',
+              stars: 5,
+            },
+            {
+              quote: 'Gaia è stata la nostra guida in un percorso meraviglioso. Ha capito subito il nostro stile e ha creato un\'atmosfera magica. La consigliamo a tutti!',
+              name: 'Giulia & Andrea',
+              event: 'Matrimonio — Villa Aurelia, Roma',
+              stars: 5,
+            },
+          ].map((t) => (
+            <div class="fade-in bg-beige p-10 rounded-[3px]">
+              {/* Stars */}
+              <div class="flex items-center gap-1 mb-6">
+                {Array.from({ length: t.stars }).map(() => (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-gold">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                ))}
+              </div>
+
+              {/* Quote */}
+              <blockquote class="font-serif text-[1.1rem] font-light text-charcoal leading-[1.8] italic mb-6">
+                &ldquo;{t.quote}&rdquo;
+              </blockquote>
+
+              {/* Attribution */}
+              <div class="border-t border-charcoal/10 pt-4">
+                <p class="font-sans text-[0.85rem] font-medium text-charcoal">{t.name}</p>
+                <p class="font-sans text-[0.75rem] text-charcoal/50 mt-0.5">{t.event}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Review Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-14">
+          <a
+            href="https://www.google.com/search?q=Gaia+Events+Rezensionen&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDEzMTQ1NzMyNDc2NjIxtrAwtNjAyPiKUdw9MTNRwbUsNa-kWCEotSo1rzgzPy81bxErLhkAHMo9-08AAAA&rldimm=14641576217332438818&tbm=lcl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 border border-gold text-gold hover:bg-gold hover:text-charcoal transition-all duration-300"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Recensioni Google
+          </a>
+          <a
+            href="https://www.matrimonio.com/wedding-planner/gaia-events--e244263/opinioni"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-3 font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 border border-gold text-gold hover:bg-gold hover:text-charcoal transition-all duration-300"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            Matrimonio.com
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA -->
     <CtaSection />
   </main>
