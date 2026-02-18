@@ -382,6 +382,7 @@ export default function WeddingEstimator() {
   };
 
   const submit = async () => {
+    alert("SUBMIT CHIAMATO");
     const formData = {
       access_key: "98f6d7ca-b9d6-4aed-9926-61d1fa53e1a1",
       subject: "Nuovo Preventivo Matrimonio — " + data.contact.name + " " + data.contact.surname,
