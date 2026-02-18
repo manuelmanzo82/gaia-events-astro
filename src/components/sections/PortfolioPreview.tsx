@@ -25,7 +25,7 @@ const filters = [
 ];
 
 export default function PortfolioPreview() {
-  const [activeFilter, setActiveFilter] = useState('tutti');
+  const [activeFilter, setActiveFilter] = useState('matrimoni');
 
   const filtered = activeFilter === 'tutti'
     ? items
