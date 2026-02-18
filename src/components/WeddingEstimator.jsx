@@ -329,8 +329,8 @@ function Summary({ data, locationName }) {
       </div>
     </div>}
     <div style={{ textAlign: "center", padding: 24, background: `linear-gradient(135deg, ${T.ivory}, ${T.beige})`, borderRadius: 12, border: `1px solid ${T.borderLight}` }}>
-      <div style={{ fontFamily: T.serif, fontSize: 24, fontWeight: 400, color: T.charcoal, marginBottom: 8, lineHeight: 1.3 }}>Il vostro preventivo personalizzato è quasi pronto</div>
-      <div style={{ fontFamily: T.sans, fontSize: 13, color: T.textSecondary, lineHeight: 1.7 }}>Sulla base delle vostre preferenze, prepareremo una proposta su misura. Vi contatteremo entro 24 ore per una consulenza gratuita e senza impegno.</div>
+      <div style={{ fontFamily: T.serif, fontSize: 24, fontWeight: 400, color: T.charcoal, marginBottom: 8, lineHeight: 1.3 }}>Grazie per aver condiviso la vostra visione</div>
+      <div style={{ fontFamily: T.sans, fontSize: 13, color: T.textSecondary, lineHeight: 1.7 }}>Siamo felici di conoscere i vostri desideri. Vi contatteremo al più presto per una consulenza gratuita e senza impegno, dove potremo approfondire ogni dettaglio insieme.</div>
     </div>
   </div>;
 }
@@ -495,7 +495,7 @@ export default function WeddingEstimator() {
             background: T.bordeaux, border: "none", borderRadius: 8,
             padding: "16px 36px", color: T.ivory, fontFamily: T.sans, fontSize: 13,
             fontWeight: 600, cursor: "pointer", letterSpacing: "1px", textTransform: "uppercase",
-          }}>{I.send} Richiedi Preventivo</button>
+          }}>{I.send} Invia Richiesta</button>
         )}
       </div>
 
