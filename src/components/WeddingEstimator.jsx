@@ -461,7 +461,7 @@ export default function WeddingEstimator() {
       {conf && <Petals />}
 
       {/* Header */}
-      <div style={{ padding: "40px 24px 0", textAlign: "center" }}>
+      <div style={{ padding: "160px 24px 0", textAlign: "center" }}>
         <a href="/" style={{ fontFamily: T.sans, fontSize: 12, letterSpacing: "3px", textTransform: "uppercase", color: T.gold, marginBottom: 8, display: "block", textDecoration: "none" }}>Gaia Events</a>
         <h1 style={{ fontFamily: T.serif, fontSize: "clamp(28px,4vw,38px)", fontWeight: 400, color: T.charcoal, margin: "0 0 6px", letterSpacing: "-.01em" }}>Il Vostro Matrimonio da Sogno</h1>
         <p style={{ fontFamily: T.sans, fontSize: 14, color: T.textMuted, margin: "0 0 28px" }}>Rispondete a poche domande per ricevere un preventivo personalizzato</p>
