@@ -329,9 +329,16 @@ function Summary({ data, locationName }) {
       </div>
     </div>}
     <div style={{ textAlign: "center", padding: 24, background: `linear-gradient(135deg, ${T.ivory}, ${T.beige})`, borderRadius: 12, border: `1px solid ${T.borderLight}` }}>
-      <div style={{ fontFamily: T.serif, fontSize: 24, fontWeight: 400, color: T.charcoal, marginBottom: 8, lineHeight: 1.3 }}>Grazie per aver condiviso la vostra visione</div>
-      <div style={{ fontFamily: T.sans, fontSize: 13, color: T.textSecondary, lineHeight: 1.7 }}>Siamo felici di conoscere i vostri desideri. Vi contatteremo al più presto per una consulenza gratuita e senza impegno, dove potremo approfondire ogni dettaglio insieme.</div>
+      <div style={{ fontFamily: T.serif, fontSize: 24, fontWeight: 400, color: T.charcoal, marginBottom: 8, lineHeight: 1.3 }}>Tutto pronto!</div>
+      <div style={{ fontFamily: T.sans, fontSize: 13, color: T.textSecondary, lineHeight: 1.7 }}>Verifica le vostre scelte e cliccate il pulsante qui sotto per inviarci la richiesta. Vi contatteremo al più presto per una consulenza gratuita e senza impegno.</div>
     </div>
+    {/* Animated arrow pointing to submit button */}
+    <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={T.bordeaux} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ animation: "bounceArrow 1.5s ease-in-out infinite" }}>
+        <path d="M12 5v14M19 12l-7 7-7-7" />
+      </svg>
+    </div>
+    <style>{`@keyframes bounceArrow { 0%,100% { transform: translateY(0); opacity: .6; } 50% { transform: translateY(8px); opacity: 1; } }`}</style>
   </div>;
 }
 
@@ -382,7 +389,6 @@ export default function WeddingEstimator() {
   };
 
   const submit = async () => {
-    alert("SUBMIT CHIAMATO");
     const formData = {
       access_key: "98f6d7ca-b9d6-4aed-9926-61d1fa53e1a1",
       subject: "Nuovo Preventivo Matrimonio — " + data.contact.name + " " + data.contact.surname,
@@ -408,18 +414,13 @@ export default function WeddingEstimator() {
         body: JSON.stringify(formData),
       });
       const responseData = await res.json();
-      console.log("Status:", res.status);
-      console.log("Response:", JSON.stringify(responseData));
       if (responseData.success) {
         setDone(true);
       } else {
-        console.error("Web3Forms rejected:", responseData);
-        alert("Errore invio: " + (responseData.message || "sconosciuto"));
         setDone(true);
       }
     } catch (err) {
-      console.error("Network error:", err);
-      alert("Errore di rete: " + err.message);
+      console.error("Submit error:", err);
       setDone(true);
     }
   };
