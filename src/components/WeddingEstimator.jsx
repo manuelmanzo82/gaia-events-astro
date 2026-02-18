@@ -245,17 +245,33 @@ function SServices({ v, set }) {
 }
 
 function SBudget({ v, set }) {
-  const opts = [
+  const gridOpts = [
     { k: "15k", l: "Fino a €15.000" },
     { k: "25k", l: "€15.000 – €25.000" },
     { k: "40k", l: "€25.000 – €40.000" },
     { k: "60k", l: "€40.000 – €60.000" },
     { k: "80k", l: "€60.000 – €80.000" },
     { k: "100k+", l: "Oltre €100.000" },
-    { k: "open", l: "Da definire insieme" },
   ];
-  return <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 440, margin: "0 auto" }}>
-    {opts.map(o => <Row key={o.k} sel={v === o.k} onClick={() => set(o.k)} icon={o.k === "open" ? I.openBudget : I.wallet} label={o.l} />)}
+  const BudgetBtn = ({ k, icon, label }) => {
+    const on = v === k;
+    return <button onClick={() => set(k)} style={{
+      display: "flex", alignItems: "center", gap: 12, padding: "14px 16px",
+      background: on ? T.bgSel : T.bgCard, border: on ? `2px solid ${T.gold}` : `1px solid ${T.borderLight}`,
+      borderRadius: 10, cursor: "pointer", transition: "all .3s", color: on ? T.bordeaux : T.textSecondary,
+    }}>
+      <span style={{ color: on ? T.bordeaux : T.textMuted, flexShrink: 0, transition: "color .3s" }}>{icon}</span>
+      <span style={{ fontFamily: T.sans, fontSize: 13, fontWeight: 500, textAlign: "left", color: on ? T.charcoal : T.textPrimary, lineHeight: 1.3 }}>{label}</span>
+      {on && <span style={{ marginLeft: "auto", color: T.gold, flexShrink: 0 }}>{I.check}</span>}
+    </button>;
+  };
+  return <div>
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, maxWidth: 500, margin: "0 auto" }}>
+      {gridOpts.map(o => <BudgetBtn key={o.k} k={o.k} icon={I.wallet} label={o.l} />)}
+    </div>
+    <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
+      <BudgetBtn k="open" icon={I.openBudget} label="Da definire insieme" />
+    </div>
   </div>;
 }
 
