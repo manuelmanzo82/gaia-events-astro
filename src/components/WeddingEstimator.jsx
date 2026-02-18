@@ -381,9 +381,33 @@ export default function WeddingEstimator() {
     }
   };
 
-  const submit = () => {
-    console.log("Wedding Estimate:", { ...data, locationName, at: new Date().toISOString() });
-    setDone(true);
+  const submit = async () => {
+    const formData = {
+      access_key: "98f6d7ca-b9d6-4aed-9926-61d1fa53e1a1",
+      subject: "Nuovo Preventivo Matrimonio — " + data.contact.name + " " + data.contact.surname,
+      from_name: "Gaia Events Wedding Estimator",
+      "Nome": data.contact.name + " " + data.contact.surname,
+      "Email": data.contact.email,
+      "Telefono": data.contact.phone || "Non indicato",
+      "Stagione": data.season ? data.season[0].toUpperCase() + data.season.slice(1) : "—",
+      "Location": PM.location[data.location]?.l || "—",
+      "Location Specifica": locationName || "",
+      "Ospiti": PM.guests[data.guests]?.l || "—",
+      "Stile": PM.style[data.style] || "—",
+      "Servizi": data.services.map(s => PM.services[s]?.l).join(", ") || "Nessuno",
+      "Budget": PM.budget[data.budget]?.l || "Da definire",
+      "Data Matrimonio": data.date === "da-decidere" ? "Da decidere" : data.date || "Non indicata",
+      "Note": data.contact.message || "Nessuna nota",
+      redirect: false,
+    };
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) { setDone(true); } else { console.error("Web3Forms error:", await res.text()); setDone(true); }
+    } catch (err) { console.error("Submit error:", err); setDone(true); }
   };
 
   const up = (k, v) => setData(d => ({ ...d, [k]: v }));
