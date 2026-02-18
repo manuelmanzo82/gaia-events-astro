@@ -450,7 +450,8 @@ export default function WeddingEstimator() {
         <h2 style={{ fontFamily: T.serif, fontSize: 36, fontWeight: 400, color: T.charcoal, margin: "0 0 16px", lineHeight: 1.2 }}>Grazie, {data.contact.name}</h2>
         <p style={{ fontFamily: T.sans, fontSize: 15, color: T.textSecondary, lineHeight: 1.8, margin: "0 0 32px" }}>Abbiamo ricevuto la vostra richiesta e siamo già entusiasti di iniziare a lavorare insieme. Vi contatteremo entro 24 ore con un preventivo personalizzato.</p>
         <div style={{ width: 48, height: 1, background: T.gold, margin: "0 auto 32px" }} />
-        <p style={{ fontFamily: T.serif, fontSize: 20, fontStyle: "italic", color: T.textMuted }}>Ogni grande storia d'amore merita un inizio indimenticabile</p>
+        <p style={{ fontFamily: T.serif, fontSize: 20, fontStyle: "italic", color: T.textMuted, margin: "0 0 40px" }}>Ogni grande storia d'amore merita un inizio indimenticabile</p>
+        <a href="/" style={{ fontFamily: T.sans, fontSize: 13, letterSpacing: "1px", textTransform: "uppercase", fontWeight: 500, padding: "14px 32px", background: T.charcoal, color: T.ivory, borderRadius: 8, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, transition: "all .3s" }}>{I.arrowL} Torna al Sito</a>
       </div>
     </div>
   );
