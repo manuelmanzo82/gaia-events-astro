@@ -44,19 +44,15 @@ const navLinks = [
       ))}
     </ul>
 
-    <!-- Mobile Hamburger Button -->
+    <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-btn"
       type="button"
-      class="lg:hidden relative w-8 h-8 flex items-center justify-center"
+      class="lg:hidden navbar-themed font-sans text-[0.65rem] tracking-[0.18em] uppercase border border-current px-4 py-2 transition-colors duration-500"
       aria-label="Apri menu"
       aria-expanded="false"
     >
-      <div id="hamburger-icon" class="w-6 flex flex-col gap-[5px] transition-all duration-300">
-        <span class="navbar-themed-bar block h-[1.5px] w-full bg-current transition-all duration-300 origin-center"></span>
-        <span class="navbar-themed-bar block h-[1.5px] w-full bg-current transition-all duration-300 origin-center"></span>
-        <span class="navbar-themed-bar block h-[1.5px] w-full bg-current transition-all duration-300 origin-center"></span>
-      </div>
+      Menu
     </button>
   </nav>
 </header>
@@ -95,10 +91,10 @@ const navLinks = [
       </a>
     ))}
     <a
-      href="/contatti"
+      href="/preventivo"
       class="mt-6 inline-block bg-gold text-charcoal font-sans text-[0.75rem] tracking-[0.15em] uppercase px-10 py-4 hover:bg-gold/90 transition-colors duration-300"
     >
-      Richiedi Preventivo
+      Parliamone Insieme
     </a>
   </nav>
 </div>
@@ -109,7 +105,6 @@ const navLinks = [
     // ─── Theme switching ───
     function applyNavbarTheme() {
       var items = document.querySelectorAll('.navbar-themed');
-      var bars = document.querySelectorAll('.navbar-themed-bar');
       var sections = document.querySelectorAll('[data-navbar-theme]');
       var logoImg = document.getElementById('navbar-logo-img');
       var navbarHeight = 112;
@@ -132,17 +127,6 @@ const navLinks = [
         }
       }
 
-      // Hamburger bars color
-      for (var b = 0; b < bars.length; b++) {
-        if (currentTheme === 'dark') {
-          bars[b].classList.remove('bg-charcoal');
-          bars[b].classList.add('bg-ivory');
-        } else {
-          bars[b].classList.remove('bg-ivory');
-          bars[b].classList.add('bg-charcoal');
-        }
-      }
-
       if (logoImg) {
         logoImg.style.filter = currentTheme === 'dark' ? 'brightness(0) invert(1)' : 'none';
       }
@@ -158,44 +142,41 @@ const navLinks = [
       var menuBtn = document.getElementById('mobile-menu-btn');
       var menuClose = document.getElementById('mobile-menu-close');
       var mobileMenu = document.getElementById('mobile-menu');
-      var hamburger = document.getElementById('hamburger-icon');
 
       if (!menuBtn || !mobileMenu) return;
+
+      // Prevent duplicate listeners by cloning and replacing
+      var newMenuBtn = menuBtn.cloneNode(true);
+      menuBtn.parentNode.replaceChild(newMenuBtn, menuBtn);
+
+      var newMenuClose = menuClose ? menuClose.cloneNode(true) : null;
+      if (menuClose && newMenuClose) {
+        menuClose.parentNode.replaceChild(newMenuClose, menuClose);
+      }
 
       function openMenu() {
         mobileMenu.classList.remove('translate-x-full');
         mobileMenu.classList.add('translate-x-0');
-        menuBtn.setAttribute('aria-expanded', 'true');
+        newMenuBtn.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
-        // Animate hamburger to X
-        if (hamburger) {
-          var spans = hamburger.querySelectorAll('span');
-          if (spans[0]) { spans[0].style.transform = 'rotate(45deg) translate(4px, 4px)'; }
-          if (spans[1]) { spans[1].style.opacity = '0'; }
-          if (spans[2]) { spans[2].style.transform = 'rotate(-45deg) translate(4px, -4px)'; }
-        }
       }
 
       function closeMenu() {
         mobileMenu.classList.add('translate-x-full');
         mobileMenu.classList.remove('translate-x-0');
-        menuBtn.setAttribute('aria-expanded', 'false');
+        newMenuBtn.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
-        // Reset hamburger
-        if (hamburger) {
-          var spans = hamburger.querySelectorAll('span');
-          if (spans[0]) { spans[0].style.transform = ''; }
-          if (spans[1]) { spans[1].style.opacity = ''; }
-          if (spans[2]) { spans[2].style.transform = ''; }
-        }
       }
 
-      menuBtn.addEventListener('click', openMenu);
-      if (menuClose) menuClose.addEventListener('click', closeMenu);
+      newMenuBtn.addEventListener('click', openMenu);
+      if (newMenuClose) newMenuClose.addEventListener('click', closeMenu);
 
+      // Close on link click — also clone to prevent duplicates
       var links = mobileMenu.querySelectorAll('a');
       for (var i = 0; i < links.length; i++) {
-        links[i].addEventListener('click', closeMenu);
+        var newLink = links[i].cloneNode(true);
+        links[i].parentNode.replaceChild(newLink, links[i]);
+        newLink.addEventListener('click', closeMenu);
       }
     }
 
