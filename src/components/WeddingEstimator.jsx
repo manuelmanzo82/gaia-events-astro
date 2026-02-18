@@ -406,8 +406,21 @@ export default function WeddingEstimator() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (res.ok) { setDone(true); } else { console.error("Web3Forms error:", await res.text()); setDone(true); }
-    } catch (err) { console.error("Submit error:", err); setDone(true); }
+      const responseData = await res.json();
+      console.log("Status:", res.status);
+      console.log("Response:", JSON.stringify(responseData));
+      if (responseData.success) {
+        setDone(true);
+      } else {
+        console.error("Web3Forms rejected:", responseData);
+        alert("Errore invio: " + (responseData.message || "sconosciuto"));
+        setDone(true);
+      }
+    } catch (err) {
+      console.error("Network error:", err);
+      alert("Errore di rete: " + err.message);
+      setDone(true);
+    }
   };
 
   const up = (k, v) => setData(d => ({ ...d, [k]: v }));
