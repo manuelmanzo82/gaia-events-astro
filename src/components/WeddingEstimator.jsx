@@ -4,9 +4,9 @@ import { useState, useEffect, useRef } from "react";
 const T = {
   ivory: "#FAF8F5", beige: "#E8E2D9", sage: "#8B9A7D", bordeaux: "#722F37",
   gold: "#C9A962", charcoal: "#2D2D2D",
-  textPrimary: "#2D2D2D", textSecondary: "rgba(45,45,45,0.6)",
-  textMuted: "rgba(45,45,45,0.4)", borderLight: "rgba(45,45,45,0.08)",
-  borderMed: "rgba(45,45,45,0.12)", bgCard: "rgba(255,255,255,0.6)",
+  textPrimary: "#2D2D2D", textSecondary: "rgba(45,45,45,0.75)",
+  textMuted: "rgba(45,45,45,0.55)", borderLight: "rgba(45,45,45,0.1)",
+  borderMed: "rgba(45,45,45,0.15)", bgCard: "rgba(255,255,255,0.6)",
   bgSel: "#FFFFFF", serif: "'Cormorant Garamond', Georgia, serif",
   sans: "'Montserrat', system-ui, sans-serif",
 };
@@ -133,7 +133,7 @@ function Card({ sel, onClick, icon, label, sub }) {
     {sel && <div style={{ position: "absolute", top: 8, right: 8, width: 20, height: 20, borderRadius: "50%", background: T.gold, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff" }}>{I.check}</div>}
     <div style={{ color: sel ? T.bordeaux : T.textMuted, transition: "color .3s" }}>{icon}</div>
     <div style={{ fontFamily: T.serif, fontSize: 18, fontWeight: 600, color: sel ? T.charcoal : T.textPrimary, lineHeight: 1.2 }}>{label}</div>
-    {sub && <div style={{ fontFamily: T.sans, fontSize: 11, letterSpacing: ".5px", color: T.textMuted }}>{sub}</div>}
+    {sub && <div style={{ fontFamily: T.sans, fontSize: 12, letterSpacing: ".5px", color: T.textMuted }}>{sub}</div>}
   </button>;
 }
 
@@ -288,7 +288,7 @@ function SDate({ v, set }) {
 function SContact({ v, set }) {
   const u = (f, val) => set({ ...v, [f]: val });
   const s = { width: "100%", padding: "14px 18px", fontFamily: T.sans, fontSize: 14, background: T.bgCard, border: `1px solid ${T.borderMed}`, borderRadius: 10, color: T.charcoal, outline: "none", transition: "border-color .3s", boxSizing: "border-box" };
-  const lb = { fontFamily: T.sans, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 6, display: "block" };
+  const lb = { fontFamily: T.sans, fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 6, display: "block" };
   const fo = e => e.target.style.borderColor = T.gold;
   const bl = e => e.target.style.borderColor = T.borderMed;
   return <div style={{ maxWidth: 440, margin: "0 auto", display: "flex", flexDirection: "column", gap: 14 }}>
@@ -314,18 +314,18 @@ function Summary({ data, locationName }) {
   return <div style={{ maxWidth: 500, margin: "0 auto", background: "#fff", border: `1px solid ${T.borderLight}`, borderRadius: 16, padding: 32, boxShadow: "0 4px 30px rgba(0,0,0,.04)" }}>
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 24 }}>
       {items.map((it, i) => <div key={i} style={{ textAlign: "center", padding: 14, background: T.ivory, borderRadius: 10 }}>
-        <div style={{ fontFamily: T.sans, fontSize: 10, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 6 }}>{it.l}</div>
+        <div style={{ fontFamily: T.sans, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 6 }}>{it.l}</div>
         <div style={{ fontFamily: T.serif, fontSize: 17, color: T.charcoal, fontWeight: 500 }}>{it.v}</div>
       </div>)}
     </div>
     {data.budget && data.budget !== "open" && <div style={{ textAlign: "center", padding: "10px 16px", background: T.ivory, borderRadius: 10, marginBottom: 14 }}>
-      <div style={{ fontFamily: T.sans, fontSize: 10, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 4 }}>Budget</div>
+      <div style={{ fontFamily: T.sans, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 4 }}>Budget</div>
       <div style={{ fontFamily: T.serif, fontSize: 17, color: T.charcoal, fontWeight: 500 }}>{PM.budget[data.budget]?.l}</div>
     </div>}
     {data.services.length > 0 && <div style={{ marginBottom: 24 }}>
-      <div style={{ fontFamily: T.sans, fontSize: 10, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 10, textAlign: "center" }}>Servizi Selezionati</div>
+      <div style={{ fontFamily: T.sans, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 10, textAlign: "center" }}>Servizi Selezionati</div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center" }}>
-        {data.services.map(s => <span key={s} style={{ fontFamily: T.sans, fontSize: 11, background: T.ivory, border: `1px solid ${T.borderLight}`, borderRadius: 20, padding: "5px 14px", color: T.charcoal }}>{PM.services[s]?.l}</span>)}
+        {data.services.map(s => <span key={s} style={{ fontFamily: T.sans, fontSize: 12, background: T.ivory, border: `1px solid ${T.borderLight}`, borderRadius: 20, padding: "5px 14px", color: T.charcoal }}>{PM.services[s]?.l}</span>)}
       </div>
     </div>}
     <div style={{ textAlign: "center", padding: 24, background: `linear-gradient(135deg, ${T.ivory}, ${T.beige})`, borderRadius: 12, border: `1px solid ${T.borderLight}` }}>
@@ -422,17 +422,17 @@ export default function WeddingEstimator() {
 
       {/* Header */}
       <div style={{ padding: "40px 24px 0", textAlign: "center" }}>
-        <a href="/" style={{ fontFamily: T.sans, fontSize: 11, letterSpacing: "3px", textTransform: "uppercase", color: T.gold, marginBottom: 8, display: "block", textDecoration: "none" }}>Gaia Events</a>
+        <a href="/" style={{ fontFamily: T.sans, fontSize: 12, letterSpacing: "3px", textTransform: "uppercase", color: T.gold, marginBottom: 8, display: "block", textDecoration: "none" }}>Gaia Events</a>
         <h1 style={{ fontFamily: T.serif, fontSize: "clamp(28px,4vw,38px)", fontWeight: 400, color: T.charcoal, margin: "0 0 6px", letterSpacing: "-.01em" }}>Il Vostro Matrimonio da Sogno</h1>
-        <p style={{ fontFamily: T.sans, fontSize: 13, color: T.textMuted, margin: "0 0 28px" }}>Rispondete a poche domande per ricevere un preventivo personalizzato</p>
+        <p style={{ fontFamily: T.sans, fontSize: 14, color: T.textMuted, margin: "0 0 28px" }}>Rispondete a poche domande per ricevere un preventivo personalizzato</p>
         <div style={{ width: 40, height: 1, background: T.gold, margin: "0 auto" }} />
       </div>
 
       {/* Progress */}
       <div style={{ maxWidth: 560, margin: "24px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-          <span style={{ fontFamily: T.sans, fontSize: 11, color: T.textMuted }}>Passo {step + 1} di {STEPS.length}</span>
-          <span style={{ fontFamily: T.sans, fontSize: 11, color: T.textMuted }}>{Math.round(progress)}%</span>
+          <span style={{ fontFamily: T.sans, fontSize: 12, color: T.textMuted }}>Passo {step + 1} di {STEPS.length}</span>
+          <span style={{ fontFamily: T.sans, fontSize: 12, color: T.textMuted }}>{Math.round(progress)}%</span>
         </div>
         <div style={{ height: 2, background: T.beige, borderRadius: 2, overflow: "hidden" }}>
           <div style={{ height: "100%", width: `${progress}%`, background: `linear-gradient(90deg,${T.sage},${T.gold})`, borderRadius: 2, transition: "width .6s cubic-bezier(.22,1,.36,1)" }} />
@@ -476,7 +476,7 @@ export default function WeddingEstimator() {
       </div>
 
       <div style={{ textAlign: "center", padding: "8px 24px 40px" }}>
-        <p style={{ fontFamily: T.sans, fontSize: 11, color: T.textMuted, margin: 0 }}>Consulenza iniziale gratuita e senza impegno</p>
+        <p style={{ fontFamily: T.sans, fontSize: 12, color: T.textMuted, margin: 0 }}>Consulenza iniziale gratuita e senza impegno</p>
       </div>
 
       <style>{`
