@@ -78,6 +78,7 @@ export const recensioniQuery = `*[_type == "recensione" && attivo == true] | ord
 
 export const instagramGalleryQuery = `*[_type == "instagramGallery"][0]{
   immagini[]{
+    mediaType,
     "url": image.asset->url,
     caption,
     instagramUrl

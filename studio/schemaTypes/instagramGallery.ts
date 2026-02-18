@@ -19,27 +19,41 @@ export default defineType({
       of: [
         {
           type: 'object',
-          name: 'instagramImage',
-          title: 'Immagine Instagram',
+          name: 'instagramMedia',
+          title: 'Media Instagram',
           fields: [
             defineField({
+              name: 'mediaType',
+              title: 'Tipo',
+              type: 'string',
+              initialValue: 'foto',
+              options: {
+                list: [
+                  {title: 'Foto', value: 'foto'},
+                  {title: 'Video', value: 'video'},
+                ],
+                layout: 'radio',
+              },
+            }),
+            defineField({
               name: 'image',
-              title: 'Immagine',
+              title: 'Immagine / Thumbnail Video',
               type: 'image',
               options: {hotspot: true},
               validation: (rule) => rule.required(),
+              description: 'Per le foto è la foto stessa, per i video è il thumbnail/copertina',
             }),
             defineField({
               name: 'caption',
               title: 'Didascalia',
               type: 'string',
-              description: 'Testo mostrato al hover sulla foto (opzionale)',
+              description: 'Testo mostrato al hover (opzionale)',
             }),
             defineField({
               name: 'instagramUrl',
               title: 'Link al Post Instagram',
               type: 'url',
-              description: 'URL del post originale su Instagram (opzionale)',
+              description: 'URL del post su Instagram (consigliato per i video)',
               validation: (rule) =>
                 rule.uri({scheme: ['https'], allowRelative: false}),
             }),
@@ -48,13 +62,14 @@ export default defineType({
             select: {
               title: 'caption',
               media: 'image',
-              subtitle: 'instagramUrl',
+              subtitle: 'mediaType',
             },
             prepare({title, media, subtitle}) {
+              const icon = subtitle === 'video' ? '🎬 ' : '📷 '
               return {
-                title: title || 'Immagine senza didascalia',
+                title: icon + (title || 'Senza didascalia'),
                 media,
-                subtitle: subtitle || 'Nessun link',
+                subtitle: subtitle === 'video' ? 'Video' : 'Foto',
               }
             },
           },
