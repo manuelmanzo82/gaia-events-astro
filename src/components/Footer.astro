@@ -1,23 +1,20 @@
 ---
-interface Props {
-  email?: string;
-  telefono?: string;
-  indirizzo?: string;
-  social?: {
-    instagram?: string;
-    facebook?: string;
-    pinterest?: string;
-  };
-  logo?: string;
+import { sanityClient } from '../lib/sanity';
+
+let sanityData: any = null;
+try {
+  sanityData = await sanityClient.fetch(`*[_type == "impostazioni"][0]{
+    "logo": logo.asset->url,
+    email,
+    telefono,
+    indirizzo,
+    social { instagram, facebook, pinterest }
+  }`);
+} catch (e) {
+  // Sanity fetch failed, use fallback values
 }
 
-const {
-  email,
-  telefono,
-  indirizzo,
-  social,
-  logo,
-} = Astro.props;
+const logo = sanityData?.logo;
 
 const navLinks = [
   { href: '/chi-sono', label: 'Chi Sono' },
@@ -29,11 +26,11 @@ const navLinks = [
 
 const currentYear = new Date().getFullYear();
 
-const displayEmail = email || 'gaiacrognale@gmail.com';
-const displayTelefono = telefono || '327 3855362';
-const displayIndirizzo = indirizzo || 'Roma, Italia';
-const igUrl = social?.instagram || 'https://instagram.com';
-const fbUrl = social?.facebook || 'https://facebook.com';
+const displayEmail = sanityData?.email || 'gaiacrognale@gmail.com';
+const displayTelefono = sanityData?.telefono || '327 3855362';
+const displayIndirizzo = sanityData?.indirizzo || 'Roma, Italia';
+const igUrl = sanityData?.social?.instagram || 'https://instagram.com';
+const fbUrl = sanityData?.social?.facebook || 'https://facebook.com';
 ---
 
 <footer data-navbar-theme="dark" class="bg-charcoal py-[4.5rem] px-6">

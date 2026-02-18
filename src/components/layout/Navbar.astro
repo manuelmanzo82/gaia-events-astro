@@ -1,9 +1,13 @@
 ---
-interface Props {
-  logo?: string;
-}
+import { sanityClient } from '../../lib/sanity';
 
-const { logo } = Astro.props;
+let logo: string | undefined;
+try {
+  const data = await sanityClient.fetch(`*[_type == "impostazioni"][0]{ "logo": logo.asset->url }`);
+  logo = data?.logo;
+} catch (e) {
+  // Sanity fetch failed, logo will fallback to text
+}
 
 const navLinks = [
   { href: '/chi-sono', label: 'Chi Sono' },
