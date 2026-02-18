@@ -32,6 +32,9 @@ const displayTelefono = sanityData?.telefono || '327 3855362';
 const displayIndirizzo = sanityData?.indirizzo || 'Roma, Italia';
 const igUrl = sanityData?.social?.instagram || 'https://instagram.com';
 const fbUrl = sanityData?.social?.facebook || 'https://facebook.com';
+
+const igSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>';
+const fbSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>';
 ---
 
 <footer data-navbar-theme="dark" class="bg-charcoal py-[4.5rem] px-6">
@@ -52,32 +55,20 @@ const fbUrl = sanityData?.social?.facebook || 'https://facebook.com';
         </p>
         <!-- Social Icons -->
         <div class="flex items-center gap-4 mt-6">
-          <!-- Instagram -->
           <a
             href={igUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="text-white/55 hover:text-white transition-colors duration-300"
             aria-label="Instagram"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <circle cx="12" cy="12" r="4"></circle>
-              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"></circle>
-            </svg>
-          </a>
-          <!-- Facebook -->
+          ><Fragment set:html={igSvg} /></a>
           <a
             href={fbUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="text-white/55 hover:text-white transition-colors duration-300"
             aria-label="Facebook"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-            </svg>
-          </a>
+          ><Fragment set:html={fbSvg} /></a>
         </div>
       </div>
 
