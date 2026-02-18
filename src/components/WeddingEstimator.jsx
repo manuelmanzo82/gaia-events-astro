@@ -168,12 +168,15 @@ function SSeason({ v, set }) {
   </div>;
 }
 
-function SLocation({ v, set }) {
+function SLocation({ v, set, locationName, setLocationName }) {
   const opts = [
     { k: "roma", l: "Roma", i: I.roma }, { k: "toscana", l: "Toscana", i: I.toscana },
     { k: "costiera", l: "Costiera", i: I.costiera }, { k: "lago", l: "Lago", i: I.lago },
     { k: "umbria", l: "Umbria", i: I.umbria }, { k: "scelta", l: "Già scelta", i: I.pinCheck },
   ];
+  const showInput = v === "scelta" || v === "altro";
+  const fo = e => e.target.style.borderColor = T.gold;
+  const bl = e => e.target.style.borderColor = T.borderMed;
   return <div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, maxWidth: 480, margin: "0 auto" }}>
       {opts.map(o => <Card key={o.k} sel={v === o.k} onClick={() => set(o.k)} icon={o.i} label={o.l} />)}
@@ -189,6 +192,9 @@ function SLocation({ v, set }) {
         <span style={{ color: v === "altro" ? T.bordeaux : T.textMuted }}>{I.pin}</span> Altra destinazione
       </button>
     </div>
+    {showInput && <div style={{ maxWidth: 480, margin: "16px auto 0" }}>
+      <input type="text" placeholder="Nome della location" value={locationName} onChange={e => setLocationName(e.target.value)} onFocus={fo} onBlur={bl} style={{ width: "100%", padding: "16px 20px", fontFamily: T.serif, fontSize: 18, background: T.bgCard, border: `1px solid ${T.borderMed}`, borderRadius: 10, color: T.charcoal, outline: "none", textAlign: "center", transition: "border-color .3s", boxSizing: "border-box" }} />
+    </div>}
   </div>;
 }
 
@@ -296,11 +302,13 @@ function SContact({ v, set }) {
   </div>;
 }
 
-function Summary({ data }) {
+function Summary({ data, locationName }) {
   const est = calcEstimate(data);
+  const locationLabel = PM.location[data.location]?.l || "—";
+  const locationDisplay = locationName ? `${locationLabel} — ${locationName}` : locationLabel;
   const items = [
     { l: "Stagione", v: data.season ? data.season[0].toUpperCase() + data.season.slice(1) : "—" },
-    { l: "Location", v: PM.location[data.location]?.l || "—" },
+    { l: "Location", v: locationDisplay },
     { l: "Ospiti", v: PM.guests[data.guests]?.l || "—" },
     { l: "Stile", v: PM.style[data.style] || "—" },
   ];
@@ -350,6 +358,7 @@ export default function WeddingEstimator() {
   const [anim, setAnim] = useState(false);
   const [conf, setConf] = useState(false);
   const [done, setDone] = useState(false);
+  const [locationName, setLocationName] = useState("");
   const [data, setData] = useState({
     season: "", location: "", guests: "", style: "", services: [], budget: "", date: "",
     contact: { name: "", surname: "", email: "", phone: "", message: "" },
@@ -375,7 +384,7 @@ export default function WeddingEstimator() {
   };
 
   const submit = () => {
-    console.log("Wedding Estimate:", { ...data, estimate: calcEstimate(data), at: new Date().toISOString() });
+    console.log("Wedding Estimate:", { ...data, locationName, estimate: calcEstimate(data), at: new Date().toISOString() });
     setDone(true);
   };
 
@@ -384,14 +393,14 @@ export default function WeddingEstimator() {
   const renderStep = () => {
     const k = STEPS[step].k;
     if (k === "season") return <SSeason v={data.season} set={v => up("season", v)} />;
-    if (k === "location") return <SLocation v={data.location} set={v => up("location", v)} />;
+    if (k === "location") return <SLocation v={data.location} set={v => up("location", v)} locationName={locationName} setLocationName={setLocationName} />;
     if (k === "guests") return <SGuests v={data.guests} set={v => up("guests", v)} />;
     if (k === "style") return <SStyle v={data.style} set={v => up("style", v)} />;
     if (k === "services") return <SServices v={data.services} set={v => up("services", v)} />;
     if (k === "budget") return <SBudget v={data.budget} set={v => up("budget", v)} />;
     if (k === "date") return <SDate v={data.date} set={v => up("date", v)} />;
     if (k === "contact") return <SContact v={data.contact} set={v => up("contact", v)} />;
-    if (k === "summary") return <Summary data={data} />;
+    if (k === "summary") return <Summary data={data} locationName={locationName} />;
     return null;
   };
 
