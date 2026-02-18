@@ -76,6 +76,14 @@ export const recensioniQuery = `*[_type == "recensione" && attivo == true] | ord
   inEvidenza
 }`;
 
+export const instagramGalleryQuery = `*[_type == "instagramGallery"][0]{
+  immagini[0...8]{
+    "url": image.asset->url,
+    caption,
+    instagramUrl
+  }
+}`;
+
 export const serviziQuery = `*[_type == "servizio" && attivo == true] | order(ordine asc){
   _id,
   titolo,

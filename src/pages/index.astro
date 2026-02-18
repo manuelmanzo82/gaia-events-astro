@@ -5,6 +5,7 @@ import AboutPreview from '../components/sections/AboutPreview.astro';
 import Services from '../components/sections/Services.astro';
 import PortfolioPreview from '../components/sections/PortfolioPreview';
 import Testimonials from '../components/sections/Testimonials.astro';
+import InstagramGallery from '../components/sections/InstagramGallery.astro';
 import CtaSection from '../components/sections/CtaSection.astro';
 import { sanityClient } from '../lib/sanity';
 import { impostazioniQuery } from '../lib/queries';
@@ -36,6 +37,7 @@ try {
     <Services />
     <PortfolioPreview client:visible />
     <Testimonials />
+    <InstagramGallery />
     <CtaSection />
   </main>
 </BaseLayout>
