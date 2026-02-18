@@ -57,10 +57,10 @@ const navLinks = [
   </nav>
 </header>
 
-<!-- Mobile Menu Overlay -->
+<!-- Mobile Menu Overlay (z-[60] to sit above navbar z-50) -->
 <div
   id="mobile-menu"
-  class="fixed inset-0 bg-ivory z-40 flex flex-col translate-x-full transition-transform duration-400 ease-in-out"
+  class="fixed inset-0 bg-ivory z-[60] flex flex-col translate-x-full transition-transform duration-400 ease-in-out"
 >
   <div class="flex items-center justify-between px-4 pt-4">
     <a href="/" class="font-serif text-[1.4rem] font-medium tracking-[0.12em] text-charcoal">
@@ -73,11 +73,11 @@ const navLinks = [
     <button
       id="mobile-menu-close"
       type="button"
-      class="relative w-8 h-8 flex items-center justify-center"
+      class="relative w-10 h-10 flex items-center justify-center cursor-pointer"
       aria-label="Chiudi menu"
     >
-      <span class="block absolute h-[1.5px] w-6 bg-charcoal rotate-45"></span>
-      <span class="block absolute h-[1.5px] w-6 bg-charcoal -rotate-45"></span>
+      <span class="block absolute h-[1.5px] w-6 bg-charcoal rotate-45 pointer-events-none"></span>
+      <span class="block absolute h-[1.5px] w-6 bg-charcoal -rotate-45 pointer-events-none"></span>
     </button>
   </div>
 
@@ -102,6 +102,8 @@ const navLinks = [
 <!-- Inline script: theme switching + mobile menu -->
 <script is:inline>
   (function() {
+    var mobileMenuOpen = false;
+
     // ─── Theme switching ───
     function applyNavbarTheme() {
       var items = document.querySelectorAll('.navbar-themed');
@@ -127,8 +129,13 @@ const navLinks = [
         }
       }
 
+      // Don't apply invert filter when mobile menu is open (logo should stay dark)
       if (logoImg) {
-        logoImg.style.filter = currentTheme === 'dark' ? 'brightness(0) invert(1)' : 'none';
+        if (mobileMenuOpen) {
+          logoImg.style.filter = 'none';
+        } else {
+          logoImg.style.filter = currentTheme === 'dark' ? 'brightness(0) invert(1)' : 'none';
+        }
       }
     }
 
@@ -145,39 +152,45 @@ const navLinks = [
 
       if (!menuBtn || !mobileMenu) return;
 
-      // Prevent duplicate listeners by cloning and replacing
-      var newMenuBtn = menuBtn.cloneNode(true);
-      menuBtn.parentNode.replaceChild(newMenuBtn, menuBtn);
-
-      var newMenuClose = menuClose ? menuClose.cloneNode(true) : null;
-      if (menuClose && newMenuClose) {
-        menuClose.parentNode.replaceChild(newMenuClose, menuClose);
-      }
+      // Prevent double-init
+      if (menuBtn.dataset.init) return;
+      menuBtn.dataset.init = '1';
 
       function openMenu() {
+        mobileMenuOpen = true;
         mobileMenu.classList.remove('translate-x-full');
         mobileMenu.classList.add('translate-x-0');
-        newMenuBtn.setAttribute('aria-expanded', 'true');
+        menuBtn.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
+        // Force navbar logo to dark (no invert) while menu is open
+        var logoImg = document.getElementById('navbar-logo-img');
+        if (logoImg) logoImg.style.filter = 'none';
       }
 
       function closeMenu() {
+        mobileMenuOpen = false;
         mobileMenu.classList.add('translate-x-full');
         mobileMenu.classList.remove('translate-x-0');
-        newMenuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
+        // Re-apply theme-based filter
+        applyNavbarTheme();
       }
 
-      newMenuBtn.addEventListener('click', openMenu);
-      if (newMenuClose) newMenuClose.addEventListener('click', closeMenu);
+      menuBtn.addEventListener('click', openMenu);
 
-      // Close on link click — also clone to prevent duplicates
-      var links = mobileMenu.querySelectorAll('a');
-      for (var i = 0; i < links.length; i++) {
-        var newLink = links[i].cloneNode(true);
-        links[i].parentNode.replaceChild(newLink, links[i]);
-        newLink.addEventListener('click', closeMenu);
+      if (menuClose) {
+        menuClose.addEventListener('click', function(e) {
+          e.stopPropagation();
+          closeMenu();
+        });
       }
+
+      // Close on nav link click (use event delegation on the menu)
+      mobileMenu.addEventListener('click', function(e) {
+        var target = e.target.closest('a');
+        if (target) closeMenu();
+      });
     }
 
     // Run on DOMContentLoaded and astro:page-load
