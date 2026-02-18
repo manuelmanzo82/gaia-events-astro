@@ -14,7 +14,7 @@ let images: IgImage[] = [];
 try {
   const data = await sanityClient.fetch(instagramGalleryQuery);
   if (data?.immagini) {
-    images = data.immagini;
+    images = data.immagini.slice(-8).reverse();
   }
 } catch (e) {
   // Sanity fetch failed, fallback to placeholders

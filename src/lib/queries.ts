@@ -77,7 +77,7 @@ export const recensioniQuery = `*[_type == "recensione" && attivo == true] | ord
 }`;
 
 export const instagramGalleryQuery = `*[_type == "instagramGallery"][0]{
-  immagini[0...8]{
+  immagini[]{
     "url": image.asset->url,
     caption,
     instagramUrl
