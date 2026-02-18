@@ -23,7 +23,7 @@ export default function ContactForm() {
           </svg>
         </div>
         <h3 className="font-serif text-2xl text-charcoal mb-3">Messaggio Inviato!</h3>
-        <p className="font-sans text-[0.9rem] text-[#555]">
+        <p className="font-sans text-[0.9rem] text-charcoal/60">
           Grazie per avermi contattato. Risponderò entro 24-48 ore.
         </p>
       </div>

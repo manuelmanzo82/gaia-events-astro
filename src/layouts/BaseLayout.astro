@@ -6,12 +6,39 @@ import '../styles/globals.css';
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  robots?: string;
 }
 
 const {
   title,
   description = 'Gaia Events — Wedding & Event Planner in Toscana',
+  ogImage = 'https://gaia-events-astro.vercel.app/og-image.jpg',
+  robots = 'index, follow',
 } = Astro.props;
+
+const canonicalUrl = Astro.url.href;
+const siteUrl = 'https://gaia-events-astro.vercel.app';
+
+const fullTitle = title.includes('|') ? title : `${title} | Gaia Events`;
+
+const localBusinessJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Gaia Events",
+  "description": "Wedding Planner e Event Manager a Roma",
+  "url": siteUrl,
+  "telephone": "+393273855362",
+  "email": "gaiacrognale@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Viale Vaticano 53",
+    "addressLocality": "Roma",
+    "postalCode": "00165",
+    "addressCountry": "IT"
+  },
+  "priceRange": "€€€"
+});
 ---
 
 <!doctype html>
@@ -20,7 +47,24 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Google Fonts preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,7 +75,11 @@ const {
     />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title} | Gaia Events</title>
+    <title>{fullTitle}</title>
+
+    <!-- JSON-LD: LocalBusiness -->
+    <script type="application/ld+json" set:html={localBusinessJsonLd} />
+
     <slot name="head" />
   </head>
   <body class="min-h-screen flex flex-col">

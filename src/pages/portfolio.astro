@@ -34,14 +34,14 @@ import CtaSection from '../components/sections/CtaSection.astro';
         <div class="text-center mb-14 fade-in">
           <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-gold mb-4">La Nostra Specialità</p>
           <h2 class="font-serif text-[clamp(1.8rem,4vw,2.8rem)] font-normal text-charcoal mb-4">Matrimoni</h2>
-          <p class="font-sans text-[0.95rem] font-light text-[#555] max-w-[28rem] mx-auto">
+          <p class="font-sans text-[0.95rem] font-light text-charcoal/60 max-w-[28rem] mx-auto">
             Matrimoni indimenticabili, curati in ogni dettaglio. Dal primo incontro fino all'ultimo ballo.
           </p>
         </div>
         <!-- 2-column grid: fixed height, left=1 image full, right=2 images 50/50 -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:h-[600px] lg:h-[70vh] lg:max-h-[750px]">
           <!-- Main large image (full height) -->
-          <div class="fade-in group relative aspect-[3/4] md:aspect-auto md:h-full rounded-[3px] overflow-hidden cursor-pointer">
+          <a href="/portfolio" class="fade-in group relative aspect-[3/4] md:aspect-auto md:h-full rounded-[3px] overflow-hidden block">
             <div class="absolute inset-0 bg-beige flex items-center justify-center">
               <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Sara & Marco</span>
             </div>
@@ -51,11 +51,11 @@ import CtaSection from '../components/sections/CtaSection.astro';
               <h3 class="font-serif text-[1.4rem] text-white mb-1">Sara & Marco</h3>
               <p class="font-sans text-[0.8rem] text-white/60">Villa Cetinale, Toscana</p>
             </div>
-          </div>
+          </a>
           <!-- Right column: 2 images stacked, each 50% height -->
           <div class="flex flex-col gap-4 md:h-full">
             <!-- Top right -->
-            <div class="fade-in group relative aspect-[4/3] md:aspect-auto md:flex-1 rounded-[3px] overflow-hidden cursor-pointer">
+            <a href="/portfolio" class="fade-in group relative aspect-[4/3] md:aspect-auto md:flex-1 rounded-[3px] overflow-hidden block">
               <div class="absolute inset-0 bg-beige flex items-center justify-center">
                 <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Giulia & Alessandro</span>
               </div>
@@ -65,9 +65,9 @@ import CtaSection from '../components/sections/CtaSection.astro';
                 <h3 class="font-serif text-[1.2rem] text-white mb-1">Giulia & Alessandro</h3>
                 <p class="font-sans text-[0.75rem] text-white/60">Borgo Egnazia, Puglia</p>
               </div>
-            </div>
+            </a>
             <!-- Bottom right -->
-            <div class="fade-in group relative aspect-[4/3] md:aspect-auto md:flex-1 rounded-[3px] overflow-hidden cursor-pointer">
+            <a href="/portfolio" class="fade-in group relative aspect-[4/3] md:aspect-auto md:flex-1 rounded-[3px] overflow-hidden block">
               <div class="absolute inset-0 bg-beige flex items-center justify-center">
                 <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Elena & Francesco</span>
               </div>
@@ -77,7 +77,7 @@ import CtaSection from '../components/sections/CtaSection.astro';
                 <h3 class="font-serif text-[1.2rem] text-white mb-1">Elena & Francesco</h3>
                 <p class="font-sans text-[0.75rem] text-white/60">Ravello, Costiera Amalfitana</p>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -91,11 +91,11 @@ import CtaSection from '../components/sections/CtaSection.astro';
           <div class="mb-6">
             <p class="font-sans text-[0.65rem] tracking-[0.15em] uppercase text-sage mb-2">Corporate</p>
             <h3 class="font-serif text-[1.5rem] text-charcoal mb-2">Eventi Aziendali</h3>
-            <p class="font-sans text-[0.85rem] font-light text-[#555] leading-relaxed">
+            <p class="font-sans text-[0.85rem] font-light text-charcoal/60 leading-relaxed">
               Conferenze, gala dinner, team building e celebrazioni corporate che lasciano il segno.
             </p>
           </div>
-          <div class="group relative aspect-[16/10] rounded-[3px] overflow-hidden cursor-pointer">
+          <a href="/portfolio" class="group relative aspect-[16/10] rounded-[3px] overflow-hidden block">
             <div class="absolute inset-0 bg-beige flex items-center justify-center">
               <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Corporate Event</span>
             </div>
@@ -105,7 +105,7 @@ import CtaSection from '../components/sections/CtaSection.astro';
               <h3 class="font-serif text-[1.2rem] text-white mb-1">Corporate Gala</h3>
               <p class="font-sans text-[0.75rem] text-white/60">Palazzo Brancaccio, Roma</p>
             </div>
-          </div>
+          </a>
         </div>
 
         <!-- Feste Private -->
@@ -113,11 +113,11 @@ import CtaSection from '../components/sections/CtaSection.astro';
           <div class="mb-6">
             <p class="font-sans text-[0.65rem] tracking-[0.15em] uppercase text-sage mb-2">Celebrations</p>
             <h3 class="font-serif text-[1.5rem] text-charcoal mb-2">Feste Private</h3>
-            <p class="font-sans text-[0.85rem] font-light text-[#555] leading-relaxed">
+            <p class="font-sans text-[0.85rem] font-light text-charcoal/60 leading-relaxed">
               Compleanni speciali, battesimi e anniversari. Ogni celebrazione merita di essere indimenticabile.
             </p>
           </div>
-          <div class="group relative aspect-[16/10] rounded-[3px] overflow-hidden cursor-pointer">
+          <a href="/portfolio" class="group relative aspect-[16/10] rounded-[3px] overflow-hidden block">
             <div class="absolute inset-0 bg-beige flex items-center justify-center">
               <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Private Party</span>
             </div>
@@ -127,7 +127,7 @@ import CtaSection from '../components/sections/CtaSection.astro';
               <h3 class="font-serif text-[1.2rem] text-white mb-1">Festa Privata</h3>
               <p class="font-sans text-[0.75rem] text-white/60">Villa Borghese, Roma</p>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </section>

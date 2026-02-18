@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://gaia-events-astro.vercel.app/sitemap-index.xml

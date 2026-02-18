@@ -379,6 +379,8 @@ export default function WeddingEstimator() {
   const [anim, setAnim] = useState(false);
   const [conf, setConf] = useState(false);
   const [done, setDone] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [locationName, setLocationName] = useState("");
   const [data, setData] = useState({
     season: "", location: "", guests: "", style: "", services: [], budget: "", date: "",
@@ -405,6 +407,8 @@ export default function WeddingEstimator() {
   };
 
   const submit = async () => {
+    setSending(true);
+    setSubmitError("");
     const formData = {
       access_key: "98f6d7ca-b9d6-4aed-9926-61d1fa53e1a1",
       subject: "Nuovo Preventivo Matrimonio — " + data.contact.name + " " + data.contact.surname,
@@ -433,11 +437,13 @@ export default function WeddingEstimator() {
       if (responseData.success) {
         setDone(true);
       } else {
-        setDone(true);
+        setSubmitError("Si è verificato un errore. Riprova o contattaci direttamente a gaiacrognale@gmail.com");
       }
     } catch (err) {
       console.error("Submit error:", err);
-      setDone(true);
+      setSubmitError("Si è verificato un errore. Riprova o contattaci direttamente a gaiacrognale@gmail.com");
+    } finally {
+      setSending(false);
     }
   };
 
@@ -521,21 +527,27 @@ export default function WeddingEstimator() {
             cursor: canNext() ? "pointer" : "not-allowed", transition: "all .4s cubic-bezier(.22,1,.36,1)",
           }}>Continua {I.arrowR}</button>
         ) : (
-          <button onClick={submit} style={{
+          <button onClick={submit} disabled={sending} style={{
             display: "flex", alignItems: "center", gap: 10,
-            background: T.bordeaux, border: "none", borderRadius: 8,
+            background: sending ? T.charcoal : T.bordeaux, border: "none", borderRadius: 8,
             padding: "16px 36px", color: T.ivory, fontFamily: T.sans, fontSize: 13,
-            fontWeight: 600, cursor: "pointer", letterSpacing: "1px", textTransform: "uppercase",
-          }}>{I.send} Invia Richiesta</button>
+            fontWeight: 600, cursor: sending ? "not-allowed" : "pointer", letterSpacing: "1px", textTransform: "uppercase",
+            opacity: sending ? 0.7 : 1, transition: "all .3s",
+          }}>{sending ? <><span style={{ display: "inline-block", width: 16, height: 16, border: "2px solid rgba(255,255,255,0.3)", borderTopColor: "#fff", borderRadius: "50%", animation: "spinBtn .6s linear infinite" }} /> Invio in corso...</> : <>{I.send} Invia Richiesta</>}</button>
         )}
       </div>
+
+      {submitError && <div style={{ maxWidth: 620, margin: "0 auto", padding: "0 24px 12px" }}>
+        <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: 10, padding: "14px 20px", textAlign: "center" }}>
+          <p style={{ fontFamily: T.sans, fontSize: 13, color: "#991B1B", margin: 0, lineHeight: 1.6 }}>{submitError}</p>
+        </div>
+      </div>}
 
       <div style={{ textAlign: "center", padding: "8px 24px 40px" }}>
         <p style={{ fontFamily: T.sans, fontSize: 12, color: T.textMuted, margin: 0 }}>Consulenza iniziale gratuita e senza impegno</p>
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
         *{box-sizing:border-box}
         ::placeholder{color:${T.textMuted}}
         button:hover{opacity:.92}
@@ -543,6 +555,7 @@ export default function WeddingEstimator() {
         input[type="month"]::-webkit-calendar-picker-indicator{opacity:.4;cursor:pointer}
         @keyframes petalDrift{0%{transform:translateY(0) rotate(0deg);opacity:.7}100%{transform:translateY(110vh) rotate(540deg);opacity:0}}
         @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes spinBtn{to{transform:rotate(360deg)}}
       `}</style>
     </div>
   );

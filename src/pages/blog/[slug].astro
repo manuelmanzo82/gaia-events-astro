@@ -14,7 +14,12 @@ const { article } = Astro.props as { article: BlogArticle };
 
 const related = blogArticles
   .filter((a) => a.slug !== article.slug)
-  .sort((a, b) => (a.category === article.category ? -1 : 1))
+  .sort((a, b) => {
+    const aMatch = a.category === article.category ? 0 : 1;
+    const bMatch = b.category === article.category ? 0 : 1;
+    if (aMatch !== bMatch) return aMatch - bMatch;
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  })
   .slice(0, 3);
 
 const canonicalUrl = `https://gaiaevents.it/blog/${article.slug}`;
@@ -110,7 +115,7 @@ const breadcrumbJsonLd = JSON.stringify({
     <article data-navbar-theme="light" class="py-16 px-6">
       <div class="max-w-[720px] mx-auto">
         <div class="
-          font-sans text-[1.05rem] font-light leading-[1.9] text-[#444]
+          font-sans text-[1.05rem] font-light leading-[1.9] text-charcoal/70
           [&>h2]:font-serif [&>h2]:text-[clamp(1.4rem,3vw,1.8rem)] [&>h2]:font-normal [&>h2]:text-charcoal [&>h2]:mt-12 [&>h2]:mb-5 [&>h2]:leading-[1.3]
           [&>h3]:font-serif [&>h3]:text-[1.2rem] [&>h3]:font-normal [&>h3]:text-charcoal [&>h3]:mt-8 [&>h3]:mb-3 [&>h3]:leading-[1.4]
           [&>p]:mb-5
