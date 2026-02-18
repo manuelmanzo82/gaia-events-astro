@@ -303,7 +303,6 @@ function SContact({ v, set }) {
 }
 
 function Summary({ data, locationName }) {
-  const est = calcEstimate(data);
   const locationLabel = PM.location[data.location]?.l || "—";
   const locationDisplay = locationName ? `${locationLabel} — ${locationName}` : locationLabel;
   const items = [
@@ -330,9 +329,8 @@ function Summary({ data, locationName }) {
       </div>
     </div>}
     <div style={{ textAlign: "center", padding: 24, background: `linear-gradient(135deg, ${T.ivory}, ${T.beige})`, borderRadius: 12, border: `1px solid ${T.borderLight}` }}>
-      <div style={{ fontFamily: T.sans, fontSize: 10, letterSpacing: "2px", textTransform: "uppercase", color: T.textMuted, marginBottom: 14 }}>Stima Indicativa</div>
-      <div style={{ fontFamily: T.serif, fontSize: 38, fontWeight: 400, color: T.bordeaux, lineHeight: 1, letterSpacing: "-.02em" }}>€<Anim value={est.min} /> — €<Anim value={est.max} /></div>
-      <div style={{ fontFamily: T.sans, fontSize: 11, color: T.textMuted, marginTop: 12, fontStyle: "italic" }}>Preventivo dettagliato dopo la consulenza gratuita</div>
+      <div style={{ fontFamily: T.serif, fontSize: 24, fontWeight: 400, color: T.charcoal, marginBottom: 8, lineHeight: 1.3 }}>Il vostro preventivo personalizzato è quasi pronto</div>
+      <div style={{ fontFamily: T.sans, fontSize: 13, color: T.textSecondary, lineHeight: 1.7 }}>Sulla base delle vostre preferenze, prepareremo una proposta su misura. Vi contatteremo entro 24 ore per una consulenza gratuita e senza impegno.</div>
     </div>
   </div>;
 }
@@ -384,7 +382,7 @@ export default function WeddingEstimator() {
   };
 
   const submit = () => {
-    console.log("Wedding Estimate:", { ...data, locationName, estimate: calcEstimate(data), at: new Date().toISOString() });
+    console.log("Wedding Estimate:", { ...data, locationName, at: new Date().toISOString() });
     setDone(true);
   };
 
@@ -478,7 +476,7 @@ export default function WeddingEstimator() {
       </div>
 
       <div style={{ textAlign: "center", padding: "8px 24px 40px" }}>
-        <p style={{ fontFamily: T.sans, fontSize: 11, color: T.textMuted, margin: 0 }}>Stima puramente indicativa · Consulenza iniziale gratuita e senza impegno</p>
+        <p style={{ fontFamily: T.sans, fontSize: 11, color: T.textMuted, margin: 0 }}>Consulenza iniziale gratuita e senza impegno</p>
       </div>
 
       <style>{`
