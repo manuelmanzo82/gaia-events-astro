@@ -59,14 +59,14 @@ const fbSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" vi
             href={igUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-white/55 hover:text-white transition-colors duration-300"
+            class="inline-flex items-center justify-center w-5 h-5 text-white/55 hover:text-white transition-colors duration-300 no-underline"
             aria-label="Instagram"
           ><Fragment set:html={igSvg} /></a>
           <a
             href={fbUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-white/55 hover:text-white transition-colors duration-300"
+            class="inline-flex items-center justify-center w-5 h-5 text-white/55 hover:text-white transition-colors duration-300 no-underline"
             aria-label="Facebook"
           ><Fragment set:html={fbSvg} /></a>
         </div>
@@ -128,3 +128,15 @@ const fbSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" vi
     </div>
   </div>
 </footer>
+
+<style>
+  footer a {
+    text-decoration: none;
+  }
+  footer a:focus-visible {
+    outline-offset: 2px;
+  }
+  footer svg {
+    display: block;
+  }
+</style>
