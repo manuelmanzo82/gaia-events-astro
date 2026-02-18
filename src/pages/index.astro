@@ -6,7 +6,6 @@ import Services from '../components/sections/Services.astro';
 import PortfolioPreview from '../components/sections/PortfolioPreview';
 import Testimonials from '../components/sections/Testimonials.astro';
 import CtaSection from '../components/sections/CtaSection.astro';
-import Stats from '../components/sections/Stats';
 import { sanityClient } from '../lib/sanity';
 import { impostazioniQuery } from '../lib/queries';
 
@@ -43,12 +42,5 @@ try {
     <PortfolioPreview client:visible />
     <Testimonials />
     <CtaSection />
-    <Stats
-      client:visible
-      eventiRealizzati={impostazioni?.statistiche?.eventiRealizzati}
-      anniEsperienza={impostazioni?.statistiche?.anniEsperienza}
-      locationPartner={impostazioni?.statistiche?.locationPartner}
-      fornitoriSelezionati={impostazioni?.statistiche?.fornitoriSelezionati}
-    />
   </main>
 </BaseLayout>

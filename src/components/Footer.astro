@@ -33,7 +33,6 @@ const displayTelefono = telefono || '+39 000 000 0000';
 const displayIndirizzo = indirizzo || 'Roma, Italia';
 const igUrl = social?.instagram || 'https://instagram.com';
 const fbUrl = social?.facebook || 'https://facebook.com';
-const pinUrl = social?.pinterest || 'https://pinterest.com';
 ---
 
 <footer data-navbar-theme="dark" class="bg-charcoal py-[4.5rem] px-6">
@@ -42,11 +41,11 @@ const pinUrl = social?.pinterest || 'https://pinterest.com';
     <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-12 md:gap-8">
       <!-- Column 1: Brand -->
       <div>
-        <a href="/" class="font-serif text-[1.6rem] text-white tracking-[0.1em] block mb-4">
+        <a href="/" class="block mb-4">
           {logo ? (
-            <img src={logo} alt="Gaia Events" class="h-8" />
+            <img src={logo} alt="Gaia Events" class="h-[80px] w-auto object-contain" style="filter: brightness(0) invert(1);" />
           ) : (
-            'GAIA EVENTS'
+            <span class="font-serif text-[1.6rem] text-white tracking-[0.1em]">GAIA EVENTS</span>
           )}
         </a>
         <p class="text-white/55 text-sm leading-relaxed max-w-xs">
@@ -63,9 +62,9 @@ const pinUrl = social?.pinterest || 'https://pinterest.com';
             aria-label="Instagram"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"></circle>
             </svg>
           </a>
           <!-- Facebook -->
@@ -78,19 +77,6 @@ const pinUrl = social?.pinterest || 'https://pinterest.com';
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-            </svg>
-          </a>
-          <!-- Pinterest -->
-          <a
-            href={pinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-white/55 hover:text-white transition-colors duration-300"
-            aria-label="Pinterest"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" x2="12" y1="17" y2="22"></line>
-              <path d="M5 17h2a2 2 0 0 0 2-2V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v10a2 2 0 0 0 2 2h2"></path>
             </svg>
           </a>
         </div>
