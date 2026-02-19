@@ -7,26 +7,29 @@ export default defineType({
   fields: [
     defineField({
       name: 'titolo',
-      title: 'Titolo',
+      title: 'Titolo Galleria',
       type: 'string',
       initialValue: 'Galleria Instagram',
+      description: 'Titolo interno per identificare questa galleria. Non visibile sul sito',
     }),
     defineField({
       name: 'immagini',
-      title: 'Immagini',
+      title: 'Contenuti Instagram',
       type: 'array',
+      description: 'Le foto e i video che appaiono nella sezione "Seguimi su Instagram" nella Homepage (massimo 12 elementi)',
       validation: (rule) => rule.max(12),
       of: [
         {
           type: 'object',
           name: 'instagramImage',
-          title: 'Media Instagram',
+          title: 'Contenuto Instagram',
           fields: [
             defineField({
               name: 'mediaType',
-              title: 'Tipo',
+              title: 'Tipo di Contenuto',
               type: 'string',
               initialValue: 'foto',
+              description: 'Scegli se è una foto o un video. Per i video, carica il thumbnail come immagine',
               options: {
                 list: [
                   {title: 'Foto', value: 'foto'},
@@ -37,23 +40,23 @@ export default defineType({
             }),
             defineField({
               name: 'image',
-              title: 'Immagine / Thumbnail Video',
+              title: 'Immagine / Copertina Video',
               type: 'image',
               options: {hotspot: true},
               validation: (rule) => rule.required(),
-              description: 'Per le foto è la foto stessa, per i video è il thumbnail/copertina',
+              description: 'Per le foto è la foto stessa. Per i video, carica il thumbnail/copertina che verrà mostrato nella griglia',
             }),
             defineField({
               name: 'caption',
               title: 'Didascalia',
               type: 'string',
-              description: 'Testo mostrato al hover (opzionale)',
+              description: 'Testo che appare al passaggio del mouse sopra l\'immagine nella galleria Instagram (opzionale)',
             }),
             defineField({
               name: 'instagramUrl',
               title: 'Link al Post Instagram',
               type: 'url',
-              description: 'URL del post su Instagram (consigliato per i video)',
+              description: 'URL del post originale su Instagram. Cliccando sull\'immagine nella galleria, si apre questo link (consigliato per i video)',
               validation: (rule) =>
                 rule.uri({scheme: ['https'], allowRelative: false}),
             }),
