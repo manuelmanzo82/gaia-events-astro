@@ -56,7 +56,7 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
     <section data-navbar-theme="dark" class="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 bg-charcoal">
         {pp?.heroImmagine ? (
-          <img src={pp.heroImmagine} alt="" class="absolute inset-0 w-full h-full object-cover" />
+          <img src={pp.heroImmagine} alt="Portfolio eventi Gaia Events Roma" class="absolute inset-0 w-full h-full object-cover" />
         ) : (
           <div class="absolute inset-0 flex items-center justify-center">
             <span class="text-white/10 text-xl tracking-widest uppercase select-none">Hero Background Image</span>
@@ -93,7 +93,7 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
           <!-- Main large image -->
           <a href={weddingItems[0]?.slug?.current ? `/portfolio/${weddingItems[0].slug.current}` : '/portfolio'} class="fade-in group relative aspect-[3/4] md:aspect-auto md:h-full rounded-[3px] overflow-hidden block">
             {weddingItems[0]?.immagineCopertina ? (
-              <img src={weddingItems[0].immagineCopertina} alt={weddingItems[0].titolo} class="absolute inset-0 w-full h-full object-cover" />
+              <img src={weddingItems[0].immagineCopertina} alt={weddingItems[0].titolo} class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="800" height="600" />
             ) : (
               <div class="absolute inset-0 bg-beige flex items-center justify-center">
                 <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">{weddingItems[0].titolo}</span>
@@ -111,7 +111,7 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
             {[weddingItems[1], weddingItems[2]].map((item: any) => (
               <a href={item?.slug?.current ? `/portfolio/${item.slug.current}` : '/portfolio'} class="fade-in group relative aspect-[4/3] md:aspect-auto md:flex-1 rounded-[3px] overflow-hidden block">
                 {item?.immagineCopertina ? (
-                  <img src={item.immagineCopertina} alt={item.titolo} class="absolute inset-0 w-full h-full object-cover" />
+                  <img src={item.immagineCopertina} alt={item.titolo} class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="800" height="600" />
                 ) : (
                   <div class="absolute inset-0 bg-beige flex items-center justify-center">
                     <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">{item.titolo}</span>
@@ -144,7 +144,7 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
           </div>
           <a href={corporateItem?.slug?.current ? `/portfolio/${corporateItem.slug.current}` : '/portfolio'} class="group relative aspect-[16/10] rounded-[3px] overflow-hidden block">
             {(cat?.corporate?.immagineCopertina || corporateItem.immagineCopertina) ? (
-              <img src={cat?.corporate?.immagineCopertina || corporateItem.immagineCopertina} alt={corporateItem.titolo} class="absolute inset-0 w-full h-full object-cover" />
+              <img src={cat?.corporate?.immagineCopertina || corporateItem.immagineCopertina} alt={corporateItem.titolo} class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="800" height="600" />
             ) : (
               <div class="absolute inset-0 bg-beige flex items-center justify-center">
                 <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Corporate Event</span>
@@ -170,7 +170,7 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
           </div>
           <a href={celebrationItem?.slug?.current ? `/portfolio/${celebrationItem.slug.current}` : '/portfolio'} class="group relative aspect-[16/10] rounded-[3px] overflow-hidden block">
             {(cat?.celebrations?.immagineCopertina || celebrationItem.immagineCopertina) ? (
-              <img src={cat?.celebrations?.immagineCopertina || celebrationItem.immagineCopertina} alt={celebrationItem.titolo} class="absolute inset-0 w-full h-full object-cover" />
+              <img src={cat?.celebrations?.immagineCopertina || celebrationItem.immagineCopertina} alt={celebrationItem.titolo} class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="800" height="600" />
             ) : (
               <div class="absolute inset-0 bg-beige flex items-center justify-center">
                 <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">Private Party</span>

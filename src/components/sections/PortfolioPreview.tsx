@@ -85,7 +85,7 @@ export default function PortfolioPreview({ items: propsItems, eyebrow, titolo }:
           >
             {/* Background */}
             {item.image ? (
-              <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
+              <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" width="800" height="600" />
             ) : (
               <div className="absolute inset-0 bg-beige flex items-center justify-center">
                 <span className="text-charcoal/15 text-sm tracking-widest uppercase select-none">

@@ -65,7 +65,7 @@ const rest = allArticles.slice(1);
           <a href={`/blog/${featured.slug}`} class="group grid grid-cols-1 lg:grid-cols-2 gap-0 bg-beige rounded-[3px] overflow-hidden fade-in">
             <div class="aspect-[16/10] lg:aspect-auto lg:min-h-[380px] bg-charcoal/5 relative overflow-hidden">
               {featured.image ? (
-                <img src={featured.image} alt={featured.title} class="absolute inset-0 w-full h-full object-cover" />
+                <img src={featured.image} alt={featured.title} class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="800" height="500" />
               ) : (
                 <div class="absolute inset-0 flex items-center justify-center">
                   <span class="text-charcoal/10 text-sm tracking-widest uppercase select-none">Immagine Articolo</span>
@@ -106,7 +106,7 @@ const rest = allArticles.slice(1);
               <a href={`/blog/${article.slug}`} class="group fade-in">
                 <div class="aspect-[16/10] bg-beige rounded-[3px] overflow-hidden mb-5 relative">
                   {article.image ? (
-                    <img src={article.image} alt={article.title} class="absolute inset-0 w-full h-full object-cover" />
+                    <img src={article.image} alt={article.title} class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="800" height="500" />
                   ) : (
                     <div class="absolute inset-0 flex items-center justify-center">
                       <span class="text-charcoal/10 text-sm tracking-widest uppercase select-none">Immagine</span>

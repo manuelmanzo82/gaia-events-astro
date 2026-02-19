@@ -1,7 +1,7 @@
 export const impostazioniQuery = `*[_type == "impostazioni"][0]{
   nomeSito,
   descrizione,
-  "logo": logo.asset->url,
+  "logo": logo.asset->url + "?w=800&fm=webp&q=80",
   email,
   telefono,
   indirizzo,
@@ -10,24 +10,24 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
     titolo,
     testoPrincipale,
     testoSecondario,
-    "foto": foto.asset->url,
+    "foto": foto.asset->url + "?w=800&fm=webp&q=80",
     testoLink
   },
   heroHomepage {
     eyebrow,
     titolo,
     sottotitolo,
-    "immagine": immagine.asset->url
+    "immagine": immagine.asset->url + "?w=800&fm=webp&q=80"
   },
   sezioneServizi { eyebrow, titolo },
   sezionePortfolio { eyebrow, titolo },
   sezioneCta { eyebrow, titolo, descrizione, testoBottone, linkBottone },
   sezioneChiSono { eyebrow, titolo },
   paginaChiSono {
-    "heroImmagine": heroImmagine.asset->url,
+    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
     heroTitolo,
     heroSottotitolo,
-    "fotoRitratto": fotoRitratto.asset->url,
+    "fotoRitratto": fotoRitratto.asset->url + "?w=800&fm=webp&q=80",
     biografiaTitolo,
     biografiaTesto1,
     biografiaTesto2,
@@ -37,35 +37,35 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
     timeline[]{ anno, titolo, descrizione }
   },
   paginaServizi {
-    "heroImmagine": heroImmagine.asset->url,
+    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
     heroTitolo,
     heroSottotitolo,
     introTesto,
     citazione
   },
   paginaPortfolio {
-    "heroImmagine": heroImmagine.asset->url,
+    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
     heroTitolo,
     heroSottotitolo,
     introTesto
   },
   portfolioCategorie {
-    wedding { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url },
-    corporate { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url },
-    celebrations { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url }
+    wedding { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80" },
+    corporate { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80" },
+    celebrations { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80" }
   },
   paginaContatti {
-    "heroImmagine": heroImmagine.asset->url,
+    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
     heroTitolo,
     heroSottotitolo
   },
   paginaDestinationWedding {
-    "heroImmagine": heroImmagine.asset->url,
+    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
     heroEyebrow,
     heroTitolo,
     heroSottotitolo,
     heroCtaTesto,
-    "aboutFoto": aboutFoto.asset->url,
+    "aboutFoto": aboutFoto.asset->url + "?w=800&fm=webp&q=80",
     aboutEyebrow,
     aboutTitolo,
     aboutTesto1,
@@ -78,7 +78,7 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
     destinazioniEyebrow,
     destinazioniTitolo,
     destinazioniFooter,
-    destinazioni[]{ nome, descrizione, "immagine": immagine.asset->url },
+    destinazioni[]{ nome, descrizione, "immagine": immagine.asset->url + "?w=800&fm=webp&q=80" },
     processoEyebrow,
     processoTitolo,
     passi[]{ numero, titolo, descrizione },
@@ -106,7 +106,7 @@ export const eventiQuery = `*[_type == "evento"] | order(ordine asc, data desc){
   categoria,
   descrizioneBreve,
   videoUrl,
-  "immagineCopertina": immagineCopertina.asset->url,
+  "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80",
   inEvidenza
 }`;
 
@@ -121,9 +121,9 @@ export const eventoBySlugQuery = `*[_type == "evento" && slug.current == $slug][
   descrizioneBreve,
   videoUrl,
   descrizione,
-  "immagineCopertina": immagineCopertina.asset->url,
-  "immagineHero": immagineHero.asset->url,
-  "galleria": galleria[].asset->url,
+  "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80",
+  "immagineHero": immagineHero.asset->url + "?w=800&fm=webp&q=80",
+  "galleria": galleria[].asset->url + "?w=800&fm=webp&q=80",
   inEvidenza
 }`;
 
@@ -134,14 +134,14 @@ export const recensioniQuery = `*[_type == "recensione" && attivo == true] | ord
   data,
   testo,
   valutazione,
-  "immagine": immagine.asset->url,
+  "immagine": immagine.asset->url + "?w=800&fm=webp&q=80",
   inEvidenza
 }`;
 
 export const instagramGalleryQuery = `*[_type == "instagramGallery"][0]{
   immagini[]{
     mediaType,
-    "url": image.asset->url,
+    "url": image.asset->url + "?w=800&fm=webp&q=80",
     caption,
     instagramUrl
   }
@@ -155,7 +155,7 @@ export const serviziQuery = `*[_type == "servizio" && attivo == true] | order(or
   descrizione,
   caratteristiche,
   icona,
-  "immagine": immagine.asset->url
+  "immagine": immagine.asset->url + "?w=800&fm=webp&q=80"
 }`;
 
 export const articoliBlogQuery = `*[_type == "articoloBlog" && attivo == true] | order(dataPubblicazione desc){
@@ -167,7 +167,7 @@ export const articoliBlogQuery = `*[_type == "articoloBlog" && attivo == true] |
   categoria,
   dataPubblicazione,
   tempoLettura,
-  "immagineCopertina": immagineCopertina.asset->url
+  "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80"
 }`;
 
 export const articoloBlogBySlugQuery = `*[_type == "articoloBlog" && slug.current == $slug && attivo == true][0]{
@@ -179,7 +179,7 @@ export const articoloBlogBySlugQuery = `*[_type == "articoloBlog" && slug.curren
   categoria,
   dataPubblicazione,
   tempoLettura,
-  "immagineCopertina": immagineCopertina.asset->url,
+  "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80",
   contenuto
 }`;
 

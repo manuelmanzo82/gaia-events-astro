@@ -40,7 +40,24 @@ const localBusinessJsonLd = JSON.stringify({
     "postalCode": "00165",
     "addressCountry": "IT"
   },
-  "priceRange": "€€€"
+  "openingHours": "Mo-Fr 09:00-18:00",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 41.9028,
+    "longitude": 12.4964
+  },
+  "image": `${siteUrl}/og-image.jpg`,
+  "priceRange": "€€€",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servizi Wedding Planning",
+    "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Wedding Planning Completo"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Coordinamento del Giorno"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Design & Styling"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Destination Wedding"}}
+    ]
+  }
 });
 ---
 
@@ -77,7 +94,9 @@ const localBusinessJsonLd = JSON.stringify({
       rel="stylesheet"
     />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <title>{fullTitle}</title>
 
     <!-- JSON-LD: LocalBusiness -->
