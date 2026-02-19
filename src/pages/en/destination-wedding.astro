@@ -1,0 +1,415 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const canonicalUrl = 'https://gaia-events-astro.vercel.app/en/destination-wedding';
+
+const faqItems = [
+  {
+    q: 'Can Americans legally get married in Italy?',
+    a: 'Yes! Couples from the US, UK, Canada, Australia, and anywhere in the world can legally marry in Italy. I\'ll guide you through the required documents including the Nulla Osta, translations, and local appointments.',
+  },
+  {
+    q: 'How much does a destination wedding in Italy cost?',
+    a: 'Budgets typically range from \u20AC30,000 for intimate celebrations to \u20AC100,000+ for grand events. I\'ll create a customized budget that reflects your priorities and ensure full transparency from the start.',
+  },
+  {
+    q: 'How far in advance should we start planning?',
+    a: 'I recommend starting 12\u201318 months ahead for the best venue availability, especially for popular locations like Rome, Tuscany, and the Amalfi Coast. However, I\'ve successfully planned beautiful weddings in as little as 6 months.',
+  },
+  {
+    q: 'Do we need to travel to Italy before the wedding?',
+    a: 'While a planning trip is wonderful, it\'s not required. I can handle venue visits, tastings, and vendor meetings on your behalf, sharing everything via video calls and our shared planning platform.',
+  },
+  {
+    q: 'What if we want a small elopement, not a big wedding?',
+    a: 'I love elopements! Whether it\'s just the two of you or a small group of 20, I offer tailored packages for intimate celebrations and elopement Rome experiences across Italy.',
+  },
+  {
+    q: 'Do you speak English?',
+    a: 'Yes! I speak English and will be your dedicated point of contact. All communication, contracts, and coordination with local vendors will be handled by me \u2014 nothing gets lost in translation.',
+  },
+  {
+    q: 'What areas of Italy do you cover?',
+    a: 'I\'m based in Rome but have organized weddings across all of Italy \u2014 Tuscany, Amalfi Coast, Sicily, Sardinia, Puglia, Venice, Lake Como, Calabria, and more.',
+  },
+  {
+    q: 'What\'s included in your services?',
+    a: 'I offer full-service destination wedding planning: venue selection, legal support, vendor management, design, guest logistics, and day-of coordination. Every package is customized to your needs.',
+  },
+];
+
+const faqJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a,
+    },
+  })),
+});
+
+const localBusinessJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Gaia Events",
+  "description": "Destination wedding planner in Rome, Italy. Full-service wedding planning for international couples across Tuscany, Amalfi Coast, Sicily, and all of Italy.",
+  "url": "https://gaia-events-astro.vercel.app",
+  "telephone": "+393273855362",
+  "email": "gaiacrognale@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Viale Vaticano 53",
+    "addressLocality": "Roma",
+    "postalCode": "00165",
+    "addressCountry": "IT"
+  },
+  "priceRange": "\u20AC\u20AC\u20AC",
+  "knowsLanguage": ["en", "it"],
+});
+
+const services = [
+  {
+    icon: 'map-pin',
+    title: 'Venue Selection',
+    description: 'I\'ll find the perfect venue from my curated network of villas, castles, vineyards, and historic estates across Italy.',
+  },
+  {
+    icon: 'file-text',
+    title: 'Legal & Paperwork',
+    description: 'From Nulla Osta to translations and appointments, I handle all the bureaucracy so you don\'t have to.',
+  },
+  {
+    icon: 'users',
+    title: 'Vendor Coordination',
+    description: 'I work with Italy\'s finest photographers, florists, caterers, and musicians \u2014 all personally vetted.',
+  },
+  {
+    icon: 'palette',
+    title: 'Design & Styling',
+    description: 'Together we\'ll create a cohesive design that blends your vision with authentic Italian elegance.',
+  },
+  {
+    icon: 'heart',
+    title: 'Guest Experience',
+    description: 'Welcome dinners, transfers, hotel bookings, local tours \u2014 I ensure your guests have an unforgettable Italian experience.',
+  },
+  {
+    icon: 'calendar',
+    title: 'Day-of Coordination',
+    description: 'On your wedding day, I manage every detail so you can be fully present in every moment.',
+  },
+];
+
+const locations = [
+  { name: 'Rome', description: 'The Eternal City: historic villas, rooftop terraces, and timeless charm.' },
+  { name: 'Tuscany', description: 'Rolling hills, vineyards, and rustic elegance in the heart of Italy.' },
+  { name: 'Amalfi Coast', description: 'Dramatic cliffs, Mediterranean blue, and breathtaking coastal venues.' },
+  { name: 'Sicily', description: 'Ancient beauty, vibrant culture, and unforgettable sunsets.' },
+  { name: 'Puglia', description: 'White-washed villages, olive groves, and authentic Southern Italian warmth.' },
+  { name: 'Lake Como & Venice', description: 'Glamorous lakeside villas and the romance of Venice\'s canals.' },
+];
+
+const steps = [
+  { number: '01', title: 'Discovery Call', description: 'We\'ll chat about your vision, budget, and dream locations. No commitment, just a friendly conversation.' },
+  { number: '02', title: 'Custom Proposal', description: 'I\'ll create a tailored plan with venue options, vendor recommendations, and a detailed budget.' },
+  { number: '03', title: 'Planning & Design', description: 'Over the following months, we\'ll refine every detail \u2014 tastings, site visits, design mockups, and more.' },
+  { number: '04', title: 'Your Perfect Day', description: 'I\'ll be there on the day, managing everything behind the scenes so you can enjoy every single moment.' },
+];
+---
+
+<BaseLayout
+  title="Destination Wedding Planner Rome, Italy | Plan Your Italian Wedding | Gaia Events"
+  description="Looking for a destination wedding planner in Rome, Italy? Gaia Events offers full-service wedding planning for international couples across Tuscany, Amalfi Coast, Sicily, and all of Italy."
+>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en" href="https://gaia-events-astro.vercel.app/en/destination-wedding" />
+    <link rel="alternate" hreflang="it" href="https://gaia-events-astro.vercel.app/" />
+    <meta property="og:title" content="Destination Wedding Planner Rome, Italy | Gaia Events" />
+    <meta property="og:description" content="Looking for a destination wedding planner in Rome, Italy? Gaia Events offers full-service wedding planning for international couples across Tuscany, Amalfi Coast, Sicily, and all of Italy." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <script type="application/ld+json" set:html={faqJsonLd} />
+    <script type="application/ld+json" set:html={localBusinessJsonLd} />
+  </Fragment>
+
+  <main>
+    <!-- ═══ 1. HERO ═══ -->
+    <section data-navbar-theme="dark" class="relative h-screen min-h-[550px] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <span class="text-white/10 text-2xl tracking-widest uppercase select-none">Destination Wedding Italy</span>
+        </div>
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-charcoal/35 to-charcoal/55"></div>
+      <div class="relative z-10 text-center px-6 mt-12 max-w-[700px] mx-auto">
+        <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">Destination Wedding Planner</p>
+        <h1 class="text-[clamp(2rem,5.5vw,3.6rem)] font-light text-white leading-[1.15] mb-6">
+          Destination Wedding Planner<br />in <em class="italic">Rome, Italy</em>
+        </h1>
+        <p class="font-sans text-[0.95rem] font-light text-white/90 max-w-[32rem] mx-auto mb-8">
+          From intimate elopements in Rome to grand destination wedding in Italy celebrations — I'll handle every detail while you enjoy la dolce vita.
+        </p>
+        <a
+          href="/preventivo"
+          class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 bg-gold text-charcoal hover:bg-white transition-all duration-300"
+        >
+          Start Planning Your Italian Wedding
+        </a>
+      </div>
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+        <div class="w-[1.4rem] h-[2.2rem] border-2 border-white/50 rounded-full flex items-start justify-center pt-1.5">
+          <div class="w-1 h-1 rounded-full bg-gold animate-bounce"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 2. INTRO / CHI SONO ═══ -->
+    <section data-navbar-theme="light" class="py-20 px-6">
+      <div class="max-w-[1050px] mx-auto grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-12 md:gap-16 items-center">
+        <div class="relative fade-in">
+          <div class="aspect-[4/5] bg-beige rounded-[3px] flex items-center justify-center overflow-hidden">
+            <span class="text-charcoal/20 text-lg tracking-widest uppercase select-none">Foto Gaia</span>
+          </div>
+          <div class="absolute top-[15px] left-[15px] right-[-15px] bottom-[-15px] border-2 border-gold rounded-[3px] -z-10"></div>
+        </div>
+        <div class="fade-in">
+          <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">About Me</p>
+          <h2 class="font-serif text-[clamp(1.8rem,4vw,2.5rem)] font-normal text-charcoal mb-6">
+            Ciao! I'm Gaia
+          </h2>
+          <p class="text-[1.05rem] font-light leading-[1.85] text-charcoal/60 mb-5">
+            Based in Rome with over 10 years of experience, I've planned weddings and events across Italy — from the historic streets of Rome to the rolling hills of Tuscany, the stunning Amalfi Coast, and the beautiful shores of Sicily and Sardinia. As a <strong class="font-medium text-charcoal">wedding planner Rome Italy</strong> specialist, I bring deep local knowledge to every celebration.
+          </p>
+          <p class="text-[1.05rem] font-light leading-[1.85] text-charcoal/60 mb-5">
+            I've also had the privilege of working with prestigious brands like <strong class="font-medium text-charcoal">Calzedonia</strong>, <strong class="font-medium text-charcoal">BNL</strong>, and <strong class="font-medium text-charcoal">Zurich</strong>, bringing the same level of professionalism and creativity to every celebration.
+          </p>
+          <p class="text-[1.05rem] font-light leading-[1.85] text-charcoal/60 mb-8">
+            I speak English and will be your dedicated point of contact throughout the entire planning process, making sure nothing gets lost in translation. Whether you're getting married in Italy for the first time or renewing your vows, I'm here to make it effortless.
+          </p>
+          <a
+            href="/preventivo"
+            class="group inline-flex items-center gap-2 font-sans text-[0.8rem] tracking-[0.12em] uppercase text-gold hover:gap-4 transition-all duration-300"
+          >
+            Let's Talk
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 3. SERVICES ═══ -->
+    <section data-navbar-theme="light" class="py-20 px-6 bg-beige">
+      <div class="text-center mb-14 fade-in">
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Services</p>
+        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal">
+          Full-Service Destination Wedding<br />Planning in Italy
+        </h2>
+      </div>
+      <div class="max-w-[1050px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map((s) => (
+          <div class="fade-in group bg-ivory p-8 rounded-[3px] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_15px_35px_rgba(0,0,0,0.08)]">
+            <div class="w-[55px] h-[55px] rounded-full border-2 border-gold flex items-center justify-center mb-5 transition-all duration-500 group-hover:bg-gold">
+              {s.icon === 'map-pin' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold group-hover:text-white transition-all duration-500"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+              )}
+              {s.icon === 'file-text' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold group-hover:text-white transition-all duration-500"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg>
+              )}
+              {s.icon === 'users' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold group-hover:text-white transition-all duration-500"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+              )}
+              {s.icon === 'palette' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold group-hover:text-white transition-all duration-500"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" /></svg>
+              )}
+              {s.icon === 'heart' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold group-hover:text-white transition-all duration-500"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></svg>
+              )}
+              {s.icon === 'calendar' && (
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold group-hover:text-white transition-all duration-500"><path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /></svg>
+              )}
+            </div>
+            <h3 class="font-serif text-[1.15rem] text-charcoal mb-2">{s.title}</h3>
+            <p class="font-sans text-[0.85rem] font-light text-charcoal/60 leading-relaxed">{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ═══ 4. LOCATION GALLERY ═══ -->
+    <section data-navbar-theme="light" class="py-20 px-6">
+      <div class="text-center mb-14 fade-in">
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Destinations</p>
+        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal">
+          Say 'I Do' in Italy's Most<br />Beautiful Settings
+        </h2>
+      </div>
+      <div class="max-w-[1050px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {locations.map((loc) => (
+          <div class="fade-in group relative aspect-[4/3] rounded-[3px] overflow-hidden cursor-default">
+            <div class="absolute inset-0 bg-charcoal/10">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">
+                  {`Destination wedding venue ${loc.name} Italy`}
+                </span>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <h3 class="font-serif text-[1.3rem] text-white mb-1">{loc.name}</h3>
+              <p class="font-sans text-[0.8rem] text-white/70 leading-relaxed">{loc.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="fade-in text-center mt-10 font-sans text-[0.9rem] font-light text-charcoal/50">
+        As an experienced Italy wedding planner for Americans, British, and international couples, I cover every region — including Sardinia, Calabria, Umbria, and beyond.
+      </p>
+    </section>
+
+    <!-- ═══ 5. PROCESS ═══ -->
+    <section data-navbar-theme="light" class="py-20 px-6 bg-beige">
+      <div class="text-center mb-16 fade-in">
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">The Process</p>
+        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal">
+          From Your First Message to 'I Do'
+        </h2>
+      </div>
+      <div class="max-w-[650px] mx-auto">
+        {steps.map((step, i) => (
+          <div class={`fade-in flex gap-6 ${i < steps.length - 1 ? 'pb-12' : ''} relative`}>
+            {/* Vertical line */}
+            {i < steps.length - 1 && (
+              <div class="absolute left-[27px] top-[55px] bottom-0 w-px bg-gold/30"></div>
+            )}
+            {/* Number circle */}
+            <div class="w-[55px] h-[55px] rounded-full border-2 border-gold flex items-center justify-center flex-shrink-0">
+              <span class="font-sans text-[0.75rem] font-medium text-gold">{step.number}</span>
+            </div>
+            {/* Content */}
+            <div class="pt-2">
+              <h3 class="font-serif text-[1.2rem] text-charcoal mb-2">{step.title}</h3>
+              <p class="font-sans text-[0.9rem] font-light text-charcoal/60 leading-relaxed">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ═══ 6. FAQ ═══ -->
+    <section data-navbar-theme="light" class="py-20 px-6">
+      <div class="text-center mb-14 fade-in">
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">FAQ</p>
+        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal">
+          Your Questions, Answered
+        </h2>
+      </div>
+      <div class="max-w-[720px] mx-auto space-y-3" id="faq-accordion">
+        {faqItems.map((item, i) => (
+          <div class="fade-in border border-charcoal/10 rounded-[3px] overflow-hidden" data-faq-item>
+            <button
+              class="w-full flex items-center justify-between gap-4 px-6 py-5 text-left cursor-pointer group"
+              data-faq-toggle
+              aria-expanded="false"
+              aria-controls={`faq-answer-${i}`}
+            >
+              <span class="font-serif text-[1.05rem] text-charcoal group-hover:text-bordeaux transition-colors">{item.q}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold flex-shrink-0 transition-transform duration-300" data-faq-icon><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+            <div
+              id={`faq-answer-${i}`}
+              class="hidden px-6 pb-5"
+              data-faq-content
+            >
+              <p class="font-sans text-[0.9rem] font-light text-charcoal/60 leading-relaxed">{item.a}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ═══ 7. TESTIMONIAL ═══ -->
+    <section data-navbar-theme="light" class="py-20 px-6 bg-beige">
+      <div class="max-w-[700px] mx-auto text-center fade-in">
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Testimonial</p>
+        <div class="flex items-center justify-center gap-1 mb-8">
+          {Array.from({ length: 5 }).map(() => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-gold">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          ))}
+        </div>
+        <blockquote class="font-serif text-[clamp(1.2rem,3vw,1.6rem)] font-light text-charcoal leading-[1.7] italic mb-8">
+          &ldquo;Gaia made our dream of getting married in Italy come true. She handled everything with grace and professionalism — we didn't have to worry about a single thing. As a wedding planner Rome Italy based professional, she made the entire process seamless from London to Rome.&rdquo;
+        </blockquote>
+        <p class="font-sans text-[0.85rem] tracking-[0.08em] text-charcoal/70">
+          — Sophie & James, London
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ 8. CTA FINALE ═══ -->
+    <section data-navbar-theme="dark" class="relative py-28 px-6 overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal"></div>
+      <div class="absolute inset-0 bg-bordeaux/88"></div>
+      <div class="relative z-10 max-w-[600px] mx-auto text-center">
+        <p class="font-sans text-[0.7rem] tracking-[0.25em] uppercase text-gold mb-5">
+          Let's Start
+        </p>
+        <h2 class="font-serif text-[clamp(1.8rem,4.5vw,2.8rem)] font-light text-white leading-[1.2] mb-6">
+          Ready to Plan Your<br /><em class="italic">Italian Wedding?</em>
+        </h2>
+        <p class="font-sans text-[0.95rem] font-light text-white/80 max-w-[28rem] mx-auto mb-10">
+          Every great celebration begins with a conversation. As your wedding planner Rome Italy based expert, tell me about your vision for your destination wedding in Italy and let's create something unforgettable together.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/preventivo"
+            class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 bg-gold text-charcoal hover:bg-white transition-all duration-300"
+          >
+            Get in Touch
+          </a>
+          <a
+            href="mailto:gaiacrognale@gmail.com"
+            class="inline-block font-sans text-[0.75rem] tracking-[0.12em] text-white/70 hover:text-white transition-colors duration-300"
+          >
+            or email gaiacrognale@gmail.com
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FAQ Accordion Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function () {
+      var toggles = document.querySelectorAll('[data-faq-toggle]');
+      for (var i = 0; i < toggles.length; i++) {
+        toggles[i].addEventListener('click', function () {
+          var item = this.closest('[data-faq-item]');
+          var content = item.querySelector('[data-faq-content]');
+          var icon = item.querySelector('[data-faq-icon]');
+          var isOpen = !content.classList.contains('hidden');
+
+          // Close all others
+          var allItems = document.querySelectorAll('[data-faq-item]');
+          for (var j = 0; j < allItems.length; j++) {
+            allItems[j].querySelector('[data-faq-content]').classList.add('hidden');
+            allItems[j].querySelector('[data-faq-icon]').style.transform = '';
+            allItems[j].querySelector('[data-faq-toggle]').setAttribute('aria-expanded', 'false');
+          }
+
+          // Toggle current
+          if (!isOpen) {
+            content.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+            this.setAttribute('aria-expanded', 'true');
+          }
+        });
+      }
+    });
+  </script>
+</BaseLayout>
