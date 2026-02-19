@@ -156,6 +156,19 @@ function Row({ sel, onClick, icon, label }) {
 }
 
 // ─── Steps ───
+function SCountry({ v, set }) {
+  const opts = [
+    { k: "us", l: "United States", i: I.pin },
+    { k: "uk", l: "United Kingdom", i: I.pin },
+    { k: "ca-au", l: "Canada / Australia", i: I.pin },
+    { k: "europe", l: "Europe", i: I.pin },
+    { k: "other", l: "Other", i: I.plane },
+  ];
+  return <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 440, margin: "0 auto" }}>
+    {opts.map(o => <Row key={o.k} sel={v === o.k} onClick={() => set(o.k)} icon={o.i} label={o.l} />)}
+  </div>;
+}
+
 function SSeason({ v, set }) {
   const opts = [
     { k: "primavera", l: "Spring", s: "March – May", i: I.spring },
@@ -377,6 +390,7 @@ function Summary({ data, locationName }) {
 // MAIN COMPONENT
 // ═══════════════════════════════════════
 const STEPS = [
+  { k: "country", t: "Where are you coming from?", s: "It helps us tailor the experience to your needs" },
   { k: "season", t: "When do you dream of getting married?", s: "The season affects atmosphere and availability" },
   { k: "location", t: "Where do you envision the celebration?", s: "Italy offers unique settings in every corner" },
   { k: "guests", t: "How many guests will share the joy?", s: "Every size has its own charm" },
@@ -399,7 +413,7 @@ export default function WeddingEstimatorEN() {
   const [submitError, setSubmitError] = useState("");
   const [locationName, setLocationName] = useState("");
   const [data, setData] = useState({
-    season: "", location: "", guests: "", style: "", services: [], budget: "", date: "", referral: "",
+    country: "", season: "", location: "", guests: "", style: "", services: [], budget: "", date: "", referral: "",
     contact: { name: "", surname: "", email: "", phone: "", message: "" },
   });
 
@@ -441,6 +455,7 @@ export default function WeddingEstimatorEN() {
       "Services": data.services.map(s => PM.services[s]?.l).join(", ") || "None",
       "Budget": PM.budget[data.budget]?.l || "To be defined",
       "Wedding Date": data.date === "da-decidere" ? "To be decided" : data.date || "Not provided",
+      "Country/Region": { us: "United States", uk: "United Kingdom", "ca-au": "Canada / Australia", europe: "Europe", other: "Other" }[data.country] || "Not provided",
       "Found through": { google: "Google", instagram: "Instagram", ai: "AI (ChatGPT, Perplexity...)", wordofmouth: "Word of Mouth", directory: "Wedding Directory", other: "Other" }[data.referral] || "Not provided",
       "Notes": data.contact.message || "No notes",
       redirect: false,
@@ -469,6 +484,7 @@ export default function WeddingEstimatorEN() {
 
   const renderStep = () => {
     const k = STEPS[step].k;
+    if (k === "country") return <SCountry v={data.country} set={v => up("country", v)} />;
     if (k === "season") return <SSeason v={data.season} set={v => up("season", v)} />;
     if (k === "location") return <SLocation v={data.location} set={v => up("location", v)} locationName={locationName} setLocationName={setLocationName} />;
     if (k === "guests") return <SGuests v={data.guests} set={v => up("guests", v)} />;
