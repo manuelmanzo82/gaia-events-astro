@@ -4,7 +4,7 @@ import { sanityClient } from '../lib/sanity';
 let sanityData: any = null;
 try {
   sanityData = await sanityClient.fetch(`*[_type == "impostazioni"][0]{
-    "logo": logo.asset->url,
+    "logo": logo.asset->url + "?w=400&fm=webp&q=90",
     email,
     telefono,
     indirizzo,

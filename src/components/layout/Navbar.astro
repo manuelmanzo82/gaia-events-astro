@@ -3,7 +3,7 @@ import { sanityClient } from '../../lib/sanity';
 
 let logo: string | undefined;
 try {
-  const data = await sanityClient.fetch(`*[_type == "impostazioni"][0]{ "logo": logo.asset->url }`);
+  const data = await sanityClient.fetch(`*[_type == "impostazioni"][0]{ "logo": logo.asset->url + "?w=400&fm=webp&q=90" }`);
   logo = data?.logo;
 } catch (e) {
   // Sanity fetch failed, logo will fallback to text
