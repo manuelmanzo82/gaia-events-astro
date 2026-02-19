@@ -19,7 +19,7 @@ export default defineType({
       of: [
         {
           type: 'object',
-          name: 'instagramMedia',
+          name: 'instagramImage',
           title: 'Media Instagram',
           fields: [
             defineField({
