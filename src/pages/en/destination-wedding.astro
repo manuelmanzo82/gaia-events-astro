@@ -380,14 +380,13 @@ const steps = (p?.passi && p.passi.length > 0)
 
     <!-- ═══ 8. CTA FINALE ═══ -->
     <section data-navbar-theme="dark" class="relative py-28 px-6 overflow-hidden">
-      <div class="absolute inset-0 bg-charcoal"></div>
-      <div class="absolute inset-0 bg-bordeaux/88"></div>
+      <div class="absolute inset-0 bg-sage"></div>
       <div class="relative z-10 max-w-[600px] mx-auto text-center">
-        <p class="font-sans text-[0.7rem] tracking-[0.25em] uppercase text-gold mb-5">
+        <p class="font-sans text-[0.7rem] tracking-[0.25em] uppercase text-ivory/70 mb-5">
           {p?.ctaEyebrow || "Let's Start"}
         </p>
-        <h2 class="font-serif text-[clamp(1.8rem,4.5vw,2.8rem)] font-light text-white leading-[1.2] mb-6" set:html={p?.ctaTitolo || 'Ready to Plan Your<br /><em class="italic">Italian Wedding?</em>'} />
-        <p class="font-sans text-[0.95rem] font-light text-white/80 max-w-[28rem] mx-auto mb-10">
+        <h2 class="font-serif text-[clamp(1.8rem,4.5vw,2.8rem)] font-light text-ivory leading-[1.2] mb-6" set:html={p?.ctaTitolo || 'Ready to Plan Your<br /><em class="italic">Italian Wedding?</em>'} />
+        <p class="font-sans text-[0.95rem] font-light text-ivory/80 max-w-[28rem] mx-auto mb-10">
           {p?.ctaDescrizione || "Every great celebration begins with a conversation. Tell me about your vision and together we'll create something truly unforgettable in Italy."}
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -399,7 +398,7 @@ const steps = (p?.passi && p.passi.length > 0)
           </a>
           <a
             href={`mailto:${p?.ctaEmail || 'gaiacrognale@gmail.com'}`}
-            class="inline-block font-sans text-[0.75rem] tracking-[0.12em] text-white/70 hover:text-white transition-colors duration-300"
+            class="inline-block font-sans text-[0.75rem] tracking-[0.12em] text-ivory/70 hover:text-ivory transition-colors duration-300"
           >
             or email {p?.ctaEmail || 'gaiacrognale@gmail.com'}
           </a>
