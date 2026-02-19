@@ -15,10 +15,14 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
     testoLink
   },
   heroHomepage {
+    eyebrow,
     titolo,
     sottotitolo,
     "immagine": immagine.asset->url
   },
+  sezioneServizi { eyebrow, titolo },
+  sezionePortfolio { eyebrow, titolo },
+  sezioneCta { eyebrow, titolo, descrizione, testoBottone },
   paginaChiSono {
     "heroImmagine": heroImmagine.asset->url,
     heroTitolo,

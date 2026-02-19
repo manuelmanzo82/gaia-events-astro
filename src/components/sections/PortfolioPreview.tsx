@@ -12,6 +12,8 @@ interface PortfolioItem {
 
 interface PortfolioPreviewProps {
   items?: PortfolioItem[];
+  eyebrow?: string;
+  titolo?: string;
 }
 
 const defaultItems: PortfolioItem[] = [
@@ -29,7 +31,7 @@ const filters = [
   { label: 'Destination', value: 'destination' },
 ];
 
-export default function PortfolioPreview({ items: propsItems }: PortfolioPreviewProps) {
+export default function PortfolioPreview({ items: propsItems, eyebrow, titolo }: PortfolioPreviewProps) {
   const [activeFilter, setActiveFilter] = useState('tutti');
 
   const allItems = (propsItems && propsItems.length > 0) ? propsItems : defaultItems;
@@ -45,10 +47,10 @@ export default function PortfolioPreview({ items: propsItems }: PortfolioPreview
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <p className="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">
-              Portfolio
+              {eyebrow || 'Portfolio'}
             </p>
             <h2 className="font-serif text-[clamp(1.8rem,4vw,2.5rem)] font-normal text-charcoal">
-              Eventi Realizzati
+              {titolo || 'Eventi Realizzati'}
             </h2>
           </div>
           <div className="flex items-center gap-2">

@@ -29,8 +29,25 @@ const client = createClient({
 // ═══════════════════════════════════════════════════════════
 
 const impostazioniPatch = {
-  // Hero Homepage — aggiunge solo sottotitolo (titolo e immagine già esistono)
+  // Hero Homepage — aggiunge eyebrow e sottotitolo (titolo e immagine già esistono)
+  'heroHomepage.eyebrow': 'Wedding Planner & Event Manager',
   'heroHomepage.sottotitolo': 'Esclusività e ricercatezza per il giorno più importante della tua vita',
+
+  // Sezioni Homepage
+  sezioneServizi: {
+    eyebrow: 'Servizi',
+    titolo: 'Come Posso Aiutarti',
+  },
+  sezionePortfolio: {
+    eyebrow: 'Portfolio',
+    titolo: 'Eventi Realizzati',
+  },
+  sezioneCta: {
+    eyebrow: 'Iniziamo Insieme',
+    titolo: 'Pronta a Realizzare<br /><em class="italic">il Tuo Sogno?</em>',
+    descrizione: 'Raccontami la tua visione e insieme creeremo qualcosa di indimenticabile',
+    testoBottone: 'Parliamone Insieme',
+  },
 
   // Chi Sono (preview homepage) — aggiorna testo, preserva foto
   'chiSono.titolo': 'Ciao, sono Gaia',

@@ -1,11 +1,13 @@
 ---
 interface Props {
+  eyebrow?: string;
   titolo?: string;
   sottotitolo?: string;
   immagine?: string;
 }
 
 const {
+  eyebrow,
   titolo,
   sottotitolo,
   immagine,
@@ -33,7 +35,7 @@ const defaultSottotitolo = 'Esclusività e ricercatezza per il giorno più impor
   <!-- Content -->
   <div class="relative z-10 text-center px-6 mt-12">
     <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">
-      Wedding Planner & Event Manager
+      {eyebrow || 'Wedding Planner & Event Manager'}
     </p>
     <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15] mb-6" set:html={titolo || defaultTitolo} />
     <p class="font-sans text-[0.95rem] font-light text-white/90 max-w-[28rem] mx-auto mb-8">
