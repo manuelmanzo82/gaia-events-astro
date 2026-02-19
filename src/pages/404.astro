@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Pagina non trovata" description="La pagina che cerchi non esiste o è stata spostata." robots="noindex, nofollow">
+  <main>
+    <section data-navbar-theme="light" class="min-h-[70vh] flex items-center justify-center px-6 py-24">
+      <div class="text-center max-w-[500px]">
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-gold mb-5">Errore 404</p>
+        <h1 class="font-serif text-[clamp(2rem,5vw,3rem)] font-normal text-charcoal leading-[1.2] mb-5">
+          Pagina Non Trovata
+        </h1>
+        <p class="font-sans text-[0.95rem] font-light text-charcoal/60 leading-relaxed mb-10">
+          La pagina che stai cercando non esiste, è stata spostata o non è più disponibile.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/"
+            class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-8 py-4 bg-gold text-charcoal hover:bg-gold/85 transition-all duration-300"
+          >
+            Torna alla Home
+          </a>
+          <a
+            href="/blog"
+            class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-8 py-4 border border-charcoal/20 text-charcoal hover:border-gold hover:text-gold transition-all duration-300"
+          >
+            Vai al Blog
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<script is:inline>
+  // Auto-redirect blog 404s to /blog
+  if (window.location.pathname.startsWith('/blog/')) {
+    window.location.replace('/blog');
+  }
+</script>
