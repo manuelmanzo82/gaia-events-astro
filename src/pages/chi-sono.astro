@@ -51,7 +51,7 @@ const testimonials = recensioni.length > 0
   : defaultTestimonials;
 ---
 
-<BaseLayout title="Chi Sono" description="Scopri la storia di Gaia Events — Wedding Planner & Event Manager a Roma con oltre 10 anni di esperienza.">
+<BaseLayout title="Chi Sono | Gaia Crognale - Wedding Planner Roma | Gaia Events" description="Sono Gaia Crognale, wedding planner a Roma. Da oltre 10 anni organizzo matrimoni ed eventi in tutta Italia, collaborando con brand come Calzedonia, BNL e Zurich.">
   <main>
     <!-- Hero -->
     <section data-navbar-theme="dark" class="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
@@ -81,20 +81,46 @@ const testimonials = recensioni.length > 0
 
     <!-- Bio -->
     <section data-navbar-theme="light" class="py-20 px-6">
-      <div class="max-w-[800px] mx-auto text-center">
-        <h2 class="fade-in font-serif text-[clamp(1.8rem,4vw,2.5rem)] font-normal italic text-charcoal mb-10">
-          {p?.biografiaTitolo || 'Ciao, sono Gaia'}
-        </h2>
-        <div class="space-y-6 fade-in">
-          <p class="text-[1.05rem] font-light leading-[2] text-charcoal/60">
-            {p?.biografiaTesto1 || 'Da oltre dieci anni dedico la mia vita alla realizzazione di matrimoni da sogno. La mia storia con gli eventi è iniziata quasi per caso, organizzando il matrimonio di una cara amica, e da quel momento ho capito che questa era la mia vocazione.'}
-          </p>
-          <p class="text-[1.05rem] font-light leading-[2] text-charcoal/60">
-            {p?.biografiaTesto2 || 'Ogni coppia che incontro porta con sé una storia unica, sogni e desideri che meritano di essere ascoltati e realizzati. Il mio approccio è basato sull\'ascolto attento e sulla comprensione profonda di ciò che rende speciale ogni storia d\'amore.'}
-          </p>
-          <p class="text-[1.05rem] font-light leading-[2] text-charcoal/60">
-            {p?.biografiaTesto3 || 'Roma, con la sua bellezza senza tempo, è la cornice perfetta per i matrimoni che organizzo. Ma la mia esperienza si estende ben oltre i confini della città eterna, abbracciando location mozzafiato in tutta Italia e all\'estero.'}
-          </p>
+      <div class="max-w-[1050px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-12 md:gap-16 items-start">
+          <!-- Photo -->
+          <div class="fade-in flex justify-center md:justify-start">
+            {p?.fotoRitratto ? (
+              <div class="relative">
+                <div class="absolute -bottom-3 -right-3 w-full h-full border-2 border-gold/30 rounded-[3px]"></div>
+                <img
+                  src={p.fotoRitratto}
+                  alt="Gaia Crognale — Wedding Planner Roma"
+                  class="relative z-10 w-full max-w-[400px] rounded-[3px] object-cover aspect-[3/4]"
+                />
+              </div>
+            ) : (
+              <div class="relative">
+                <div class="absolute -bottom-3 -right-3 w-full h-full border-2 border-gold/30 rounded-[3px]"></div>
+                <div class="relative z-10 w-full max-w-[400px] rounded-[3px] bg-beige aspect-[3/4] flex items-center justify-center">
+                  <span class="text-charcoal/20 text-sm tracking-widest uppercase select-none">Foto Ritratto</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <!-- Text -->
+          <div class="fade-in">
+            <h2 class="font-serif text-[clamp(1.8rem,4vw,2.5rem)] font-normal italic text-charcoal mb-8">
+              {p?.biografiaTitolo || 'Ciao, sono Gaia'}
+            </h2>
+            <div class="space-y-6">
+              <p class="text-[1.05rem] font-light leading-[2] text-charcoal/60">
+                {p?.biografiaTesto1 || 'Da oltre dieci anni dedico la mia vita alla realizzazione di matrimoni da sogno. La mia storia con gli eventi è iniziata quasi per caso, organizzando il matrimonio di una cara amica, e da quel momento ho capito che questa era la mia vocazione.'}
+              </p>
+              <p class="text-[1.05rem] font-light leading-[2] text-charcoal/60">
+                {p?.biografiaTesto2 || 'Ogni coppia che incontro porta con sé una storia unica, sogni e desideri che meritano di essere ascoltati e realizzati. Il mio approccio è basato sull\'ascolto attento e sulla comprensione profonda di ciò che rende speciale ogni storia d\'amore.'}
+              </p>
+              <p class="text-[1.05rem] font-light leading-[2] text-charcoal/60">
+                {p?.biografiaTesto3 || 'Roma, con la sua bellezza senza tempo, è la cornice perfetta per i matrimoni che organizzo. Ma la mia esperienza si estende ben oltre i confini della città eterna, abbracciando location mozzafiato in tutta Italia e all\'estero.'}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
