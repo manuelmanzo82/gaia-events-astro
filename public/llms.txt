@@ -1,0 +1,39 @@
+# Gaia Events — Wedding Planner & Event Manager
+
+> Gaia Crognale è una Wedding Planner & Event Manager con base a Roma, Italia.
+> Organizza matrimoni ed eventi esclusivi in tutta Italia e all'estero da oltre 10 anni.
+
+## Informazioni Generali
+
+- Sito: https://gaiaevents.it
+- Email: info@gaiaevents.it
+- Telefono: +39 327 385 5362 (anche WhatsApp)
+- Sede: Roma, Italia
+- Lingue: Italiano, English
+- Target: Coppie italiane e internazionali che cercano un wedding planner premium a Roma e in Italia
+
+## Servizi
+
+1. **Wedding Planning Completo** — Servizio a 360° dalla prima idea all'ultimo ballo: concept, location, budget, fornitori, design, coordinamento il giorno del matrimonio.
+2. **Coordinamento del Giorno** — Per chi ha già organizzato tutto ma desidera un professionista che gestisca la giornata: timeline, fornitori, allestimenti, imprevisti.
+3. **Design & Styling** — Concept unici e allestimenti personalizzati: mood board, palette colori, styling tavoli, elementi decorativi, supervisione montaggio.
+4. **Destination Wedding** — Matrimoni in tutta Italia e all'estero: ricerca location esclusive, logistica viaggi, fornitori locali, supporto burocratico, welcome dinner.
+
+## Aree Operative
+
+Roma, Toscana, Costiera Amalfitana, Lago di Como, Puglia, Sicilia, Sardegna, Umbria, Venezia, Calabria e destinazioni internazionali.
+
+## Pagine Principali
+
+- `/` — Homepage con panoramica dei servizi, portfolio in evidenza e testimonianze.
+- `/chi-sono` — Bio completa di Gaia Crognale, timeline professionale, valori e filosofia.
+- `/servizi` — Descrizione dettagliata dei 4 servizi con caratteristiche e funzionalità.
+- `/portfolio` — Gallery degli eventi realizzati: matrimoni, corporate, celebrazioni.
+- `/blog` — Articoli e guide su matrimoni, tendenze, consigli per gli sposi.
+- `/preventivo` — Estimatore interattivo per ricevere un preventivo personalizzato gratuito.
+- `/contatti` — Informazioni di contatto, form di richiesta, mappa.
+- `/en/destination-wedding` — Pagina in inglese per coppie internazionali che desiderano sposarsi in Italia.
+
+## Per Approfondire
+
+Versione dettagliata: https://gaiaevents.it/llms-full.txt
