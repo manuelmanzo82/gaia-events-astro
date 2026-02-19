@@ -1,7 +1,7 @@
 export const impostazioniQuery = `*[_type == "impostazioni"][0]{
   nomeSito,
   descrizione,
-  "logo": logo.asset->url + "?w=800&fm=webp&q=80",
+  "logo": logo.asset->url + "?w=400&fm=webp&q=90",
   email,
   telefono,
   indirizzo,
@@ -17,14 +17,14 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
     eyebrow,
     titolo,
     sottotitolo,
-    "immagine": immagine.asset->url + "?w=800&fm=webp&q=80"
+    "immagine": immagine.asset->url + "?w=1600&fm=webp&q=80"
   },
   sezioneServizi { eyebrow, titolo },
   sezionePortfolio { eyebrow, titolo },
   sezioneCta { eyebrow, titolo, descrizione, testoBottone, linkBottone },
   sezioneChiSono { eyebrow, titolo },
   paginaChiSono {
-    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
+    "heroImmagine": heroImmagine.asset->url + "?w=1600&fm=webp&q=80",
     heroTitolo,
     heroSottotitolo,
     "fotoRitratto": fotoRitratto.asset->url + "?w=800&fm=webp&q=80",
@@ -37,14 +37,14 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
     timeline[]{ anno, titolo, descrizione }
   },
   paginaServizi {
-    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
+    "heroImmagine": heroImmagine.asset->url + "?w=1600&fm=webp&q=80",
     heroTitolo,
     heroSottotitolo,
     introTesto,
     citazione
   },
   paginaPortfolio {
-    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
+    "heroImmagine": heroImmagine.asset->url + "?w=1600&fm=webp&q=80",
     heroTitolo,
     heroSottotitolo,
     introTesto
@@ -55,12 +55,12 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
     celebrations { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80" }
   },
   paginaContatti {
-    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
+    "heroImmagine": heroImmagine.asset->url + "?w=1600&fm=webp&q=80",
     heroTitolo,
     heroSottotitolo
   },
   paginaDestinationWedding {
-    "heroImmagine": heroImmagine.asset->url + "?w=800&fm=webp&q=80",
+    "heroImmagine": heroImmagine.asset->url + "?w=1600&fm=webp&q=80",
     heroEyebrow,
     heroTitolo,
     heroSottotitolo,
@@ -122,7 +122,7 @@ export const eventoBySlugQuery = `*[_type == "evento" && slug.current == $slug][
   videoUrl,
   descrizione,
   "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80",
-  "immagineHero": immagineHero.asset->url + "?w=800&fm=webp&q=80",
+  "immagineHero": immagineHero.asset->url + "?w=1600&fm=webp&q=80",
   "galleria": galleria[].asset->url + "?w=800&fm=webp&q=80",
   inEvidenza
 }`;
@@ -179,7 +179,7 @@ export const articoloBlogBySlugQuery = `*[_type == "articoloBlog" && slug.curren
   categoria,
   dataPubblicazione,
   tempoLettura,
-  "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80",
+  "immagineCopertina": immagineCopertina.asset->url + "?w=1600&fm=webp&q=80",
   contenuto
 }`;
 

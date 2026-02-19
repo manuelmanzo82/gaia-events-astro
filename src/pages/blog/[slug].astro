@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   try {
     sanityArticles = await sanityClient.fetch(`*[_type == "articoloBlog" && attivo == true] | order(dataPubblicazione desc){
       _id, titolo, "slug": slug.current, metaDescrizione, estratto, categoria,
-      dataPubblicazione, tempoLettura, "immagineCopertina": immagineCopertina.asset->url + "?w=800&fm=webp&q=80",
+      dataPubblicazione, tempoLettura, "immagineCopertina": immagineCopertina.asset->url + "?w=1600&fm=webp&q=80",
       contenuto
     }`);
   } catch (e) {}

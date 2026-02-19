@@ -8,6 +8,9 @@ export default defineConfig({
   site: 'https://gaiaevents.it',
   output: 'static',
   adapter: vercel(),
+  build: {
+    inlineStylesheets: 'auto',
+  },
   integrations: [
     react(),
     tailwind(),
