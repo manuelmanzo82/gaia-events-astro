@@ -5,4 +5,5 @@ export default defineCliConfig({
     projectId: 'yfcp9735',
     dataset: 'production',
   },
+  studioHost: 'gaia-events',
 })
