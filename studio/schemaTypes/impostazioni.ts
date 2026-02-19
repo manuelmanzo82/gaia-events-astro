@@ -11,6 +11,7 @@ export default defineType({
     {name: 'chiSono', title: 'Chi Sono'},
     {name: 'servizi', title: 'Servizi'},
     {name: 'portfolio', title: 'Portfolio'},
+    {name: 'destinationWedding', title: 'Destination Wedding (EN)'},
   ],
   fields: [
     // ── Generale ──
@@ -263,6 +264,111 @@ export default defineType({
         defineField({name: 'heroImmagine', title: 'Hero Immagine', type: 'image', options: {hotspot: true}}),
         defineField({name: 'heroTitolo', title: 'Hero Titolo', type: 'string'}),
         defineField({name: 'heroSottotitolo', title: 'Hero Sottotitolo', type: 'string'}),
+      ],
+    }),
+
+    // ── Destination Wedding (EN) ──
+    defineField({
+      name: 'paginaDestinationWedding',
+      title: 'Pagina Destination Wedding (EN)',
+      type: 'object',
+      group: 'destinationWedding',
+      fields: [
+        // Hero
+        defineField({name: 'heroImmagine', title: 'Hero Image', type: 'image', options: {hotspot: true}}),
+        defineField({name: 'heroEyebrow', title: 'Hero Eyebrow', type: 'string', description: 'Small text above the title (e.g. Destination Wedding Planner)'}),
+        defineField({name: 'heroTitolo', title: 'Hero Title', type: 'string'}),
+        defineField({name: 'heroSottotitolo', title: 'Hero Subtitle', type: 'text', rows: 2}),
+        defineField({name: 'heroCtaTesto', title: 'Hero CTA Button Text', type: 'string'}),
+
+        // About / Intro
+        defineField({name: 'aboutFoto', title: 'About Photo', type: 'image', options: {hotspot: true}}),
+        defineField({name: 'aboutEyebrow', title: 'About Eyebrow', type: 'string'}),
+        defineField({name: 'aboutTitolo', title: 'About Title', type: 'string'}),
+        defineField({name: 'aboutTesto1', title: 'About Paragraph 1', type: 'text', rows: 4}),
+        defineField({name: 'aboutTesto2', title: 'About Paragraph 2', type: 'text', rows: 4}),
+        defineField({name: 'aboutTesto3', title: 'About Paragraph 3', type: 'text', rows: 4}),
+        defineField({name: 'aboutCtaTesto', title: 'About CTA Text', type: 'string'}),
+
+        // Services
+        defineField({name: 'serviziEyebrow', title: 'Services Eyebrow', type: 'string'}),
+        defineField({name: 'serviziTitolo', title: 'Services Title', type: 'string'}),
+        defineField({
+          name: 'servizi',
+          title: 'Services',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({name: 'icona', title: 'Icon', type: 'string', description: 'Icon name: map-pin, file-text, users, palette, heart, calendar'}),
+              defineField({name: 'titolo', title: 'Title', type: 'string'}),
+              defineField({name: 'descrizione', title: 'Description', type: 'text', rows: 2}),
+            ],
+          }],
+        }),
+
+        // Destinations
+        defineField({name: 'destinazioniEyebrow', title: 'Destinations Eyebrow', type: 'string'}),
+        defineField({name: 'destinazioniTitolo', title: 'Destinations Title', type: 'string'}),
+        defineField({name: 'destinazioniFooter', title: 'Destinations Footer Text', type: 'string'}),
+        defineField({
+          name: 'destinazioni',
+          title: 'Destinations',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({name: 'nome', title: 'Name', type: 'string'}),
+              defineField({name: 'descrizione', title: 'Description', type: 'text', rows: 2}),
+              defineField({name: 'immagine', title: 'Image', type: 'image', options: {hotspot: true}}),
+            ],
+          }],
+        }),
+
+        // Process
+        defineField({name: 'processoEyebrow', title: 'Process Eyebrow', type: 'string'}),
+        defineField({name: 'processoTitolo', title: 'Process Title', type: 'string'}),
+        defineField({
+          name: 'passi',
+          title: 'Steps',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({name: 'numero', title: 'Number', type: 'string'}),
+              defineField({name: 'titolo', title: 'Title', type: 'string'}),
+              defineField({name: 'descrizione', title: 'Description', type: 'text', rows: 2}),
+            ],
+          }],
+        }),
+
+        // FAQ
+        defineField({name: 'faqEyebrow', title: 'FAQ Eyebrow', type: 'string'}),
+        defineField({name: 'faqTitolo', title: 'FAQ Title', type: 'string'}),
+        defineField({
+          name: 'faq',
+          title: 'FAQ Items',
+          type: 'array',
+          of: [{
+            type: 'object',
+            fields: [
+              defineField({name: 'domanda', title: 'Question', type: 'string'}),
+              defineField({name: 'risposta', title: 'Answer', type: 'text', rows: 3}),
+            ],
+          }],
+        }),
+
+        // Testimonial
+        defineField({name: 'testimonialEyebrow', title: 'Testimonial Eyebrow', type: 'string'}),
+        defineField({name: 'testimonialCitazione', title: 'Testimonial Quote', type: 'text', rows: 4}),
+        defineField({name: 'testimonialAutore', title: 'Testimonial Author', type: 'string'}),
+
+        // CTA
+        defineField({name: 'ctaEyebrow', title: 'CTA Eyebrow', type: 'string'}),
+        defineField({name: 'ctaTitolo', title: 'CTA Title', type: 'string'}),
+        defineField({name: 'ctaDescrizione', title: 'CTA Description', type: 'text', rows: 2}),
+        defineField({name: 'ctaTestoBottone', title: 'CTA Button Text', type: 'string'}),
+        defineField({name: 'ctaEmail', title: 'CTA Email', type: 'string'}),
       ],
     }),
   ],

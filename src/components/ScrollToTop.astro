@@ -18,7 +18,7 @@
     var show = window.scrollY > 400;
     if (show !== visible) {
       visible = show;
-      btn.style.opacity = show ? '0.75' : '0';
+      btn.style.opacity = show ? '0.5' : '0';
       btn.style.pointerEvents = show ? 'auto' : 'none';
     }
   }
@@ -26,8 +26,8 @@
   btn.addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-  btn.addEventListener('mouseenter', function() { if (visible) btn.style.opacity = '1'; });
-  btn.addEventListener('mouseleave', function() { if (visible) btn.style.opacity = '0.75'; });
+  btn.addEventListener('mouseenter', function() { if (visible) btn.style.opacity = '0.9'; });
+  btn.addEventListener('mouseleave', function() { if (visible) btn.style.opacity = '0.5'; });
   update();
 })();
 </script>

@@ -1,9 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sanityClient } from '../../lib/sanity';
+import { impostazioniQuery } from '../../lib/queries';
+
+let impostazioni: any = null;
+try {
+  impostazioni = await sanityClient.fetch(impostazioniQuery);
+} catch (e) {}
+
+const p = impostazioni?.paginaDestinationWedding;
 
 const canonicalUrl = 'https://gaia-events-astro.vercel.app/en/destination-wedding';
 
-const faqItems = [
+const defaultFaqItems = [
   {
     q: 'Can Americans legally get married in Italy?',
     a: 'Yes! Couples from the US, UK, Canada, Australia, and anywhere in the world can legally marry in Italy. I\'ll guide you through the required documents including the Nulla Osta, translations, and local appointments.',
@@ -38,6 +47,10 @@ const faqItems = [
   },
 ];
 
+const faqItems = (p?.faq && p.faq.length > 0)
+  ? p.faq.map((f: any) => ({ q: f.domanda, a: f.risposta }))
+  : defaultFaqItems;
+
 const faqJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -70,7 +83,7 @@ const localBusinessJsonLd = JSON.stringify({
   "knowsLanguage": ["en", "it"],
 });
 
-const services = [
+const defaultServices = [
   {
     icon: 'map-pin',
     title: 'Venue Selection',
@@ -103,7 +116,11 @@ const services = [
   },
 ];
 
-const locations = [
+const services = (p?.servizi && p.servizi.length > 0)
+  ? p.servizi.map((s: any) => ({ icon: s.icona || 'heart', title: s.titolo, description: s.descrizione }))
+  : defaultServices;
+
+const defaultLocations = [
   { name: 'Rome', description: 'The Eternal City: historic villas, rooftop terraces, and timeless charm.' },
   { name: 'Tuscany', description: 'Rolling hills, vineyards, and rustic elegance in the heart of Italy.' },
   { name: 'Amalfi Coast', description: 'Dramatic cliffs, Mediterranean blue, and breathtaking coastal venues.' },
@@ -112,12 +129,20 @@ const locations = [
   { name: 'Lake Como & Venice', description: 'Glamorous lakeside villas and the romance of Venice\'s canals.' },
 ];
 
-const steps = [
+const locations = (p?.destinazioni && p.destinazioni.length > 0)
+  ? p.destinazioni.map((d: any) => ({ name: d.nome, description: d.descrizione, image: d.immagine }))
+  : defaultLocations;
+
+const defaultSteps = [
   { number: '01', title: 'Discovery Call', description: 'We\'ll chat about your vision, budget, and dream locations. No commitment, just a friendly conversation.' },
   { number: '02', title: 'Custom Proposal', description: 'I\'ll create a tailored plan with venue options, vendor recommendations, and a detailed budget.' },
   { number: '03', title: 'Planning & Design', description: 'Over the following months, we\'ll refine every detail \u2014 tastings, site visits, design mockups, and more.' },
   { number: '04', title: 'Your Perfect Day', description: 'I\'ll be there on the day, managing everything behind the scenes so you can enjoy every single moment.' },
 ];
+
+const steps = (p?.passi && p.passi.length > 0)
+  ? p.passi.map((s: any) => ({ number: s.numero, title: s.titolo, description: s.descrizione }))
+  : defaultSteps;
 ---
 
 <BaseLayout
@@ -140,24 +165,26 @@ const steps = [
     <!-- ═══ 1. HERO ═══ -->
     <section data-navbar-theme="dark" class="relative h-screen min-h-[550px] flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 bg-charcoal">
-        <div class="absolute inset-0 flex items-center justify-center">
-          <span class="text-white/10 text-2xl tracking-widest uppercase select-none">Destination Wedding Italy</span>
-        </div>
+        {p?.heroImmagine ? (
+          <img src={p.heroImmagine} alt="Destination Wedding Italy" class="w-full h-full object-cover" />
+        ) : (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-white/10 text-2xl tracking-widest uppercase select-none">Destination Wedding Italy</span>
+          </div>
+        )}
       </div>
       <div class="absolute inset-0 bg-gradient-to-b from-charcoal/35 to-charcoal/55"></div>
       <div class="relative z-10 text-center px-6 mt-12 max-w-[700px] mx-auto">
-        <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">Destination Wedding Planner</p>
-        <h1 class="text-[clamp(2rem,5.5vw,3.6rem)] font-light text-white leading-[1.15] mb-6">
-          Destination Wedding Planner<br />in <em class="italic">Rome, Italy</em>
-        </h1>
+        <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">{p?.heroEyebrow || 'Destination Wedding Planner'}</p>
+        <h1 class="text-[clamp(2rem,5.5vw,3.6rem)] font-light text-white leading-[1.15] mb-6" set:html={p?.heroTitolo || 'Destination Wedding Planner<br />in <em class="italic">Rome, Italy</em>'} />
         <p class="font-sans text-[0.95rem] font-light text-white/90 max-w-[32rem] mx-auto mb-8">
-          From intimate elopements in Rome to grand celebrations across Italy — I'll handle every detail while you enjoy la dolce vita.
+          {p?.heroSottotitolo || "From intimate elopements in Rome to grand celebrations across Italy — I'll handle every detail while you enjoy la dolce vita."}
         </p>
         <a
           href="/en/wedding-estimate"
           class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 bg-gold text-charcoal hover:bg-white transition-all duration-300"
         >
-          Start Planning Your Italian Wedding
+          {p?.heroCtaTesto || 'Start Planning Your Italian Wedding'}
         </a>
       </div>
       <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
@@ -172,29 +199,31 @@ const steps = [
       <div class="max-w-[1050px] mx-auto grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-12 md:gap-16 items-center">
         <div class="relative fade-in">
           <div class="aspect-[4/5] bg-beige rounded-[3px] flex items-center justify-center overflow-hidden">
-            <span class="text-charcoal/20 text-lg tracking-widest uppercase select-none">Foto Gaia</span>
+            {p?.aboutFoto ? (
+              <img src={p.aboutFoto} alt="Gaia Crognale - Wedding Planner" class="w-full h-full object-cover" />
+            ) : (
+              <span class="text-charcoal/20 text-lg tracking-widest uppercase select-none">Foto Gaia</span>
+            )}
           </div>
           <div class="absolute top-[15px] left-[15px] right-[-15px] bottom-[-15px] border-2 border-gold rounded-[3px] -z-10"></div>
         </div>
         <div class="fade-in">
-          <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">About Me</p>
+          <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">{p?.aboutEyebrow || 'About Me'}</p>
           <h2 class="font-serif text-[clamp(1.8rem,4vw,2.5rem)] font-normal text-charcoal mb-6">
-            Ciao! I'm Gaia
+            {p?.aboutTitolo || "Ciao! I'm Gaia"}
           </h2>
           <p class="text-[1.05rem] font-light leading-[1.85] text-charcoal/60 mb-5">
-            Based in Rome with over 10 years of experience, I've planned weddings and events across Italy — from the historic streets of Rome to the rolling hills of Tuscany, the stunning Amalfi Coast, and the beautiful shores of Sicily and Sardinia.
+            {p?.aboutTesto1 || "Based in Rome with over 10 years of experience, I've planned weddings and events across Italy — from the historic streets of Rome to the rolling hills of Tuscany, the stunning Amalfi Coast, and the beautiful shores of Sicily and Sardinia."}
           </p>
-          <p class="text-[1.05rem] font-light leading-[1.85] text-charcoal/60 mb-5">
-            I've also had the privilege of working with prestigious brands like <strong class="font-medium text-charcoal">Calzedonia</strong>, <strong class="font-medium text-charcoal">BNL</strong>, and <strong class="font-medium text-charcoal">Zurich</strong>, bringing the same level of professionalism and creativity to every celebration.
-          </p>
+          <p class="text-[1.05rem] font-light leading-[1.85] text-charcoal/60 mb-5" set:html={p?.aboutTesto2 || 'I\'ve also had the privilege of working with prestigious brands like <strong class="font-medium text-charcoal">Calzedonia</strong>, <strong class="font-medium text-charcoal">BNL</strong>, and <strong class="font-medium text-charcoal">Zurich</strong>, bringing the same level of professionalism and creativity to every celebration.'} />
           <p class="text-[1.05rem] font-light leading-[1.85] text-charcoal/60 mb-8">
-            I speak English and will be your dedicated point of contact throughout the entire planning process, making sure nothing gets lost in translation. Whether you're planning an intimate elopement or a grand celebration, I'm here to make it effortless.
+            {p?.aboutTesto3 || "I speak English and will be your dedicated point of contact throughout the entire planning process, making sure nothing gets lost in translation. Whether you're planning an intimate elopement or a grand celebration, I'm here to make it effortless."}
           </p>
           <a
             href="/en/wedding-estimate"
             class="group inline-flex items-center gap-2 font-sans text-[0.8rem] tracking-[0.12em] uppercase text-gold hover:gap-4 transition-all duration-300"
           >
-            Let's Talk
+            {p?.aboutCtaTesto || "Let's Talk"}
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
           </a>
         </div>
@@ -204,10 +233,8 @@ const steps = [
     <!-- ═══ 3. SERVICES ═══ -->
     <section data-navbar-theme="light" class="py-20 px-6 bg-beige">
       <div class="text-center mb-14 fade-in">
-        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Services</p>
-        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal">
-          Full-Service Destination Wedding<br />Planning in Italy
-        </h2>
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">{p?.serviziEyebrow || 'Services'}</p>
+        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal" set:html={p?.serviziTitolo || 'Full-Service Destination Wedding<br />Planning in Italy'} />
       </div>
       <div class="max-w-[1050px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((s) => (
@@ -242,20 +269,22 @@ const steps = [
     <!-- ═══ 4. LOCATION GALLERY ═══ -->
     <section data-navbar-theme="light" class="py-20 px-6">
       <div class="text-center mb-14 fade-in">
-        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Destinations</p>
-        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal">
-          Say 'I Do' in Italy's Most<br />Beautiful Settings
-        </h2>
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">{p?.destinazioniEyebrow || 'Destinations'}</p>
+        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal" set:html={p?.destinazioniTitolo || "Say 'I Do' in Italy's Most<br />Beautiful Settings"} />
       </div>
       <div class="max-w-[1050px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {locations.map((loc) => (
+        {locations.map((loc: any) => (
           <div class="fade-in group relative aspect-[4/3] rounded-[3px] overflow-hidden cursor-default">
             <div class="absolute inset-0 bg-charcoal/10">
-              <div class="absolute inset-0 flex items-center justify-center">
-                <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">
-                  {`Destination wedding venue ${loc.name} Italy`}
-                </span>
-              </div>
+              {loc.image ? (
+                <img src={loc.image} alt={`Destination wedding venue ${loc.name} Italy`} class="w-full h-full object-cover" />
+              ) : (
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">
+                    {`Destination wedding venue ${loc.name} Italy`}
+                  </span>
+                </div>
+              )}
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent"></div>
             <div class="absolute bottom-0 left-0 right-0 p-6">
@@ -266,17 +295,15 @@ const steps = [
         ))}
       </div>
       <p class="fade-in text-center mt-10 font-sans text-[0.9rem] font-light text-charcoal/50">
-        I also cover Sardinia, Calabria, Umbria, and many other beautiful regions across Italy.
+        {p?.destinazioniFooter || 'I also cover Sardinia, Calabria, Umbria, and many other beautiful regions across Italy.'}
       </p>
     </section>
 
     <!-- ═══ 5. PROCESS ═══ -->
     <section data-navbar-theme="light" class="py-20 px-6 bg-beige">
       <div class="text-center mb-16 fade-in">
-        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">The Process</p>
-        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal">
-          From Your First Message to 'I Do'
-        </h2>
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">{p?.processoEyebrow || 'The Process'}</p>
+        <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal" set:html={p?.processoTitolo || "From Your First Message to 'I Do'"} />
       </div>
       <div class="max-w-[650px] mx-auto">
         {steps.map((step, i) => (
@@ -302,9 +329,9 @@ const steps = [
     <!-- ═══ 6. FAQ ═══ -->
     <section data-navbar-theme="light" class="py-20 px-6">
       <div class="text-center mb-14 fade-in">
-        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">FAQ</p>
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">{p?.faqEyebrow || 'FAQ'}</p>
         <h2 class="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-normal text-charcoal">
-          Your Questions, Answered
+          {p?.faqTitolo || 'Your Questions, Answered'}
         </h2>
       </div>
       <div class="max-w-[720px] mx-auto space-y-3" id="faq-accordion">
@@ -334,7 +361,7 @@ const steps = [
     <!-- ═══ 7. TESTIMONIAL ═══ -->
     <section data-navbar-theme="light" class="py-20 px-6 bg-beige">
       <div class="max-w-[700px] mx-auto text-center fade-in">
-        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Testimonial</p>
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">{p?.testimonialEyebrow || 'Testimonial'}</p>
         <div class="flex items-center justify-center gap-1 mb-8">
           {Array.from({ length: 5 }).map(() => (
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-gold">
@@ -343,10 +370,10 @@ const steps = [
           ))}
         </div>
         <blockquote class="font-serif text-[clamp(1.2rem,3vw,1.6rem)] font-light text-charcoal leading-[1.7] italic mb-8">
-          &ldquo;Gaia made our dream of getting married in Italy come true. She handled everything with such grace and professionalism — from finding the perfect venue to coordinating every vendor. We didn't have to worry about a single thing, even planning it all from London.&rdquo;
+          &ldquo;{p?.testimonialCitazione || "Gaia made our dream of getting married in Italy come true. She handled everything with such grace and professionalism — from finding the perfect venue to coordinating every vendor. We didn't have to worry about a single thing, even planning it all from London."}&rdquo;
         </blockquote>
         <p class="font-sans text-[0.85rem] tracking-[0.08em] text-charcoal/70">
-          — Sophie & James, London
+          — {p?.testimonialAutore || 'Sophie & James, London'}
         </p>
       </div>
     </section>
@@ -357,26 +384,24 @@ const steps = [
       <div class="absolute inset-0 bg-bordeaux/88"></div>
       <div class="relative z-10 max-w-[600px] mx-auto text-center">
         <p class="font-sans text-[0.7rem] tracking-[0.25em] uppercase text-gold mb-5">
-          Let's Start
+          {p?.ctaEyebrow || "Let's Start"}
         </p>
-        <h2 class="font-serif text-[clamp(1.8rem,4.5vw,2.8rem)] font-light text-white leading-[1.2] mb-6">
-          Ready to Plan Your<br /><em class="italic">Italian Wedding?</em>
-        </h2>
+        <h2 class="font-serif text-[clamp(1.8rem,4.5vw,2.8rem)] font-light text-white leading-[1.2] mb-6" set:html={p?.ctaTitolo || 'Ready to Plan Your<br /><em class="italic">Italian Wedding?</em>'} />
         <p class="font-sans text-[0.95rem] font-light text-white/80 max-w-[28rem] mx-auto mb-10">
-          Every great celebration begins with a conversation. Tell me about your vision and together we'll create something truly unforgettable in Italy.
+          {p?.ctaDescrizione || "Every great celebration begins with a conversation. Tell me about your vision and together we'll create something truly unforgettable in Italy."}
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href="/en/wedding-estimate"
             class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 bg-gold text-charcoal hover:bg-white transition-all duration-300"
           >
-            Get in Touch
+            {p?.ctaTestoBottone || 'Get in Touch'}
           </a>
           <a
-            href="mailto:gaiacrognale@gmail.com"
+            href={`mailto:${p?.ctaEmail || 'gaiacrognale@gmail.com'}`}
             class="inline-block font-sans text-[0.75rem] tracking-[0.12em] text-white/70 hover:text-white transition-colors duration-300"
           >
-            or email gaiacrognale@gmail.com
+            or email {p?.ctaEmail || 'gaiacrognale@gmail.com'}
           </a>
         </div>
       </div>
