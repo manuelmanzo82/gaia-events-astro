@@ -38,6 +38,8 @@ const portfolioItems = eventi.length > 0 ? eventi.slice(0, 5).map((e: any, i: nu
   location: e.location || '',
   image: e.immagineCopertina || undefined,
   span: i === 0,
+  slug: e.slug?.current || '',
+  hasVideo: !!e.videoUrl,
 })) : [];
 
 const primaRecensione = recensioni.length > 0 ? {

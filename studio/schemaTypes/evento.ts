@@ -59,6 +59,24 @@ export default defineType({
       options: {hotspot: true},
     }),
     defineField({
+      name: 'videoUrl',
+      title: 'Video URL',
+      type: 'url',
+      description: 'Link Vimeo o YouTube',
+    }),
+    defineField({
+      name: 'descrizione',
+      title: 'Descrizione Completa',
+      type: 'array',
+      of: [{type: 'block'}],
+    }),
+    defineField({
+      name: 'galleria',
+      title: 'Galleria Foto',
+      type: 'array',
+      of: [{type: 'image', options: {hotspot: true}}],
+    }),
+    defineField({
       name: 'inEvidenza',
       title: 'In Evidenza',
       type: 'boolean',

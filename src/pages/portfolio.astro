@@ -45,6 +45,8 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
   location: e.location || '',
   image: e.immagineCopertina || undefined,
   span: i === 0,
+  slug: e.slug?.current || '',
+  hasVideo: !!e.videoUrl,
 })) : [];
 ---
 
@@ -89,7 +91,7 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
         <!-- 2-column grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:h-[600px] lg:h-[70vh] lg:max-h-[750px]">
           <!-- Main large image -->
-          <a href="/portfolio" class="fade-in group relative aspect-[3/4] md:aspect-auto md:h-full rounded-[3px] overflow-hidden block">
+          <a href={weddingItems[0]?.slug?.current ? `/portfolio/${weddingItems[0].slug.current}` : '/portfolio'} class="fade-in group relative aspect-[3/4] md:aspect-auto md:h-full rounded-[3px] overflow-hidden block">
             {weddingItems[0]?.immagineCopertina ? (
               <img src={weddingItems[0].immagineCopertina} alt={weddingItems[0].titolo} class="absolute inset-0 w-full h-full object-cover" />
             ) : (
@@ -107,7 +109,7 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
           <!-- Right column: 2 images stacked -->
           <div class="flex flex-col gap-4 md:h-full">
             {[weddingItems[1], weddingItems[2]].map((item: any) => (
-              <a href="/portfolio" class="fade-in group relative aspect-[4/3] md:aspect-auto md:flex-1 rounded-[3px] overflow-hidden block">
+              <a href={item?.slug?.current ? `/portfolio/${item.slug.current}` : '/portfolio'} class="fade-in group relative aspect-[4/3] md:aspect-auto md:flex-1 rounded-[3px] overflow-hidden block">
                 {item?.immagineCopertina ? (
                   <img src={item.immagineCopertina} alt={item.titolo} class="absolute inset-0 w-full h-full object-cover" />
                 ) : (
@@ -140,7 +142,7 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
               {cat?.corporate?.descrizione || 'Conferenze, gala dinner, team building e celebrazioni corporate che lasciano il segno.'}
             </p>
           </div>
-          <a href="/portfolio" class="group relative aspect-[16/10] rounded-[3px] overflow-hidden block">
+          <a href={corporateItem?.slug?.current ? `/portfolio/${corporateItem.slug.current}` : '/portfolio'} class="group relative aspect-[16/10] rounded-[3px] overflow-hidden block">
             {(cat?.corporate?.immagineCopertina || corporateItem.immagineCopertina) ? (
               <img src={cat?.corporate?.immagineCopertina || corporateItem.immagineCopertina} alt={corporateItem.titolo} class="absolute inset-0 w-full h-full object-cover" />
             ) : (
@@ -166,7 +168,7 @@ const portfolioItems = eventi.length > 0 ? eventi.map((e: any, i: number) => ({
               {cat?.celebrations?.descrizione || 'Compleanni speciali, battesimi e anniversari. Ogni celebrazione merita di essere indimenticabile.'}
             </p>
           </div>
-          <a href="/portfolio" class="group relative aspect-[16/10] rounded-[3px] overflow-hidden block">
+          <a href={celebrationItem?.slug?.current ? `/portfolio/${celebrationItem.slug.current}` : '/portfolio'} class="group relative aspect-[16/10] rounded-[3px] overflow-hidden block">
             {(cat?.celebrations?.immagineCopertina || celebrationItem.immagineCopertina) ? (
               <img src={cat?.celebrations?.immagineCopertina || celebrationItem.immagineCopertina} alt={celebrationItem.titolo} class="absolute inset-0 w-full h-full object-cover" />
             ) : (

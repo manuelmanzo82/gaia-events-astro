@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PortableTextRenderer from '../../components/PortableTextRenderer';
+import { sanityClient } from '../../lib/sanity';
+import { eventiQuery, eventoBySlugQuery } from '../../lib/queries';
+
+export async function getStaticPaths() {
+  let eventi: any[] = [];
+  try {
+    eventi = await sanityClient.fetch(eventiQuery);
+  } catch (e) {}
+
+  return eventi
+    .filter((e: any) => e.slug?.current)
+    .map((e: any) => ({
+      params: { slug: e.slug.current },
+    }));
+}
+
+const { slug } = Astro.params;
+
+let evento: any = null;
+try {
+  evento = await sanityClient.fetch(eventoBySlugQuery, { slug });
+} catch (e) {}
+
+if (!evento) {
+  return Astro.redirect('/portfolio');
+}
+
+// Parse video embed URL
+function getEmbedUrl(url: string): string | null {
+  if (!url) return null;
+  // YouTube
+  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/);
+  if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}`;
+  // Vimeo
+  const vimeoMatch = url.match(/(?:vimeo\.com\/)(\d+)/);
+  if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+  return null;
+}
+
+const embedUrl = evento.videoUrl ? getEmbedUrl(evento.videoUrl) : null;
+
+// Format date
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+---
+
+<BaseLayout
+  title={`${evento.titolo} | Portfolio | Gaia Events`}
+  description={evento.descrizioneBreve || `${evento.titolo} — ${evento.location || 'Evento organizzato da Gaia Events'}`}
+>
+  <main>
+    <!-- Hero -->
+    <section data-navbar-theme="dark" class="relative h-[65vh] min-h-[450px] flex items-end overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal">
+        {evento.immagineCopertina ? (
+          <img src={evento.immagineCopertina} alt={evento.titolo} class="absolute inset-0 w-full h-full object-cover" />
+        ) : (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-white/10 text-xl tracking-widest uppercase select-none">{evento.titolo}</span>
+          </div>
+        )}
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/30 to-charcoal/10"></div>
+      <div class="relative z-10 w-full max-w-[1050px] mx-auto px-6 pb-14">
+        {evento.categoria && (
+          <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-gold mb-4">{evento.categoria}</p>
+        )}
+        <h1 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-light text-white leading-[1.15] mb-4">{evento.titolo}</h1>
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+          {evento.location && (
+            <span class="inline-flex items-center gap-2 font-sans text-[0.85rem] text-white/70">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              {evento.location}
+            </span>
+          )}
+          {evento.data && (
+            <span class="inline-flex items-center gap-2 font-sans text-[0.85rem] text-white/70">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/></svg>
+              {formatDate(evento.data)}
+            </span>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Embed -->
+    {embedUrl && (
+      <section data-navbar-theme="light" class="py-16 px-6">
+        <div class="max-w-[900px] mx-auto">
+          <div class="relative w-full aspect-video rounded-[3px] overflow-hidden bg-charcoal">
+            <iframe
+              src={embedUrl}
+              title={`Video — ${evento.titolo}`}
+              class="absolute inset-0 w-full h-full"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Descrizione -->
+    {evento.descrizione && evento.descrizione.length > 0 && (
+      <section data-navbar-theme="light" class={`${embedUrl ? 'pb-16' : 'py-16'} px-6`}>
+        <div class="max-w-[720px] mx-auto portable-text">
+          <PortableTextRenderer client:load content={evento.descrizione} />
+        </div>
+      </section>
+    )}
+
+    <!-- Galleria -->
+    {evento.galleria && evento.galleria.length > 0 && (
+      <section data-navbar-theme="light" class="pb-20 px-6">
+        <div class="max-w-[1050px] mx-auto">
+          <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-8 text-center">Galleria</p>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {evento.galleria.map((url: string, i: number) => (
+              <div class={`fade-in relative rounded-[3px] overflow-hidden ${i === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+                <img
+                  src={url}
+                  alt={`${evento.titolo} — foto ${i + 1}`}
+                  class={`w-full h-full object-cover ${i === 0 ? 'aspect-[4/3]' : 'aspect-square'}`}
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Back to Portfolio -->
+    <section data-navbar-theme="light" class="pb-20 px-6">
+      <div class="max-w-[1050px] mx-auto text-center">
+        <a
+          href="/portfolio"
+          class="group inline-flex items-center gap-2 font-sans text-[0.8rem] tracking-[0.12em] uppercase text-gold hover:gap-4 transition-all duration-300"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+          Torna al Portfolio
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  .portable-text p {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(45, 45, 45, 0.65);
+    margin-bottom: 1.5rem;
+  }
+  .portable-text h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #2D2D2D;
+    margin: 2.5rem 0 1rem;
+  }
+  .portable-text h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #2D2D2D;
+    margin: 2rem 0 0.75rem;
+  }
+  .portable-text blockquote {
+    border-left: 3px solid #C9A962;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: rgba(45, 45, 45, 0.55);
+  }
+  .portable-text a {
+    color: #C9A962;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .portable-text a:hover {
+    color: #722F37;
+  }
+</style>

@@ -71,7 +71,24 @@ export const eventiQuery = `*[_type == "evento"] | order(ordine asc, data desc){
   data,
   categoria,
   descrizioneBreve,
+  videoUrl,
   "immagineCopertina": immagineCopertina.asset->url,
+  inEvidenza
+}`;
+
+export const eventoBySlugQuery = `*[_type == "evento" && slug.current == $slug][0]{
+  _id,
+  macroCategoria,
+  titolo,
+  "slug": slug.current,
+  location,
+  data,
+  categoria,
+  descrizioneBreve,
+  videoUrl,
+  descrizione,
+  "immagineCopertina": immagineCopertina.asset->url,
+  "galleria": galleria[].asset->url,
   inEvidenza
 }`;
 

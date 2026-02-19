@@ -8,6 +8,8 @@ interface PortfolioItem {
   location: string;
   image?: string;
   span: boolean;
+  slug?: string;
+  hasVideo?: boolean;
 }
 
 interface PortfolioPreviewProps {
@@ -76,7 +78,7 @@ export default function PortfolioPreview({ items: propsItems, eyebrow, titolo }:
         {filtered.map((item) => (
           <a
             key={item.id}
-            href="/portfolio"
+            href={item.slug ? `/portfolio/${item.slug}` : '/portfolio'}
             className={`group relative overflow-hidden rounded-[3px] cursor-pointer ${
               item.span ? 'row-span-2' : ''
             }`}
@@ -89,6 +91,13 @@ export default function PortfolioPreview({ items: propsItems, eyebrow, titolo }:
                 <span className="text-charcoal/15 text-sm tracking-widest uppercase select-none">
                   {item.title}
                 </span>
+              </div>
+            )}
+
+            {/* Video Play Icon */}
+            {item.hasVideo && (
+              <div className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-charcoal/60 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3" /></svg>
               </div>
             )}
 
