@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const categories = [
+  {
+    title: 'Organizzazione',
+    items: [
+      {
+        q: 'Come funziona la consulenza iniziale?',
+        a: 'La consulenza iniziale è gratuita e senza impegno. Ci incontriamo per conoscerci, capire la vostra visione e valutare insieme come posso aiutarvi a realizzare il vostro evento perfetto.',
+      },
+      {
+        q: 'Con quanto anticipo devo contattare un wedding planner?',
+        a: "L'ideale è contattarmi almeno 12–18 mesi prima del matrimonio, ma posso gestire anche organizzazioni con tempistiche più strette. Per i destination wedding consiglio almeno 18–24 mesi.",
+      },
+      {
+        q: 'Organizzi solo matrimoni o anche altri eventi?',
+        a: 'Organizzo matrimoni, eventi corporate, feste private, anniversary e celebration di ogni tipo. Ho collaborato con brand come Calzedonia, BNL e Zurich per eventi aziendali.',
+      },
+    ],
+  },
+  {
+    title: 'Servizi',
+    items: [
+      {
+        q: 'Quali servizi offri?',
+        a: "Offro quattro tipologie di servizio: Wedding Planning Completo (organizzazione totale dall'inizio alla fine), Coordinamento del Giorno (gestione della giornata), Design & Styling (progettazione estetica), e Destination Wedding per coppie internazionali.",
+      },
+      {
+        q: 'Posso scegliere solo alcuni servizi?',
+        a: 'Assolutamente sì. Ogni coppia ha esigenze diverse e i miei servizi sono completamente personalizzabili. Nella consulenza gratuita valutiamo insieme cosa vi serve.',
+      },
+      {
+        q: 'Ti occupi anche della scelta dei fornitori?',
+        a: 'Sì, ho una rete consolidata di fornitori selezionati tra i migliori in Italia: fotografi, fioristi, catering, musicisti, location. Vi guido nella scelta dei professionisti più adatti al vostro stile e budget.',
+      },
+    ],
+  },
+  {
+    title: 'Costi',
+    items: [
+      {
+        q: 'Quanto costa un wedding planner?',
+        a: "Il costo varia in base al tipo di servizio, alla complessità dell'evento e al numero di ospiti. Ogni preventivo è personalizzato. Potete usare il tool di preventivo sul sito per avere una prima idea, oppure contattarmi per una consulenza gratuita.",
+      },
+      {
+        q: 'La consulenza iniziale è a pagamento?',
+        a: 'No, la consulenza iniziale è completamente gratuita e senza impegno.',
+      },
+      {
+        q: 'Come funziona il pagamento?',
+        a: 'Il pagamento è suddiviso in fasi concordate insieme, così potete gestire il budget con serenità.',
+      },
+    ],
+  },
+  {
+    title: 'Location e Destinazioni',
+    items: [
+      {
+        q: "In quali zone d'Italia lavori?",
+        a: 'Lavoro principalmente a Roma e nel Lazio, ma organizzo eventi in tutta Italia: Toscana, Costiera Amalfitana, Puglia, Sicilia, Lago di Como, Sardegna, Umbria e altre destinazioni.',
+      },
+      {
+        q: "Organizzi matrimoni all'estero?",
+        a: 'Sì, organizzo destination wedding anche all\'estero. Parlo inglese fluentemente e ho esperienza con coppie internazionali.',
+      },
+      {
+        q: 'Puoi consigliare le location migliori?',
+        a: 'Certamente, è una delle cose che amo di più. Ho una selezione curata di ville, castelli, masserie, resort e location esclusive in tutta Italia.',
+      },
+    ],
+  },
+];
+
+const allFaqItems = categories.flatMap((c) => c.items);
+
+const faqJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": allFaqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a,
+    },
+  })),
+});
+---
+
+<BaseLayout
+  title="FAQ | Domande Frequenti | Gaia Events Wedding Planner Roma"
+  description="Risposte alle domande più frequenti su wedding planning a Roma: consulenza gratuita, costi, servizi, location in Italia. Scopri come organizzare il tuo matrimonio perfetto."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={faqJsonLd} />
+  </Fragment>
+
+  <main>
+    <!-- Hero -->
+    <section data-navbar-theme="dark" class="relative h-[30vh] min-h-[220px] flex items-end overflow-hidden bg-charcoal">
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/60 to-charcoal/30"></div>
+      <div class="relative z-10 w-full max-w-[720px] mx-auto px-6 pb-10">
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-gold mb-4">Domande Frequenti</p>
+        <h1 class="font-serif text-[clamp(1.8rem,4vw,2.6rem)] font-normal text-white leading-[1.25] mb-3">
+          Tutto Quello che Devi Sapere
+        </h1>
+        <p class="font-sans text-[0.95rem] font-light text-white/60 leading-relaxed max-w-lg">
+          Le risposte alle domande più comuni sull'organizzazione del tuo evento
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section data-navbar-theme="light" class="py-20 px-6">
+      <div class="max-w-[720px] mx-auto">
+        {categories.map((category, ci) => (
+          <div class={ci > 0 ? 'mt-14' : ''}>
+            <p class="font-sans text-[0.65rem] tracking-[0.18em] uppercase text-gold font-medium mb-6">
+              {category.title}
+            </p>
+            <div class="divide-y divide-charcoal/10">
+              {category.items.map((item) => (
+                <div class="faq-item">
+                  <button
+                    type="button"
+                    class="faq-trigger w-full flex items-center justify-between gap-4 py-5 text-left cursor-pointer"
+                    aria-expanded="false"
+                  >
+                    <span class="font-sans text-[0.95rem] font-medium text-charcoal leading-snug pr-4">
+                      {item.q}
+                    </span>
+                    <span class="faq-icon flex-shrink-0 w-6 h-6 flex items-center justify-center text-gold transition-transform duration-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line class="faq-h" x1="5" y1="12" x2="19" y2="12" />
+                        <line class="faq-v" x1="12" y1="5" x2="12" y2="19" />
+                      </svg>
+                    </span>
+                  </button>
+                  <div class="faq-content" style="height:0;overflow:hidden;transition:height 0.3s ease">
+                    <p class="font-sans text-[0.9rem] font-light text-charcoal/60 leading-[1.8] pb-6">
+                      {item.a}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section data-navbar-theme="light" class="py-20 px-6 bg-beige">
+      <div class="max-w-[550px] mx-auto text-center fade-in">
+        <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-5">Serve Altro?</p>
+        <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.2rem)] font-normal text-charcoal leading-[1.3] mb-5">
+          Non Hai Trovato la Risposta?
+        </h2>
+        <p class="font-sans text-[0.95rem] font-light text-charcoal/60 leading-relaxed mb-10 max-w-[26rem] mx-auto">
+          Contattami per qualsiasi domanda. La consulenza iniziale è sempre gratuita e senza impegno.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/contatti"
+            class="inline-block font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 bg-gold text-charcoal hover:bg-gold/85 transition-all duration-300"
+          >
+            Parliamone Insieme
+          </a>
+          <a
+            href="https://wa.me/393273855362"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 font-sans text-[0.75rem] tracking-[0.18em] uppercase px-9 py-4 border border-charcoal/20 text-charcoal hover:border-gold hover:text-gold transition-all duration-300"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Scrivimi su WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<script is:inline>
+  (function() {
+    var triggers = document.querySelectorAll('.faq-trigger');
+    for (var i = 0; i < triggers.length; i++) {
+      triggers[i].addEventListener('click', function() {
+        var item = this.parentElement;
+        var content = item.querySelector('.faq-content');
+        var isOpen = this.getAttribute('aria-expanded') === 'true';
+
+        if (isOpen) {
+          content.style.height = content.scrollHeight + 'px';
+          content.offsetHeight; // force reflow
+          content.style.height = '0';
+          this.setAttribute('aria-expanded', 'false');
+        } else {
+          content.style.height = content.scrollHeight + 'px';
+          this.setAttribute('aria-expanded', 'true');
+          content.addEventListener('transitionend', function handler() {
+            if (content.style.height !== '0px') {
+              content.style.height = 'auto';
+            }
+            content.removeEventListener('transitionend', handler);
+          });
+        }
+      });
+    }
+  })();
+</script>
+
+<style>
+  .faq-trigger[aria-expanded="true"] .faq-v {
+    opacity: 0;
+    transform: rotate(90deg);
+  }
+  .faq-v {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform-origin: center;
+  }
+</style>
