@@ -88,7 +88,7 @@ export default defineType({
       type: 'object',
       group: 'homepage',
       fields: [
-        defineField({name: 'eyebrow', title: 'Eyebrow (sopra il titolo)', type: 'string'}),
+        defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string', description: 'Testo piccolo sopra il titolo (es. Wedding Planner & Event Manager)'}),
         defineField({name: 'titolo', title: 'Titolo', type: 'string'}),
         defineField({name: 'sottotitolo', title: 'Sottotitolo', type: 'text', rows: 2}),
         defineField({name: 'immagine', title: 'Immagine di Sfondo', type: 'image', options: {hotspot: true}}),
@@ -124,6 +124,17 @@ export default defineType({
         defineField({name: 'titolo', title: 'Titolo', type: 'string'}),
         defineField({name: 'descrizione', title: 'Descrizione', type: 'text', rows: 2}),
         defineField({name: 'testoBottone', title: 'Testo Bottone', type: 'string'}),
+        defineField({name: 'linkBottone', title: 'Link Bottone', type: 'string', description: 'es. /preventivo'}),
+      ],
+    }),
+    defineField({
+      name: 'sezioneChiSono',
+      title: 'Sezione Chi Sono (Anteprima)',
+      type: 'object',
+      group: 'homepage',
+      fields: [
+        defineField({name: 'eyebrow', title: 'Eyebrow', type: 'string'}),
+        defineField({name: 'titolo', title: 'Titolo', type: 'string'}),
       ],
     }),
 

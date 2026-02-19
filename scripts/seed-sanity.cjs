@@ -47,6 +47,11 @@ const impostazioniPatch = {
     titolo: 'Pronta a Realizzare<br /><em class="italic">il Tuo Sogno?</em>',
     descrizione: 'Raccontami la tua visione e insieme creeremo qualcosa di indimenticabile',
     testoBottone: 'Parliamone Insieme',
+    linkBottone: '/preventivo',
+  },
+  sezioneChiSono: {
+    eyebrow: 'Chi Sono',
+    titolo: 'Ciao, sono Gaia',
   },
 
   // Chi Sono (preview homepage) — aggiorna testo, preserva foto

@@ -22,7 +22,8 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
   },
   sezioneServizi { eyebrow, titolo },
   sezionePortfolio { eyebrow, titolo },
-  sezioneCta { eyebrow, titolo, descrizione, testoBottone },
+  sezioneCta { eyebrow, titolo, descrizione, testoBottone, linkBottone },
+  sezioneChiSono { eyebrow, titolo },
   paginaChiSono {
     "heroImmagine": heroImmagine.asset->url,
     heroTitolo,

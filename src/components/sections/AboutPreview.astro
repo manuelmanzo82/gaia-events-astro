@@ -1,5 +1,6 @@
 ---
 interface Props {
+  eyebrow?: string;
   foto?: string;
   titolo?: string;
   testoPrincipale?: string;
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const {
+  eyebrow,
   foto,
   titolo,
   testoPrincipale,
@@ -33,7 +35,7 @@ const defaultTesto = 'Da oltre <strong class="font-medium text-charcoal">8 anni<
 
     <!-- Right: Text -->
     <div>
-      <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">Chi Sono</p>
+      <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-4">{eyebrow || 'Chi Sono'}</p>
       <h2 class="font-serif text-[clamp(1.8rem,4vw,2.5rem)] font-normal text-charcoal mb-6">
         {titolo || 'Ciao, sono Gaia'}
       </h2>

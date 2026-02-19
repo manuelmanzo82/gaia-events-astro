@@ -59,8 +59,9 @@ const primaRecensione = recensioni.length > 0 ? {
       immagine={impostazioni?.heroHomepage?.immagine}
     />
     <AboutPreview
+      eyebrow={impostazioni?.sezioneChiSono?.eyebrow}
       foto={impostazioni?.chiSono?.foto}
-      titolo={impostazioni?.chiSono?.titolo}
+      titolo={impostazioni?.sezioneChiSono?.titolo || impostazioni?.chiSono?.titolo}
       testoPrincipale={impostazioni?.chiSono?.testoPrincipale}
       testoLink={impostazioni?.chiSono?.testoLink}
     />
@@ -68,6 +69,6 @@ const primaRecensione = recensioni.length > 0 ? {
     <PortfolioPreview client:visible items={portfolioItems} eyebrow={impostazioni?.sezionePortfolio?.eyebrow} titolo={impostazioni?.sezionePortfolio?.titolo} />
     <Testimonials recensione={primaRecensione} />
     <InstagramGallery />
-    <CtaSection eyebrow={impostazioni?.sezioneCta?.eyebrow} titolo={impostazioni?.sezioneCta?.titolo} descrizione={impostazioni?.sezioneCta?.descrizione} testoBottone={impostazioni?.sezioneCta?.testoBottone} />
+    <CtaSection eyebrow={impostazioni?.sezioneCta?.eyebrow} titolo={impostazioni?.sezioneCta?.titolo} descrizione={impostazioni?.sezioneCta?.descrizione} testoBottone={impostazioni?.sezioneCta?.testoBottone} linkBottone={impostazioni?.sezioneCta?.linkBottone} />
   </main>
 </BaseLayout>
