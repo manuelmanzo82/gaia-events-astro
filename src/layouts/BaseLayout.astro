@@ -1,6 +1,7 @@
 ---
 import Navbar from '../components/layout/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import '../styles/globals.css';
 
 interface Props {
@@ -86,6 +87,7 @@ const localBusinessJsonLd = JSON.stringify({
     <Navbar />
     <slot />
     <Footer />
+    <CookieBanner />
 
     <!-- Fade-in observer: adds .has-observer to html so CSS hides .fade-in,
          then reveals them on scroll. Without JS, content stays fully visible. -->

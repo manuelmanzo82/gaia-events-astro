@@ -2,12 +2,183 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Privacy Policy" robots="noindex, follow">
+<BaseLayout title="Privacy Policy | Gaia Events" robots="noindex, follow">
   <main>
-    <section class="section">
-      <div class="container">
-        <h1>Privacy Policy</h1>
+    <!-- Hero -->
+    <section data-navbar-theme="dark" class="relative h-[40vh] min-h-[280px] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal"></div>
+      <div class="relative z-10 text-center px-6 mt-12">
+        <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">Informativa</p>
+        <h1 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-light text-white leading-[1.15]">Privacy Policy</h1>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section data-navbar-theme="light" class="py-16 px-6">
+      <div class="max-w-[760px] mx-auto prose-privacy">
+
+        <p class="meta">Ultimo aggiornamento: febbraio 2026</p>
+
+        <h2>1. Titolare del trattamento</h2>
+        <p>
+          Il titolare del trattamento dei dati personali è <strong>Gaia Events di Gaia Crognale</strong>, con sede a Roma, Italia.<br />
+          Email di contatto: <a href="mailto:info@gaiaevents.it">info@gaiaevents.it</a>
+        </p>
+
+        <h2>2. Tipi di dati raccolti</h2>
+        <p>Il sito <strong>gaiaevents.it</strong> raccoglie le seguenti categorie di dati:</p>
+        <ul>
+          <li><strong>Dati di navigazione:</strong> indirizzo IP (anonimizzato), tipo di browser, sistema operativo, pagine visitate, orari di accesso e altre informazioni trasmesse automaticamente dal browser.</li>
+          <li><strong>Cookie:</strong> cookie tecnici necessari al funzionamento del sito e, previo consenso, cookie analitici di terze parti (Google Analytics). Per maggiori dettagli consulta la <a href="/cookie">Cookie Policy</a>.</li>
+          <li><strong>Dati forniti volontariamente:</strong> nome, email, numero di telefono e altre informazioni inserite dall'utente nei form di contatto e preventivo.</li>
+        </ul>
+
+        <h2>3. Finalit&agrave; del trattamento</h2>
+        <p>I dati personali sono trattati per le seguenti finalit&agrave;:</p>
+        <ul>
+          <li><strong>Funzionamento del sito:</strong> garantire la corretta navigazione, la sicurezza e le funzionalit&agrave; tecniche del sito.</li>
+          <li><strong>Analisi statistiche anonime:</strong> comprendere come gli utenti utilizzano il sito per migliorarne contenuti e prestazioni (solo con consenso).</li>
+          <li><strong>Risposta a richieste:</strong> gestire richieste di preventivo, informazioni e contatto inviate tramite i form del sito.</li>
+        </ul>
+
+        <h2>4. Base giuridica del trattamento</h2>
+        <ul>
+          <li><strong>Consenso</strong> (art. 6.1.a GDPR): per l'installazione di cookie analitici (Google Analytics).</li>
+          <li><strong>Legittimo interesse</strong> (art. 6.1.f GDPR): per i cookie tecnici necessari al funzionamento del sito.</li>
+          <li><strong>Esecuzione di misure precontrattuali</strong> (art. 6.1.b GDPR): per la gestione delle richieste di preventivo e contatto.</li>
+        </ul>
+
+        <h2>5. Servizi di terze parti</h2>
+        <p>Il sito si avvale dei seguenti servizi esterni che possono trattare dati personali:</p>
+
+        <h3>Google Analytics (Google LLC)</h3>
+        <p>
+          Servizio di analisi web che utilizza cookie per raccogliere dati statistici anonimi sull'utilizzo del sito.
+          I dati sono trattati con IP anonimizzato. Attivato solo previo consenso dell'utente.<br />
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy di Google</a>
+        </p>
+
+        <h3>Web3Forms</h3>
+        <p>
+          Servizio utilizzato per la gestione dei form di contatto e preventivo. I dati inseriti nei form (nome, email, telefono, dettagli richiesta) vengono inviati tramite Web3Forms ai nostri recapiti email.<br />
+          <a href="https://web3forms.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy di Web3Forms</a>
+        </p>
+
+        <h3>Sanity CMS</h3>
+        <p>
+          Sistema di gestione contenuti (Content Management System) utilizzato per gestire i contenuti del sito. Sanity non raccoglie dati personali dei visitatori del sito.<br />
+          <a href="https://www.sanity.io/legal/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy di Sanity</a>
+        </p>
+
+        <h3>Vercel</h3>
+        <p>
+          Piattaforma di hosting utilizzata per pubblicare il sito. Vercel pu&ograve; raccogliere dati tecnici di navigazione (log del server).<br />
+          <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy di Vercel</a>
+        </p>
+
+        <h2>6. Conservazione dei dati</h2>
+        <p>
+          I dati personali forniti tramite i form sono conservati per il tempo necessario a gestire la richiesta e, successivamente, per il periodo previsto dagli obblighi di legge. I dati di navigazione e i cookie analitici sono conservati in forma anonima per un massimo di 26 mesi.
+        </p>
+
+        <h2>7. Trasferimento dei dati</h2>
+        <p>
+          Alcuni servizi di terze parti (Google Analytics, Vercel) possono comportare il trasferimento di dati verso paesi extra-UE (Stati Uniti). Tali trasferimenti avvengono sulla base di garanzie adeguate, incluse le Clausole Contrattuali Standard approvate dalla Commissione Europea.
+        </p>
+
+        <h2>8. Diritti dell'utente</h2>
+        <p>Ai sensi degli articoli 15-22 del GDPR, l'utente ha diritto di:</p>
+        <ul>
+          <li><strong>Accesso:</strong> ottenere conferma dell'esistenza di un trattamento e accedere ai propri dati.</li>
+          <li><strong>Rettifica:</strong> richiedere la correzione di dati inesatti o incompleti.</li>
+          <li><strong>Cancellazione:</strong> richiedere la cancellazione dei propri dati personali.</li>
+          <li><strong>Limitazione:</strong> richiedere la limitazione del trattamento.</li>
+          <li><strong>Portabilit&agrave;:</strong> ricevere i propri dati in un formato strutturato e leggibile.</li>
+          <li><strong>Opposizione:</strong> opporsi al trattamento per motivi legittimi.</li>
+          <li><strong>Revoca del consenso:</strong> revocare in qualsiasi momento il consenso prestato per i cookie analitici tramite il pannello di gestione cookie del sito.</li>
+        </ul>
+        <p>
+          Per esercitare i propri diritti, l'utente pu&ograve; contattare il titolare all'indirizzo email <a href="mailto:info@gaiaevents.it">info@gaiaevents.it</a>.
+        </p>
+        <p>
+          L'utente ha inoltre il diritto di proporre reclamo al <strong>Garante per la protezione dei dati personali</strong> (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener noreferrer">www.garanteprivacy.it</a>).
+        </p>
+
+        <h2>9. Modifiche alla presente informativa</h2>
+        <p>
+          Il titolare si riserva il diritto di apportare modifiche alla presente informativa in qualsiasi momento. Le modifiche saranno pubblicate su questa pagina con indicazione della data di ultimo aggiornamento.
+        </p>
+
       </div>
     </section>
   </main>
 </BaseLayout>
+
+<style>
+  .prose-privacy {
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+  .prose-privacy .meta {
+    font-size: 0.8rem;
+    color: rgba(45, 45, 45, 0.45);
+    margin-bottom: 2.5rem;
+  }
+  .prose-privacy h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #2D2D2D;
+    margin: 2.5rem 0 0.75rem;
+  }
+  .prose-privacy h3 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2D2D2D;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .prose-privacy p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(45, 45, 45, 0.65);
+    margin-bottom: 1rem;
+  }
+  .prose-privacy ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+  }
+  .prose-privacy ul li {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(45, 45, 45, 0.65);
+    padding-left: 1.25rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .prose-privacy ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #C9A962;
+  }
+  .prose-privacy a {
+    color: #C9A962;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .prose-privacy a:hover {
+    color: #722F37;
+  }
+  .prose-privacy strong {
+    font-weight: 500;
+    color: rgba(45, 45, 45, 0.8);
+  }
+</style>

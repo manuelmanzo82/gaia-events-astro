@@ -1,0 +1,183 @@
+---
+// CookieBanner.astro — GDPR cookie consent banner
+// Renders entirely client-side via <script is:inline>
+---
+
+<!-- Cookie Banner -->
+<div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-[9999] translate-y-full transition-transform duration-500" style="display:none;">
+  <div class="bg-[#1a1a1a] border-t border-white/10 px-6 py-5 md:py-6">
+    <div class="max-w-[1050px] mx-auto">
+      <!-- Main bar -->
+      <div id="cb-main" class="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+        <p class="font-sans text-[0.85rem] font-light text-[#FAF8F5]/80 leading-relaxed flex-1">
+          Questo sito utilizza cookie tecnici e, con il tuo consenso, cookie di analisi per migliorare la tua esperienza.
+          <a href="/cookie" class="text-[#C9A962] underline underline-offset-2 hover:text-white transition-colors">Maggiori informazioni</a>
+        </p>
+        <div class="flex flex-wrap items-center gap-3">
+          <button id="cb-accept" class="font-sans text-[0.7rem] tracking-[0.15em] uppercase px-6 py-2.5 bg-[#C9A962] text-[#1a1a1a] font-medium hover:bg-[#d4b872] transition-colors duration-300 rounded-[2px]">
+            Accetta tutti
+          </button>
+          <button id="cb-reject" class="font-sans text-[0.7rem] tracking-[0.15em] uppercase px-6 py-2.5 border border-[#FAF8F5]/40 text-[#FAF8F5]/80 hover:border-white hover:text-white transition-colors duration-300 rounded-[2px]">
+            Solo necessari
+          </button>
+          <button id="cb-customize" class="font-sans text-[0.75rem] text-[#FAF8F5]/60 underline underline-offset-2 hover:text-[#FAF8F5] transition-colors duration-300 px-2 py-1">
+            Personalizza
+          </button>
+        </div>
+      </div>
+
+      <!-- Customize panel (hidden by default) -->
+      <div id="cb-panel" class="hidden mt-6 pt-6 border-t border-white/10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-[600px]">
+          <!-- Technical cookies -->
+          <div class="flex items-start gap-3">
+            <div class="mt-0.5">
+              <div class="w-10 h-5 bg-[#C9A962] rounded-full relative cursor-not-allowed">
+                <div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full"></div>
+              </div>
+            </div>
+            <div>
+              <p class="font-sans text-[0.8rem] font-medium text-[#FAF8F5]">Cookie tecnici</p>
+              <p class="font-sans text-[0.7rem] text-[#FAF8F5]/50 mt-0.5">Sempre attivi — necessari per il funzionamento del sito</p>
+            </div>
+          </div>
+
+          <!-- Analytics cookies -->
+          <div class="flex items-start gap-3">
+            <div class="mt-0.5">
+              <button id="cb-toggle-analytics" class="w-10 h-5 bg-white/20 rounded-full relative transition-colors duration-300 cursor-pointer" role="switch" aria-checked="false" aria-label="Cookie analitici">
+                <div id="cb-toggle-dot" class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-all duration-300"></div>
+              </button>
+            </div>
+            <div>
+              <p class="font-sans text-[0.8rem] font-medium text-[#FAF8F5]">Cookie analitici</p>
+              <p class="font-sans text-[0.7rem] text-[#FAF8F5]/50 mt-0.5">Google Analytics — statistiche anonime di navigazione</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button id="cb-save" class="font-sans text-[0.7rem] tracking-[0.15em] uppercase px-6 py-2.5 bg-[#C9A962] text-[#1a1a1a] font-medium hover:bg-[#d4b872] transition-colors duration-300 rounded-[2px]">
+            Salva preferenze
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reopen preferences button (bottom-left) -->
+<button
+  id="cookie-settings-btn"
+  class="fixed bottom-4 left-4 z-[9998] w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/15 flex items-center justify-center text-[#C9A962] hover:bg-[#2a2a2a] transition-colors duration-300 shadow-lg"
+  style="display:none;"
+  aria-label="Impostazioni cookie"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/>
+    <path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/>
+    <path d="M11 17v.01"/><path d="M7 14v.01"/>
+  </svg>
+</button>
+
+<script is:inline>
+(function() {
+  var STORAGE_KEY = 'gaia-cookie-consent';
+  var banner = document.getElementById('cookie-banner');
+  var settingsBtn = document.getElementById('cookie-settings-btn');
+  var mainBar = document.getElementById('cb-main');
+  var panel = document.getElementById('cb-panel');
+  var toggleBtn = document.getElementById('cb-toggle-analytics');
+  var toggleDot = document.getElementById('cb-toggle-dot');
+  var analyticsOn = false;
+
+  function getConsent() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch(e) { return null; }
+  }
+
+  function saveConsent(analytics) {
+    var consent = { analytics: !!analytics, timestamp: new Date().toISOString() };
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(consent)); } catch(e) {}
+    hideBanner();
+    settingsBtn.style.display = 'flex';
+    if (consent.analytics) loadGA();
+  }
+
+  function showBanner() {
+    banner.style.display = '';
+    // Force reflow then animate in
+    banner.offsetHeight;
+    banner.classList.remove('translate-y-full');
+    banner.classList.add('translate-y-0');
+  }
+
+  function hideBanner() {
+    banner.classList.remove('translate-y-0');
+    banner.classList.add('translate-y-full');
+    setTimeout(function() { banner.style.display = 'none'; }, 500);
+    // Reset panel
+    panel.classList.add('hidden');
+    analyticsOn = false;
+    updateToggle();
+  }
+
+  function updateToggle() {
+    if (analyticsOn) {
+      toggleBtn.setAttribute('aria-checked', 'true');
+      toggleBtn.style.backgroundColor = '#C9A962';
+      toggleDot.style.left = 'auto';
+      toggleDot.style.right = '2px';
+      toggleDot.style.left = '';
+    } else {
+      toggleBtn.setAttribute('aria-checked', 'false');
+      toggleBtn.style.backgroundColor = 'rgba(255,255,255,0.2)';
+      toggleDot.style.right = '';
+      toggleDot.style.left = '2px';
+    }
+  }
+
+  function loadGA() {
+    if (document.getElementById('ga-script')) return;
+    var s = document.createElement('script');
+    s.id = 'ga-script';
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX';
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+  }
+
+  // Button handlers
+  document.getElementById('cb-accept').addEventListener('click', function() { saveConsent(true); });
+  document.getElementById('cb-reject').addEventListener('click', function() { saveConsent(false); });
+  document.getElementById('cb-customize').addEventListener('click', function() {
+    panel.classList.toggle('hidden');
+  });
+  document.getElementById('cb-save').addEventListener('click', function() { saveConsent(analyticsOn); });
+  toggleBtn.addEventListener('click', function() {
+    analyticsOn = !analyticsOn;
+    updateToggle();
+  });
+  settingsBtn.addEventListener('click', function() {
+    var consent = getConsent();
+    if (consent) { analyticsOn = consent.analytics; updateToggle(); }
+    panel.classList.remove('hidden');
+    showBanner();
+    settingsBtn.style.display = 'none';
+  });
+
+  // Init
+  var existing = getConsent();
+  if (existing) {
+    settingsBtn.style.display = 'flex';
+    if (existing.analytics) loadGA();
+  } else {
+    showBanner();
+  }
+})();
+</script>

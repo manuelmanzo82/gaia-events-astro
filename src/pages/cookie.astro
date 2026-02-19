@@ -2,12 +2,224 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Cookie Policy" robots="noindex, follow">
+<BaseLayout title="Cookie Policy | Gaia Events" robots="noindex, follow">
   <main>
-    <section class="section">
-      <div class="container">
-        <h1>Cookie Policy</h1>
+    <!-- Hero -->
+    <section data-navbar-theme="dark" class="relative h-[40vh] min-h-[280px] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 bg-charcoal"></div>
+      <div class="relative z-10 text-center px-6 mt-12">
+        <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">Informativa</p>
+        <h1 class="font-serif text-[clamp(2rem,5vw,3.5rem)] font-light text-white leading-[1.15]">Cookie Policy</h1>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section data-navbar-theme="light" class="py-16 px-6">
+      <div class="max-w-[760px] mx-auto prose-cookie">
+
+        <p class="meta">Ultimo aggiornamento: febbraio 2026</p>
+
+        <h2>1. Cosa sono i cookie</h2>
+        <p>
+          I cookie sono piccoli file di testo che i siti web visitati inviano al browser dell'utente, dove vengono memorizzati per essere ritrasmessi agli stessi siti alla visita successiva. I cookie sono utilizzati per diverse finalit&agrave;, come permettere la navigazione efficiente tra le pagine, ricordare le preferenze dell'utente e, in generale, migliorare l'esperienza di navigazione.
+        </p>
+
+        <h2>2. Cookie tecnici (necessari)</h2>
+        <p>
+          Questi cookie sono indispensabili per il corretto funzionamento del sito e non possono essere disattivati. Non raccolgono informazioni personali identificabili.
+        </p>
+        <div class="cookie-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Cookie</th>
+                <th>Finalit&agrave;</th>
+                <th>Durata</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>gaia-cookie-consent</code></td>
+                <td>Memorizza le preferenze cookie dell'utente</td>
+                <td>12 mesi</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>3. Cookie analitici (previo consenso)</h2>
+        <p>
+          Questi cookie sono utilizzati per raccogliere informazioni statistiche anonime sull'utilizzo del sito, come il numero di visitatori, le pagine pi&ugrave; visitate e la durata delle visite. Vengono installati solo dopo aver ottenuto il consenso esplicito dell'utente tramite il banner cookie.
+        </p>
+
+        <h3>Google Analytics</h3>
+        <p>
+          Il sito utilizza Google Analytics, un servizio di analisi web fornito da Google LLC. Google Analytics utilizza i seguenti cookie:
+        </p>
+        <div class="cookie-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Cookie</th>
+                <th>Finalit&agrave;</th>
+                <th>Durata</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>_ga</code></td>
+                <td>Distingue gli utenti unici assegnando un ID generato casualmente. Utilizzato per calcolare dati su visitatori, sessioni e campagne.</td>
+                <td>24 mesi</td>
+              </tr>
+              <tr>
+                <td><code>_ga_*</code></td>
+                <td>Utilizzato da Google Analytics 4 per mantenere lo stato della sessione.</td>
+                <td>24 mesi</td>
+              </tr>
+              <tr>
+                <td><code>_gid</code></td>
+                <td>Distingue gli utenti. Utilizzato per dati statistici sulle visite giornaliere.</td>
+                <td>24 ore</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          I dati sono raccolti con indirizzo IP anonimizzato e trattati in forma aggregata. Per maggiori informazioni su come Google utilizza i dati, consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy di Google</a>.
+        </p>
+
+        <h2>4. Come gestire i cookie</h2>
+
+        <h3>Tramite il nostro sito</h3>
+        <p>
+          Puoi gestire le tue preferenze cookie in qualsiasi momento cliccando sull'icona <strong>impostazioni cookie</strong> presente in basso a sinistra su ogni pagina del sito, oppure modificando le impostazioni al primo accesso tramite il banner cookie.
+        </p>
+
+        <h3>Tramite il browser</h3>
+        <p>
+          Puoi anche gestire i cookie direttamente dalle impostazioni del tuo browser. Ecco i link alle guide dei principali browser:
+        </p>
+        <ul>
+          <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
+          <li><a href="https://support.mozilla.org/it/kb/protezione-antitracciamento-avanzata-firefox-desktop" target="_blank" rel="noopener noreferrer">Mozilla Firefox</a></li>
+          <li><a href="https://support.apple.com/it-it/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer">Apple Safari</a></li>
+          <li><a href="https://support.microsoft.com/it-it/microsoft-edge/eliminare-i-cookie-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
+        </ul>
+        <p>
+          <strong>Nota:</strong> la disattivazione dei cookie tecnici potrebbe compromettere alcune funzionalit&agrave; del sito.
+        </p>
+
+        <h2>5. Aggiornamenti</h2>
+        <p>
+          La presente Cookie Policy pu&ograve; essere aggiornata periodicamente. Ti consigliamo di consultare questa pagina regolarmente per essere informato su eventuali modifiche.
+        </p>
+
+        <h2>6. Riferimenti</h2>
+        <p>
+          Per informazioni complete sul trattamento dei dati personali, consulta la nostra <a href="/privacy">Privacy Policy</a>.<br />
+          Per qualsiasi domanda, contattaci all'indirizzo <a href="mailto:info@gaiaevents.it">info@gaiaevents.it</a>.
+        </p>
+
       </div>
     </section>
   </main>
 </BaseLayout>
+
+<style>
+  .prose-cookie {
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+  .prose-cookie .meta {
+    font-size: 0.8rem;
+    color: rgba(45, 45, 45, 0.45);
+    margin-bottom: 2.5rem;
+  }
+  .prose-cookie h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #2D2D2D;
+    margin: 2.5rem 0 0.75rem;
+  }
+  .prose-cookie h3 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2D2D2D;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .prose-cookie p {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(45, 45, 45, 0.65);
+    margin-bottom: 1rem;
+  }
+  .prose-cookie ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+  }
+  .prose-cookie ul li {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(45, 45, 45, 0.65);
+    padding-left: 1.25rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+  .prose-cookie ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #C9A962;
+  }
+  .prose-cookie a {
+    color: #C9A962;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .prose-cookie a:hover {
+    color: #722F37;
+  }
+  .prose-cookie strong {
+    font-weight: 500;
+    color: rgba(45, 45, 45, 0.8);
+  }
+  .prose-cookie code {
+    font-size: 0.8rem;
+    background: rgba(45, 45, 45, 0.06);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    color: #722F37;
+  }
+  .cookie-table {
+    margin: 1rem 0 1.5rem;
+    overflow-x: auto;
+  }
+  .cookie-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+  }
+  .cookie-table th {
+    text-align: left;
+    font-weight: 500;
+    color: #2D2D2D;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid #C9A962;
+    white-space: nowrap;
+  }
+  .cookie-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(45, 45, 45, 0.08);
+    color: rgba(45, 45, 45, 0.65);
+    font-weight: 300;
+  }
+</style>
