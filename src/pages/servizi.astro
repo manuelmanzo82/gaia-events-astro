@@ -1,7 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { sanityClient } from '../lib/sanity';
+import { impostazioniQuery, serviziQuery } from '../lib/queries';
 
-const services = [
+let impostazioni: any = null;
+try {
+  impostazioni = await sanityClient.fetch(impostazioniQuery);
+} catch (e) {}
+
+let serviziData: any[] = [];
+try {
+  serviziData = await sanityClient.fetch(serviziQuery);
+} catch (e) {}
+
+const sp = impostazioni?.paginaServizi;
+
+const defaultServices = [
   {
     eyebrow: 'Full Service',
     title: 'Wedding Planning Completo',
@@ -18,6 +32,7 @@ const services = [
     ],
     icon: 'calendar',
     link: '/contatti?servizio=planning',
+    image: null as string | null,
   },
   {
     eyebrow: 'Day-of',
@@ -34,6 +49,7 @@ const services = [
     ],
     icon: 'users',
     link: '/contatti?servizio=coordinamento',
+    image: null as string | null,
   },
   {
     eyebrow: 'Creative',
@@ -50,6 +66,7 @@ const services = [
     ],
     icon: 'palette',
     link: '/contatti?servizio=design',
+    image: null as string | null,
   },
   {
     eyebrow: 'Worldwide',
@@ -66,8 +83,21 @@ const services = [
     ],
     icon: 'plane',
     link: '/contatti?servizio=destination',
+    image: null as string | null,
   },
 ];
+
+const services = (serviziData && serviziData.length > 0)
+  ? serviziData.map((s: any) => ({
+      eyebrow: s.sottotitolo || '',
+      title: s.titolo,
+      description: s.descrizione || '',
+      features: s.caratteristiche || [],
+      icon: s.icona || 'heart',
+      link: `/contatti?servizio=${s.slug?.current || 'planning'}`,
+      image: s.immagine || null,
+    }))
+  : defaultServices;
 ---
 
 <BaseLayout title="Servizi" description="I servizi di Gaia Events: Wedding Planning, Coordinamento, Design & Styling, Destination Wedding.">
@@ -75,16 +105,20 @@ const services = [
     <!-- Hero -->
     <section data-navbar-theme="dark" class="relative h-[55vh] min-h-[380px] flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 bg-charcoal">
-        <div class="absolute inset-0 flex items-center justify-center">
-          <span class="text-white/10 text-xl tracking-widest uppercase select-none">Hero Background Image</span>
-        </div>
+        {sp?.heroImmagine ? (
+          <img src={sp.heroImmagine} alt="" class="absolute inset-0 w-full h-full object-cover" />
+        ) : (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-white/10 text-xl tracking-widest uppercase select-none">Hero Background Image</span>
+          </div>
+        )}
       </div>
       <div class="absolute inset-0 bg-gradient-to-b from-charcoal/50 to-charcoal/70"></div>
       <div class="relative z-10 text-center px-6 mt-12">
         <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">Servizi</p>
-        <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15] mb-4">I Miei Servizi</h1>
+        <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15] mb-4">{sp?.heroTitolo || 'I Miei Servizi'}</h1>
         <p class="font-sans text-[0.95rem] font-light text-white/80 max-w-[28rem] mx-auto">
-          Soluzioni su misura per ogni esigenza
+          {sp?.heroSottotitolo || 'Soluzioni su misura per ogni esigenza'}
         </p>
       </div>
     </section>
@@ -96,22 +130,24 @@ const services = [
           Ogni coppia è unica
         </h2>
         <p class="fade-in text-[1.05rem] font-light leading-[1.85] text-charcoal/60">
-          Scoprite i servizi pensati per accompagnarvi verso il giorno più bello della vostra vita.
-          Che desideriate un supporto completo o solo una guida esperta per il grande giorno,
-          troveremo insieme la soluzione perfetta per voi.
+          {sp?.introTesto || 'Scoprite i servizi pensati per accompagnarvi verso il giorno più bello della vostra vita. Che desideriate un supporto completo o solo una guida esperta per il grande giorno, troveremo insieme la soluzione perfetta per voi.'}
         </p>
       </div>
     </section>
 
     <!-- Services -->
-    {services.map((service, i) => (
+    {services.map((service: any, i: number) => (
       <>
         <section data-navbar-theme="light" class={`py-20 px-6 ${i % 2 === 0 ? '' : 'bg-beige'}`}>
           <div class={`fade-in max-w-[1050px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center ${i % 2 !== 0 ? 'direction-rtl' : ''}`}>
             {/* Image */}
             <div class={`relative ${i % 2 !== 0 ? 'lg:order-2' : ''}`}>
               <div class="aspect-[4/3] bg-beige rounded-[3px] flex items-center justify-center overflow-hidden">
-                <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">{service.title} Photo</span>
+                {service.image ? (
+                  <img src={service.image} alt={service.title} class="w-full h-full object-cover" />
+                ) : (
+                  <span class="text-charcoal/15 text-sm tracking-widest uppercase select-none">{service.title} Photo</span>
+                )}
               </div>
             </div>
 
@@ -148,6 +184,16 @@ const services = [
                     <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
                   </svg>
                 )}
+                {service.icon === 'heart' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                  </svg>
+                )}
+                {!['calendar', 'users', 'palette', 'plane', 'heart'].includes(service.icon) && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gold">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                )}
               </div>
 
               <p class="font-sans text-[0.7rem] tracking-[0.2em] uppercase text-sage mb-3">{service.eyebrow}</p>
@@ -155,16 +201,18 @@ const services = [
               <p class="text-[0.95rem] font-light leading-[1.85] text-charcoal/60 mb-6">{service.description}</p>
 
               {/* Features list */}
-              <ul class="space-y-3 mb-8">
-                {service.features.map((feature) => (
-                  <li class="flex items-start gap-3 text-[0.9rem] text-charcoal/60">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold flex-shrink-0 mt-0.5">
-                      <path d="M20 6 9 17l-5-5" />
-                    </svg>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              {service.features.length > 0 && (
+                <ul class="space-y-3 mb-8">
+                  {service.features.map((feature: string) => (
+                    <li class="flex items-start gap-3 text-[0.9rem] text-charcoal/60">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gold flex-shrink-0 mt-0.5">
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
 
               <a
                 href={service.link}
@@ -188,8 +236,7 @@ const services = [
                 <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 .001 0 .009 0 .009A1.99 1.99 0 0 0 15 21z" />
               </svg>
               <blockquote class="font-serif text-[clamp(1.2rem,3vw,1.5rem)] font-light text-charcoal leading-[1.8] italic mb-8">
-                Il mio obiettivo è trasformare la vostra visione in realtà, curando ogni dettaglio
-                con passione e dedizione per creare un giorno che superi ogni aspettativa.
+                &ldquo;{sp?.citazione || 'Il mio obiettivo è trasformare la vostra visione in realtà, curando ogni dettaglio con passione e dedizione per creare un giorno che superi ogni aspettativa.'}&rdquo;
               </blockquote>
               <div class="w-12 h-px bg-gold mx-auto mb-4"></div>
               <p class="font-sans text-[0.85rem] tracking-[0.08em] text-charcoal/60">— Gaia</p>

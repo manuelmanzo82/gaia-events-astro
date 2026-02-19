@@ -1,5 +1,10 @@
 ---
-const services = [
+interface Props {
+  servizi?: { titolo: string; descrizione: string; icona: string; slug?: any }[];
+}
+const { servizi } = Astro.props;
+
+const defaultServices = [
   {
     title: 'Wedding Planning',
     description: 'Dalla proposta al "Sì, lo voglio". Mi occupo di ogni dettaglio per rendere il tuo matrimonio un evento perfetto e indimenticabile.',
@@ -19,6 +24,15 @@ const services = [
     link: '/servizi',
   },
 ];
+
+const services = (servizi && servizi.length > 0)
+  ? servizi.slice(0, 3).map(s => ({
+      title: s.titolo,
+      description: s.descrizione,
+      icon: s.icona || 'heart',
+      link: '/servizi',
+    }))
+  : defaultServices;
 ---
 
 <section data-navbar-theme="light" class="py-20 px-6 bg-beige">

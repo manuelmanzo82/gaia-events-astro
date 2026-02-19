@@ -1,5 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { sanityClient } from '../lib/sanity';
+import { impostazioniQuery } from '../lib/queries';
+
+let impostazioni: any = null;
+try {
+  impostazioni = await sanityClient.fetch(impostazioniQuery);
+} catch (e) {}
+
+const pc = impostazioni?.paginaContatti;
+const email = impostazioni?.email || 'gaiacrognale@gmail.com';
+const telefono = impostazioni?.telefono || '327 3855362';
+const telefonoClean = telefono.replace(/\s/g, '');
 ---
 
 <BaseLayout title="Contatti" description="Contatta Gaia Events per organizzare il tuo matrimonio o evento speciale a Roma.">
@@ -7,16 +19,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <!-- Hero -->
     <section data-navbar-theme="dark" class="relative h-[55vh] min-h-[350px] flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0 bg-charcoal">
-        <div class="absolute inset-0 flex items-center justify-center">
-          <span class="text-white/10 text-xl tracking-widest uppercase select-none">Hero Background Image</span>
-        </div>
+        {pc?.heroImmagine ? (
+          <img src={pc.heroImmagine} alt="" class="absolute inset-0 w-full h-full object-cover" />
+        ) : (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-white/10 text-xl tracking-widest uppercase select-none">Hero Background Image</span>
+          </div>
+        )}
       </div>
       <div class="absolute inset-0 bg-gradient-to-b from-charcoal/50 to-charcoal/70"></div>
       <div class="relative z-10 text-center px-6 mt-12">
         <p class="font-sans text-[0.8rem] tracking-[0.35em] uppercase text-gold mb-5">Contatti</p>
-        <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15] mb-4">Iniziamo a Conoscerci</h1>
+        <h1 class="text-[clamp(2.2rem,6vw,4rem)] font-light text-white leading-[1.15] mb-4">{pc?.heroTitolo || 'Iniziamo a Conoscerci'}</h1>
         <p class="font-sans text-[0.95rem] font-light text-white/80 max-w-[28rem] mx-auto">
-          Sono qui per ascoltare i vostri sogni e trasformarli in realtà
+          {pc?.heroSottotitolo || 'Sono qui per ascoltare i vostri sogni e trasformarli in realtà'}
         </p>
       </div>
     </section>
@@ -42,7 +58,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </div>
               <div>
                 <p class="font-sans text-[0.7rem] tracking-[0.12em] uppercase text-charcoal/50 mb-1">Email</p>
-                <a href="mailto:gaiacrognale@gmail.com" class="text-[0.95rem] text-charcoal hover:text-gold transition-colors">gaiacrognale@gmail.com</a>
+                <a href={`mailto:${email}`} class="text-[0.95rem] text-charcoal hover:text-gold transition-colors">{email}</a>
               </div>
             </div>
 
@@ -55,7 +71,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </div>
               <div>
                 <p class="font-sans text-[0.7rem] tracking-[0.12em] uppercase text-charcoal/50 mb-1">Telefono</p>
-                <a href="tel:+393273855362" class="text-[0.95rem] text-charcoal hover:text-gold transition-colors">327 3855362</a>
+                <a href={`tel:+39${telefonoClean}`} class="text-[0.95rem] text-charcoal hover:text-gold transition-colors">{telefono}</a>
               </div>
             </div>
 
@@ -68,7 +84,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               </div>
               <div>
                 <p class="font-sans text-[0.7rem] tracking-[0.12em] uppercase text-charcoal/50 mb-1">WhatsApp</p>
-                <a href="https://wa.me/393273855362" target="_blank" rel="noopener noreferrer" class="text-[0.95rem] text-charcoal hover:text-gold transition-colors">327 3855362</a>
+                <a href={`https://wa.me/39${telefonoClean}`} target="_blank" rel="noopener noreferrer" class="text-[0.95rem] text-charcoal hover:text-gold transition-colors">{telefono}</a>
               </div>
             </div>
           </div>

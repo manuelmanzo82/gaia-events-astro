@@ -8,14 +8,43 @@ import Testimonials from '../components/sections/Testimonials.astro';
 import InstagramGallery from '../components/sections/InstagramGallery.astro';
 import CtaSection from '../components/sections/CtaSection.astro';
 import { sanityClient } from '../lib/sanity';
-import { impostazioniQuery } from '../lib/queries';
+import { impostazioniQuery, serviziQuery, recensioniQuery, eventiQuery } from '../lib/queries';
 
 let impostazioni: any = null;
 try {
   impostazioni = await sanityClient.fetch(impostazioniQuery);
-} catch (e) {
-  console.error('Sanity fetch failed, using fallback values:', e);
-}
+} catch (e) {}
+
+let servizi: any[] = [];
+try {
+  servizi = await sanityClient.fetch(serviziQuery);
+} catch (e) {}
+
+let recensioni: any[] = [];
+try {
+  recensioni = await sanityClient.fetch(recensioniQuery);
+} catch (e) {}
+
+let eventi: any[] = [];
+try {
+  eventi = await sanityClient.fetch(eventiQuery);
+} catch (e) {}
+
+const portfolioItems = eventi.length > 0 ? eventi.slice(0, 5).map((e: any, i: number) => ({
+  id: i + 1,
+  title: e.titolo,
+  category: e.categoria || e.macroCategoria,
+  filter: e.macroCategoria === 'wedding' ? 'matrimoni' : e.macroCategoria === 'celebrations' ? 'destination' : e.macroCategoria,
+  location: e.location || '',
+  image: e.immagineCopertina || undefined,
+  span: i === 0,
+})) : [];
+
+const primaRecensione = recensioni.length > 0 ? {
+  testo: recensioni[0].testo,
+  autore: recensioni[0].autore,
+  valutazione: recensioni[0].valutazione,
+} : undefined;
 ---
 
 <BaseLayout
@@ -34,9 +63,9 @@ try {
       testoPrincipale={impostazioni?.chiSono?.testoPrincipale}
       testoLink={impostazioni?.chiSono?.testoLink}
     />
-    <Services />
-    <PortfolioPreview client:visible />
-    <Testimonials />
+    <Services servizi={servizi} />
+    <PortfolioPreview client:visible items={portfolioItems} />
+    <Testimonials recensione={primaRecensione} />
     <InstagramGallery />
     <CtaSection />
   </main>

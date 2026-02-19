@@ -6,10 +6,15 @@ interface PortfolioItem {
   category: string;
   filter: string;
   location: string;
+  image?: string;
   span: boolean;
 }
 
-const items: PortfolioItem[] = [
+interface PortfolioPreviewProps {
+  items?: PortfolioItem[];
+}
+
+const defaultItems: PortfolioItem[] = [
   { id: 1, title: 'Sara & Marco', category: 'Matrimonio', filter: 'matrimoni', location: 'Villa Cetinale, Toscana', span: true },
   { id: 2, title: 'Corporate Gala', category: 'Corporate', filter: 'corporate', location: 'Palazzo Brancaccio, Roma', span: false },
   { id: 3, title: 'Giulia & Alessandro', category: 'Destination', filter: 'destination', location: 'Borgo Egnazia, Puglia', span: false },
@@ -24,12 +29,14 @@ const filters = [
   { label: 'Destination', value: 'destination' },
 ];
 
-export default function PortfolioPreview() {
+export default function PortfolioPreview({ items: propsItems }: PortfolioPreviewProps) {
   const [activeFilter, setActiveFilter] = useState('tutti');
 
+  const allItems = (propsItems && propsItems.length > 0) ? propsItems : defaultItems;
+
   const filtered = activeFilter === 'tutti'
-    ? items
-    : items.filter((item) => item.filter === activeFilter);
+    ? allItems
+    : allItems.filter((item) => item.filter === activeFilter);
 
   return (
     <section data-navbar-theme="light" className="py-20 px-6">
@@ -72,12 +79,16 @@ export default function PortfolioPreview() {
               item.span ? 'row-span-2' : ''
             }`}
           >
-            {/* Placeholder Background */}
-            <div className="absolute inset-0 bg-beige flex items-center justify-center">
-              <span className="text-charcoal/15 text-sm tracking-widest uppercase select-none">
-                {item.title}
-              </span>
-            </div>
+            {/* Background */}
+            {item.image ? (
+              <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
+            ) : (
+              <div className="absolute inset-0 bg-beige flex items-center justify-center">
+                <span className="text-charcoal/15 text-sm tracking-widest uppercase select-none">
+                  {item.title}
+                </span>
+              </div>
+            )}
 
             {/* Hover Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

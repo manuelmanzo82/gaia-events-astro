@@ -222,6 +222,19 @@ export default defineType({
         }),
       ],
     }),
+
+    // ── Pagina Contatti ──
+    defineField({
+      name: 'paginaContatti',
+      title: 'Pagina Contatti',
+      type: 'object',
+      group: 'contatti',
+      fields: [
+        defineField({name: 'heroImmagine', title: 'Hero Immagine', type: 'image', options: {hotspot: true}}),
+        defineField({name: 'heroTitolo', title: 'Hero Titolo', type: 'string'}),
+        defineField({name: 'heroSottotitolo', title: 'Hero Sottotitolo', type: 'string'}),
+      ],
+    }),
   ],
   preview: {
     select: {title: 'nomeSito', media: 'logo'},

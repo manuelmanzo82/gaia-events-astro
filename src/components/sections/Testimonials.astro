@@ -1,5 +1,19 @@
 ---
+interface Props {
+  recensione?: {
+    testo: string;
+    autore: string;
+    valutazione?: number;
+  };
+}
+const { recensione } = Astro.props;
 
+const t = recensione || {
+  testo: 'Gaia ha trasformato il nostro sogno in realtà. Ogni dettaglio era perfetto, esattamente come lo avevamo immaginato.',
+  autore: 'Francesca & Luca',
+  valutazione: 5,
+};
+const stars = t.valutazione || 5;
 ---
 
 <section data-navbar-theme="light" class="py-20 px-6 bg-beige">
@@ -9,7 +23,7 @@
 
     <!-- Stars -->
     <div class="flex items-center justify-center gap-1 mb-8">
-      {Array.from({ length: 5 }).map(() => (
+      {Array.from({ length: stars }).map(() => (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="text-gold">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
         </svg>
@@ -18,13 +32,12 @@
 
     <!-- Quote -->
     <blockquote class="font-serif text-[clamp(1.2rem,3vw,1.6rem)] font-light text-charcoal leading-[1.7] italic mb-8">
-      &ldquo;Gaia ha trasformato il nostro sogno in realtà. Ogni dettaglio era perfetto,
-      esattamente come lo avevamo immaginato.&rdquo;
+      &ldquo;{t.testo}&rdquo;
     </blockquote>
 
     <!-- Attribution -->
     <p class="font-sans text-[0.85rem] tracking-[0.08em] text-charcoal/70">
-      — Francesca & Luca
+      — {t.autore}
     </p>
 
     <!-- Link -->

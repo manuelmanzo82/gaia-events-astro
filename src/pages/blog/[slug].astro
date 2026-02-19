@@ -1,20 +1,65 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sanityClient } from '../../lib/sanity';
 import { blogArticles, formatDate } from '../../data/blog-articles';
 import type { BlogArticle } from '../../data/blog-articles';
+import PortableTextRenderer from '../../components/PortableTextRenderer';
 
-export function getStaticPaths() {
-  return blogArticles.map((a) => ({
-    params: { slug: a.slug },
-    props: { article: a },
+export async function getStaticPaths() {
+  // Fetch Sanity articles with full content
+  let sanityArticles: any[] = [];
+  try {
+    sanityArticles = await sanityClient.fetch(`*[_type == "articoloBlog" && attivo == true] | order(dataPubblicazione desc){
+      _id, titolo, "slug": slug.current, metaDescrizione, estratto, categoria,
+      dataPubblicazione, tempoLettura, "immagineCopertina": immagineCopertina.asset->url,
+      contenuto
+    }`);
+  } catch (e) {}
+
+  // Normalize Sanity articles
+  const sanityNorm = sanityArticles.map((a: any) => ({
+    slug: a.slug,
+    title: a.titolo,
+    metaDescription: a.metaDescrizione || '',
+    excerpt: a.estratto || '',
+    category: a.categoria || '',
+    date: a.dataPubblicazione,
+    readTime: a.tempoLettura || '5 min',
+    content: a.contenuto,
+    image: a.immagineCopertina || null,
+    source: 'sanity' as const,
+  }));
+
+  // Normalize local articles
+  const localNorm = blogArticles.map((a) => ({
+    slug: a.slug,
+    title: a.title,
+    metaDescription: a.metaDescription,
+    excerpt: a.excerpt,
+    category: a.category,
+    date: a.date,
+    readTime: a.readTime,
+    content: a.content,
+    image: null as string | null,
+    source: 'local' as const,
+  }));
+
+  // Merge: Sanity takes priority for same slug
+  const sanitySlugSet = new Set(sanityNorm.map((a) => a.slug));
+  const allArticles = [...sanityNorm, ...localNorm.filter((a) => !sanitySlugSet.has(a.slug))];
+
+  return allArticles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article, allArticles },
   }));
 }
 
-const { article } = Astro.props as { article: BlogArticle };
+const { article, allArticles } = Astro.props as { article: any; allArticles: any[] };
+const isSanity = article.source === 'sanity';
 
-const related = blogArticles
-  .filter((a) => a.slug !== article.slug)
-  .sort((a, b) => {
+const related = allArticles
+  .filter((a: any) => a.slug !== article.slug)
+  .sort((a: any, b: any) => {
     const aMatch = a.category === article.category ? 0 : 1;
     const bMatch = b.category === article.category ? 0 : 1;
     if (aMatch !== bMatch) return aMatch - bMatch;
@@ -75,9 +120,13 @@ const breadcrumbJsonLd = JSON.stringify({
     <!-- Hero -->
     <section data-navbar-theme="dark" class="relative h-[40vh] min-h-[300px] flex items-end overflow-hidden">
       <div class="absolute inset-0 bg-charcoal">
-        <div class="absolute inset-0 flex items-center justify-center">
-          <span class="text-white/10 text-xl tracking-widest uppercase select-none">Immagine Articolo</span>
-        </div>
+        {article.image ? (
+          <img src={article.image} alt={article.title} class="absolute inset-0 w-full h-full object-cover" />
+        ) : (
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span class="text-white/10 text-xl tracking-widest uppercase select-none">Immagine Articolo</span>
+          </div>
+        )}
       </div>
       <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-charcoal/20"></div>
       <div class="relative z-10 w-full max-w-[720px] mx-auto px-6 pb-10">
@@ -121,8 +170,15 @@ const breadcrumbJsonLd = JSON.stringify({
           [&>p]:mb-5
           [&_a]:text-gold [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-gold/30 [&_a:hover]:decoration-gold [&_a]:transition-colors
           [&>p>em]:text-charcoal/70
+          [&_h2]:font-serif [&_h2]:text-[clamp(1.4rem,3vw,1.8rem)] [&_h2]:font-normal [&_h2]:text-charcoal [&_h2]:mt-12 [&_h2]:mb-5 [&_h2]:leading-[1.3]
+          [&_h3]:font-serif [&_h3]:text-[1.2rem] [&_h3]:font-normal [&_h3]:text-charcoal [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:leading-[1.4]
+          [&_p]:mb-5
         ">
-          <Fragment set:html={article.content} />
+          {isSanity ? (
+            <PortableTextRenderer content={article.content} />
+          ) : (
+            <Fragment set:html={article.content} />
+          )}
         </div>
 
         <!-- Author -->
@@ -146,12 +202,16 @@ const breadcrumbJsonLd = JSON.stringify({
           <h2 class="font-serif text-[clamp(1.6rem,3.5vw,2.2rem)] font-normal text-charcoal">Ti Potrebbe Interessare</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {related.map((r) => (
+          {related.map((r: any) => (
             <a href={`/blog/${r.slug}`} class="group fade-in">
               <div class="aspect-[16/10] bg-ivory rounded-[3px] overflow-hidden mb-5 relative">
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <span class="text-charcoal/10 text-sm tracking-widest uppercase select-none">Immagine</span>
-                </div>
+                {r.image ? (
+                  <img src={r.image} alt={r.title} class="absolute inset-0 w-full h-full object-cover" />
+                ) : (
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-charcoal/10 text-sm tracking-widest uppercase select-none">Immagine</span>
+                  </div>
+                )}
               </div>
               <span class="font-sans text-[0.65rem] tracking-[0.18em] uppercase text-gold font-medium">{r.category}</span>
               <h3 class="font-serif text-[1.05rem] font-normal text-charcoal leading-[1.4] mt-2 mb-2 group-hover:text-bordeaux transition-colors duration-300">

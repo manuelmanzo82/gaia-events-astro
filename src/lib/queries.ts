@@ -49,6 +49,11 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
     wedding { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url },
     corporate { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url },
     celebrations { titolo, descrizione, "immagineCopertina": immagineCopertina.asset->url }
+  },
+  paginaContatti {
+    "heroImmagine": heroImmagine.asset->url,
+    heroTitolo,
+    heroSottotitolo
   }
 }`;
 
@@ -94,4 +99,33 @@ export const serviziQuery = `*[_type == "servizio" && attivo == true] | order(or
   caratteristiche,
   icona,
   "immagine": immagine.asset->url
+}`;
+
+export const articoliBlogQuery = `*[_type == "articoloBlog" && attivo == true] | order(dataPubblicazione desc){
+  _id,
+  titolo,
+  "slug": slug.current,
+  metaDescrizione,
+  estratto,
+  categoria,
+  dataPubblicazione,
+  tempoLettura,
+  "immagineCopertina": immagineCopertina.asset->url
+}`;
+
+export const articoloBlogBySlugQuery = `*[_type == "articoloBlog" && slug.current == $slug && attivo == true][0]{
+  _id,
+  titolo,
+  "slug": slug.current,
+  metaDescrizione,
+  estratto,
+  categoria,
+  dataPubblicazione,
+  tempoLettura,
+  "immagineCopertina": immagineCopertina.asset->url,
+  contenuto
+}`;
+
+export const articoliBlogSlugsQuery = `*[_type == "articoloBlog" && attivo == true]{
+  "slug": slug.current
 }`;
