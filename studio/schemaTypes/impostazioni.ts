@@ -67,20 +67,6 @@ export default defineType({
       ],
     }),
 
-    // ── Statistiche ──
-    defineField({
-      name: 'statistiche',
-      title: 'Statistiche',
-      type: 'object',
-      group: 'generale',
-      fields: [
-        defineField({name: 'eventiRealizzati', title: 'Eventi Realizzati', type: 'number'}),
-        defineField({name: 'anniEsperienza', title: 'Anni di Esperienza', type: 'number'}),
-        defineField({name: 'locationPartner', title: 'Location Partner', type: 'number'}),
-        defineField({name: 'fornitoriSelezionati', title: 'Fornitori Selezionati', type: 'number'}),
-      ],
-    }),
-
     // ── Homepage ──
     defineField({
       name: 'heroHomepage',

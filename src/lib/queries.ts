@@ -6,7 +6,6 @@ export const impostazioniQuery = `*[_type == "impostazioni"][0]{
   telefono,
   indirizzo,
   social { instagram, facebook, pinterest },
-  statistiche { eventiRealizzati, anniEsperienza, locationPartner, fornitoriSelezionati },
   chiSono {
     titolo,
     testoPrincipale,
