@@ -4,7 +4,7 @@
 
 <button
   id="scroll-to-top"
-  class="fixed z-[9990] bottom-5 right-4 md:bottom-6 md:right-6 w-[42px] h-[42px] md:w-12 md:h-12 rounded-full bg-[#1a1a1a]/85 flex items-center justify-center text-[#FAF8F5] hover:bg-[#2a2a2a] hover:scale-105 transition-all duration-300 shadow-lg opacity-0 pointer-events-none"
+  class="fixed z-[9990] bottom-[68px] right-4 md:bottom-20 md:right-6 w-[42px] h-[42px] md:w-12 md:h-12 rounded-full bg-[#1a1a1a]/85 flex items-center justify-center text-[#FAF8F5] hover:bg-[#2a2a2a] hover:scale-105 transition-all duration-300 shadow-lg opacity-0 pointer-events-none"
   aria-label="Torna in cima"
 >
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
@@ -18,7 +18,7 @@
     var show = window.scrollY > 400;
     if (show !== visible) {
       visible = show;
-      btn.style.opacity = show ? '1' : '0';
+      btn.style.opacity = show ? '0.75' : '0';
       btn.style.pointerEvents = show ? 'auto' : 'none';
     }
   }
@@ -26,6 +26,8 @@
   btn.addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+  btn.addEventListener('mouseenter', function() { if (visible) btn.style.opacity = '1'; });
+  btn.addEventListener('mouseleave', function() { if (visible) btn.style.opacity = '0.75'; });
   update();
 })();
 </script>
