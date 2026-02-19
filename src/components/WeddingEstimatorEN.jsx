@@ -55,27 +55,27 @@ const svcIcons = { clipboard: I.clipboard, church: I.church, flower: I.flower, u
 // ─── Price Logic ───
 const PM = {
   season: { primavera: 1.0, estate: 1.15, autunno: 0.9, inverno: 0.85 },
-  location: { roma: { b: 8000, l: "Roma" }, toscana: { b: 10000, l: "Toscana" }, costiera: { b: 12000, l: "Costiera Amalfitana" }, lago: { b: 11000, l: "Lago" }, umbria: { b: 7500, l: "Umbria" }, scelta: { b: 9000, l: "Location già scelta" }, altro: { b: 8000, l: "Altra destinazione" } },
-  guests: { intimo: { m: 0.7, l: "20–50 ospiti" }, medio: { m: 1.0, l: "50–100 ospiti" }, grande: { m: 1.4, l: "100–200 ospiti" }, gala: { m: 1.9, l: "200+ ospiti" } },
-  style: { classico: "Romantico Classico", boho: "Boho Chic", moderno: "Moderno Minimal", rustico: "Rustico Elegante", destination: "Destination Wedding" },
+  location: { roma: { b: 8000, l: "Rome" }, toscana: { b: 10000, l: "Tuscany" }, costiera: { b: 12000, l: "Amalfi Coast" }, lago: { b: 11000, l: "Lake" }, umbria: { b: 7500, l: "Umbria" }, scelta: { b: 9000, l: "Venue already chosen" }, altro: { b: 8000, l: "Other destination" } },
+  guests: { intimo: { m: 0.7, l: "20–50 guests" }, medio: { m: 1.0, l: "50–100 guests" }, grande: { m: 1.4, l: "100–200 guests" }, gala: { m: 1.9, l: "200+ guests" } },
+  style: { classico: "Romantic Classic", boho: "Boho Chic", moderno: "Modern Minimal", rustico: "Rustic Elegant", destination: "Destination Wedding" },
   services: {
-    coordinamento: { p: 5000, l: "Coordinamento Totale", i: "clipboard" },
-    cerimonia: { p: 2000, l: "Design Cerimonia", i: "church" },
+    coordinamento: { p: 5000, l: "Full Coordination", i: "clipboard" },
+    cerimonia: { p: 2000, l: "Ceremony Design", i: "church" },
     floral: { p: 3000, l: "Floral Design", i: "flower" },
-    catering: { p: 4000, l: "Catering & Banchetto", i: "utensils" },
-    musica: { p: 2500, l: "Musica & Intrattenimento", i: "music" },
-    fotovideo: { p: 3500, l: "Foto & Video", i: "camera" },
-    inviti: { p: 1500, l: "Stationery & Inviti", i: "envelope" },
+    catering: { p: 4000, l: "Catering & Banquet", i: "utensils" },
+    musica: { p: 2500, l: "Music & Entertainment", i: "music" },
+    fotovideo: { p: 3500, l: "Photo & Video", i: "camera" },
+    inviti: { p: 1500, l: "Stationery & Invitations", i: "envelope" },
     trucco: { p: 1200, l: "Hair & Makeup", i: "sparkle" },
   },
   budget: {
-    "15k": { l: "Fino a €15.000", max: 15000 },
-    "25k": { l: "€15.000 – €25.000", max: 25000 },
-    "40k": { l: "€25.000 – €40.000", max: 40000 },
-    "60k": { l: "€40.000 – €60.000", max: 60000 },
-    "80k": { l: "€60.000 – €80.000", max: 80000 },
-    "100k+": { l: "Oltre €100.000", max: null },
-    "open": { l: "Da definire insieme", max: null },
+    "15k": { l: "Up to €15,000", max: 15000 },
+    "25k": { l: "€15,000 – €25,000", max: 25000 },
+    "40k": { l: "€25,000 – €40,000", max: 40000 },
+    "60k": { l: "€40,000 – €60,000", max: 60000 },
+    "80k": { l: "€60,000 – €80,000", max: 80000 },
+    "100k+": { l: "Over €100,000", max: null },
+    "open": { l: "To be defined together", max: null },
   },
 };
 
@@ -102,7 +102,7 @@ function Anim({ value, dur = 1400 }) {
     r.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(r.current);
   }, [value, dur]);
-  return <>{d.toLocaleString("it-IT")}</>;
+  return <>{d.toLocaleString("en-US")}</>;
 }
 
 // ─── Petals ───
@@ -158,10 +158,10 @@ function Row({ sel, onClick, icon, label }) {
 // ─── Steps ───
 function SSeason({ v, set }) {
   const opts = [
-    { k: "primavera", l: "Primavera", s: "Marzo – Maggio", i: I.spring },
-    { k: "estate", l: "Estate", s: "Giugno – Agosto", i: I.summer },
-    { k: "autunno", l: "Autunno", s: "Settembre – Novembre", i: I.autumn },
-    { k: "inverno", l: "Inverno", s: "Dicembre – Febbraio", i: I.winter },
+    { k: "primavera", l: "Spring", s: "March – May", i: I.spring },
+    { k: "estate", l: "Summer", s: "June – August", i: I.summer },
+    { k: "autunno", l: "Autumn", s: "September – November", i: I.autumn },
+    { k: "inverno", l: "Winter", s: "December – February", i: I.winter },
   ];
   return <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, maxWidth: 480, margin: "0 auto" }}>
     {opts.map(o => <Card key={o.k} sel={v === o.k} onClick={() => set(o.k)} icon={o.i} label={o.l} sub={o.s} />)}
@@ -170,9 +170,9 @@ function SSeason({ v, set }) {
 
 function SLocation({ v, set, locationName, setLocationName }) {
   const opts = [
-    { k: "roma", l: "Roma", i: I.roma }, { k: "toscana", l: "Toscana", i: I.toscana },
-    { k: "costiera", l: "Costiera", i: I.costiera }, { k: "lago", l: "Lago", i: I.lago },
-    { k: "umbria", l: "Umbria", i: I.umbria }, { k: "scelta", l: "Già scelta", i: I.pinCheck },
+    { k: "roma", l: "Rome", i: I.roma }, { k: "toscana", l: "Tuscany", i: I.toscana },
+    { k: "costiera", l: "Amalfi Coast", i: I.costiera }, { k: "lago", l: "Lake", i: I.lago },
+    { k: "umbria", l: "Umbria", i: I.umbria }, { k: "scelta", l: "Already chosen", i: I.pinCheck },
   ];
   const showInput = v === "scelta" || v === "altro";
   const fo = e => e.target.style.borderColor = T.gold;
@@ -189,21 +189,21 @@ function SLocation({ v, set, locationName, setLocationName }) {
         borderRadius: 12, cursor: "pointer", transition: "all .3s",
         fontFamily: T.serif, fontSize: 16, color: v === "altro" ? T.bordeaux : T.textSecondary,
       }}>
-        <span style={{ color: v === "altro" ? T.bordeaux : T.textMuted }}>{I.pin}</span> Altra destinazione
+        <span style={{ color: v === "altro" ? T.bordeaux : T.textMuted }}>{I.pin}</span> Other destination
       </button>
     </div>
     {showInput && <div style={{ maxWidth: 480, margin: "16px auto 0" }}>
-      <input type="text" placeholder="Nome della location" value={locationName} onChange={e => setLocationName(e.target.value)} onFocus={fo} onBlur={bl} style={{ width: "100%", padding: "16px 20px", fontFamily: T.serif, fontSize: 18, background: T.bgCard, border: `1px solid ${T.borderMed}`, borderRadius: 10, color: T.charcoal, outline: "none", textAlign: "center", transition: "border-color .3s", boxSizing: "border-box" }} />
+      <input type="text" placeholder="Venue name" value={locationName} onChange={e => setLocationName(e.target.value)} onFocus={fo} onBlur={bl} style={{ width: "100%", padding: "16px 20px", fontFamily: T.serif, fontSize: 18, background: T.bgCard, border: `1px solid ${T.borderMed}`, borderRadius: 10, color: T.charcoal, outline: "none", textAlign: "center", transition: "border-color .3s", boxSizing: "border-box" }} />
     </div>}
   </div>;
 }
 
 function SGuests({ v, set }) {
   const opts = [
-    { k: "intimo", l: "Intimo", s: "20 – 50 ospiti", i: I.couple },
-    { k: "medio", l: "Classico", s: "50 – 100 ospiti", i: I.group },
-    { k: "grande", l: "Grande", s: "100 – 200 ospiti", i: I.party },
-    { k: "gala", l: "Gran Gala", s: "200+ ospiti", i: I.star },
+    { k: "intimo", l: "Intimate", s: "20 – 50 guests", i: I.couple },
+    { k: "medio", l: "Classic", s: "50 – 100 guests", i: I.group },
+    { k: "grande", l: "Large", s: "100 – 200 guests", i: I.party },
+    { k: "gala", l: "Grand Gala", s: "200+ guests", i: I.star },
   ];
   return <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, maxWidth: 480, margin: "0 auto" }}>
     {opts.map(o => <Card key={o.k} sel={v === o.k} onClick={() => set(o.k)} icon={o.i} label={o.l} sub={o.s} />)}
@@ -212,10 +212,10 @@ function SGuests({ v, set }) {
 
 function SStyle({ v, set }) {
   const opts = [
-    { k: "classico", l: "Romantico Classico", i: I.heart },
+    { k: "classico", l: "Romantic Classic", i: I.heart },
     { k: "boho", l: "Boho Chic", i: I.boho },
-    { k: "moderno", l: "Moderno Minimal", i: I.minimal },
-    { k: "rustico", l: "Rustico Elegante", i: I.rustic },
+    { k: "moderno", l: "Modern Minimal", i: I.minimal },
+    { k: "rustico", l: "Rustic Elegant", i: I.rustic },
     { k: "destination", l: "Destination Wedding", i: I.plane },
   ];
   return <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 440, margin: "0 auto" }}>
@@ -226,7 +226,7 @@ function SStyle({ v, set }) {
 function SServices({ v, set }) {
   const toggle = k => set(v.includes(k) ? v.filter(x => x !== k) : [...v, k]);
   return <div>
-    <p style={{ fontFamily: T.sans, fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, textAlign: "center", marginBottom: 20 }}>Seleziona tutti i servizi desiderati</p>
+    <p style={{ fontFamily: T.sans, fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, textAlign: "center", marginBottom: 20 }}>Select all the services you need</p>
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, maxWidth: 500, margin: "0 auto" }}>
       {Object.entries(PM.services).map(([k, s]) => {
         const on = v.includes(k);
@@ -246,12 +246,12 @@ function SServices({ v, set }) {
 
 function SBudget({ v, set }) {
   const gridOpts = [
-    { k: "15k", l: "Fino a €15.000" },
-    { k: "25k", l: "€15.000 – €25.000" },
-    { k: "40k", l: "€25.000 – €40.000" },
-    { k: "60k", l: "€40.000 – €60.000" },
-    { k: "80k", l: "€60.000 – €80.000" },
-    { k: "100k+", l: "Oltre €100.000" },
+    { k: "15k", l: "Up to €15,000" },
+    { k: "25k", l: "€15,000 – €25,000" },
+    { k: "40k", l: "€25,000 – €40,000" },
+    { k: "60k", l: "€40,000 – €60,000" },
+    { k: "80k", l: "€60,000 – €80,000" },
+    { k: "100k+", l: "Over €100,000" },
   ];
   const BudgetBtn = ({ k, icon, label }) => {
     const on = v === k;
@@ -270,7 +270,7 @@ function SBudget({ v, set }) {
       {gridOpts.map(o => <BudgetBtn key={o.k} k={o.k} icon={I.wallet} label={o.l} />)}
     </div>
     <div style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
-      <BudgetBtn k="open" icon={I.openBudget} label="Da definire insieme" />
+      <BudgetBtn k="open" icon={I.openBudget} label="To be defined together" />
     </div>
   </div>;
 }
@@ -283,7 +283,7 @@ function SDate({ v, set }) {
   const bl = e => e.target.style.borderColor = T.borderMed;
   return <div style={{ maxWidth: 440, margin: "0 auto" }}>
     <div style={{ display: "flex", gap: 8, marginBottom: 24, justifyContent: "center", flexWrap: "wrap" }}>
-      {[{ k: "exact", l: "Data esatta" }, { k: "month", l: "Mese indicativo" }, { k: "undecided", l: "Non ancora decisa" }].map(o => (
+      {[{ k: "exact", l: "Exact date" }, { k: "month", l: "Approximate month" }, { k: "undecided", l: "Not yet decided" }].map(o => (
         <button key={o.k} onClick={() => chg(o.k)} style={{
           padding: "10px 18px", fontFamily: T.sans, fontSize: 12, letterSpacing: ".5px",
           background: mode === o.k ? T.charcoal : "transparent", color: mode === o.k ? T.ivory : T.textSecondary,
@@ -296,7 +296,7 @@ function SDate({ v, set }) {
     {mode === "month" && <input type="month" value={v === "da-decidere" ? "" : v} onChange={e => set(e.target.value)} min="2025-06" max="2028-12" style={inp} onFocus={fo} onBlur={bl} />}
     {mode === "undecided" && <div style={{ textAlign: "center", padding: "28px 24px", background: T.bgCard, borderRadius: 12, border: `1px solid ${T.borderLight}` }}>
       <div style={{ color: T.textMuted, marginBottom: 10, display: "flex", justifyContent: "center" }}>{I.calendar}</div>
-      <p style={{ fontFamily: T.serif, fontSize: 18, color: T.textSecondary, fontStyle: "italic", margin: 0 }}>Nessun problema, ne parleremo insieme</p>
+      <p style={{ fontFamily: T.serif, fontSize: 18, color: T.textSecondary, fontStyle: "italic", margin: 0 }}>No worries, we'll figure it out together</p>
     </div>}
   </div>;
 }
@@ -306,9 +306,9 @@ function SReferral({ v, set }) {
     { k: "google", l: "Google", i: I.sparkle },
     { k: "instagram", l: "Instagram", i: I.camera },
     { k: "ai", l: "AI (ChatGPT, Perplexity...)", i: I.clipboard },
-    { k: "passaparola", l: "Passaparola", i: I.group },
-    { k: "matrimonio", l: "Matrimonio.com", i: I.heart },
-    { k: "altro", l: "Altro", i: I.pin },
+    { k: "wordofmouth", l: "Word of Mouth", i: I.group },
+    { k: "directory", l: "Wedding Directory", i: I.heart },
+    { k: "other", l: "Other", i: I.pin },
   ];
   return <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, maxWidth: 480, margin: "0 auto" }}>
     {opts.map(o => <Card key={o.k} sel={v === o.k} onClick={() => set(o.k)} icon={o.i} label={o.l} />)}
@@ -323,23 +323,24 @@ function SContact({ v, set }) {
   const bl = e => e.target.style.borderColor = T.borderMed;
   return <div style={{ maxWidth: 440, margin: "0 auto", display: "flex", flexDirection: "column", gap: 14 }}>
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-      <div><label style={lb}>Nome *</label><input type="text" placeholder="Il vostro nome" value={v.name} onChange={e => u("name", e.target.value)} style={s} onFocus={fo} onBlur={bl} /></div>
-      <div><label style={lb}>Cognome</label><input type="text" placeholder="Cognome" value={v.surname} onChange={e => u("surname", e.target.value)} style={s} onFocus={fo} onBlur={bl} /></div>
+      <div><label style={lb}>First Name *</label><input type="text" placeholder="Your first name" value={v.name} onChange={e => u("name", e.target.value)} style={s} onFocus={fo} onBlur={bl} /></div>
+      <div><label style={lb}>Last Name</label><input type="text" placeholder="Last name" value={v.surname} onChange={e => u("surname", e.target.value)} style={s} onFocus={fo} onBlur={bl} /></div>
     </div>
-    <div><label style={lb}>Email *</label><input type="email" placeholder="la-vostra@email.com" value={v.email} onChange={e => u("email", e.target.value)} style={s} onFocus={fo} onBlur={bl} /></div>
-    <div><label style={lb}>Telefono</label><input type="tel" placeholder="+39 ..." value={v.phone} onChange={e => u("phone", e.target.value)} style={s} onFocus={fo} onBlur={bl} /></div>
-    <div><label style={lb}>Raccontateci la vostra visione</label><textarea placeholder="Ogni dettaglio ci aiuta a creare qualcosa di speciale..." value={v.message} onChange={e => u("message", e.target.value)} rows={3} style={{ ...s, resize: "vertical", minHeight: 80 }} onFocus={fo} onBlur={bl} /></div>
+    <div><label style={lb}>Email *</label><input type="email" placeholder="your@email.com" value={v.email} onChange={e => u("email", e.target.value)} style={s} onFocus={fo} onBlur={bl} /></div>
+    <div><label style={lb}>Phone</label><input type="tel" placeholder="+1 ..." value={v.phone} onChange={e => u("phone", e.target.value)} style={s} onFocus={fo} onBlur={bl} /></div>
+    <div><label style={lb}>Tell us about your vision</label><textarea placeholder="Every detail helps us create something special..." value={v.message} onChange={e => u("message", e.target.value)} rows={3} style={{ ...s, resize: "vertical", minHeight: 80 }} onFocus={fo} onBlur={bl} /></div>
   </div>;
 }
 
 function Summary({ data, locationName }) {
   const locationLabel = PM.location[data.location]?.l || "—";
   const locationDisplay = locationName ? `${locationLabel} — ${locationName}` : locationLabel;
+  const seasonLabels = { primavera: "Spring", estate: "Summer", autunno: "Autumn", inverno: "Winter" };
   const items = [
-    { l: "Stagione", v: data.season ? data.season[0].toUpperCase() + data.season.slice(1) : "—" },
+    { l: "Season", v: seasonLabels[data.season] || "—" },
     { l: "Location", v: locationDisplay },
-    { l: "Ospiti", v: PM.guests[data.guests]?.l || "—" },
-    { l: "Stile", v: PM.style[data.style] || "—" },
+    { l: "Guests", v: PM.guests[data.guests]?.l || "—" },
+    { l: "Style", v: PM.style[data.style] || "—" },
   ];
   return <div style={{ maxWidth: 500, margin: "0 auto", background: "#fff", border: `1px solid ${T.borderLight}`, borderRadius: 16, padding: 32, boxShadow: "0 4px 30px rgba(0,0,0,.04)" }}>
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 24 }}>
@@ -353,14 +354,14 @@ function Summary({ data, locationName }) {
       <div style={{ fontFamily: T.serif, fontSize: 17, color: T.charcoal, fontWeight: 500 }}>{PM.budget[data.budget]?.l}</div>
     </div>}
     {data.services.length > 0 && <div style={{ marginBottom: 24 }}>
-      <div style={{ fontFamily: T.sans, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 10, textAlign: "center" }}>Servizi Selezionati</div>
+      <div style={{ fontFamily: T.sans, fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: T.textMuted, marginBottom: 10, textAlign: "center" }}>Selected Services</div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center" }}>
         {data.services.map(s => <span key={s} style={{ fontFamily: T.sans, fontSize: 12, background: T.ivory, border: `1px solid ${T.borderLight}`, borderRadius: 20, padding: "5px 14px", color: T.charcoal }}>{PM.services[s]?.l}</span>)}
       </div>
     </div>}
     <div style={{ textAlign: "center", padding: 24, background: `linear-gradient(135deg, ${T.ivory}, ${T.beige})`, borderRadius: 12, border: `1px solid ${T.borderLight}` }}>
-      <div style={{ fontFamily: T.serif, fontSize: 24, fontWeight: 400, color: T.charcoal, marginBottom: 8, lineHeight: 1.3 }}>Tutto pronto!</div>
-      <div style={{ fontFamily: T.sans, fontSize: 13, color: T.textSecondary, lineHeight: 1.7 }}>Verifica le vostre scelte e cliccate il pulsante qui sotto per inviarci la richiesta. Vi contatteremo al più presto per una consulenza gratuita e senza impegno.</div>
+      <div style={{ fontFamily: T.serif, fontSize: 24, fontWeight: 400, color: T.charcoal, marginBottom: 8, lineHeight: 1.3 }}>All set!</div>
+      <div style={{ fontFamily: T.sans, fontSize: 13, color: T.textSecondary, lineHeight: 1.7 }}>Review your choices and click the button below to send us your request. We'll get back to you shortly with a free, no-obligation consultation.</div>
     </div>
     {/* Animated arrow pointing to submit button */}
     <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
@@ -376,19 +377,19 @@ function Summary({ data, locationName }) {
 // MAIN COMPONENT
 // ═══════════════════════════════════════
 const STEPS = [
-  { k: "season", t: "Quando sognate il vostro matrimonio?", s: "La stagione influenza atmosfera e disponibilità" },
-  { k: "location", t: "Dove immaginate la celebrazione?", s: "L'Italia offre scenari unici in ogni angolo" },
-  { k: "guests", t: "Quanti ospiti condivideranno la gioia?", s: "Ogni formato ha il suo fascino" },
-  { k: "style", t: "Qual è il vostro stile?", s: "L'atmosfera che vi rappresenta" },
-  { k: "services", t: "Di quali servizi avete bisogno?", s: "Costruiamo insieme il vostro pacchetto ideale" },
-  { k: "budget", t: "Avete un budget in mente?", s: "Ci aiuta a calibrare la proposta perfetta per voi" },
-  { k: "date", t: "Avete già una data?", s: "Ci aiuta a verificare le disponibilità" },
-  { k: "referral", t: "Come mi hai trovata?", s: "Ci aiuta a capire come raggiungervi meglio" },
-  { k: "contact", t: "Come possiamo raggiungervi?", s: "Per inviarvi il preventivo personalizzato" },
-  { k: "summary", t: "La vostra visione", s: "Riepilogo delle vostre scelte" },
+  { k: "season", t: "When do you dream of getting married?", s: "The season affects atmosphere and availability" },
+  { k: "location", t: "Where do you envision the celebration?", s: "Italy offers unique settings in every corner" },
+  { k: "guests", t: "How many guests will share the joy?", s: "Every size has its own charm" },
+  { k: "style", t: "What's your style?", s: "The atmosphere that represents you" },
+  { k: "services", t: "What services do you need?", s: "Let's build your ideal package together" },
+  { k: "budget", t: "Do you have a budget in mind?", s: "It helps us tailor the perfect proposal for you" },
+  { k: "date", t: "Do you already have a date?", s: "It helps us check availability" },
+  { k: "referral", t: "How did you find me?", s: "It helps us understand how to reach you better" },
+  { k: "contact", t: "How can we reach you?", s: "To send you a personalized quote" },
+  { k: "summary", t: "Your vision", s: "Summary of your choices" },
 ];
 
-export default function WeddingEstimator() {
+export default function WeddingEstimatorEN() {
   const [step, setStep] = useState(0);
   const [dir, setDir] = useState(1);
   const [anim, setAnim] = useState(false);
@@ -424,23 +425,24 @@ export default function WeddingEstimator() {
   const submit = async () => {
     setSending(true);
     setSubmitError("");
+    const seasonLabels = { primavera: "Spring", estate: "Summer", autunno: "Autumn", inverno: "Winter" };
     const formData = {
       access_key: "98f6d7ca-b9d6-4aed-9926-61d1fa53e1a1",
-      subject: "Nuovo Preventivo Matrimonio — " + data.contact.name + " " + data.contact.surname,
-      from_name: "Gaia Events Wedding Estimator",
-      "Nome": data.contact.name + " " + data.contact.surname,
+      subject: "New Wedding Estimate — " + data.contact.name + " " + data.contact.surname,
+      from_name: "Gaia Events Wedding Estimator (EN)",
+      "Name": data.contact.name + " " + data.contact.surname,
       "Email": data.contact.email,
-      "Telefono": data.contact.phone || "Non indicato",
-      "Stagione": data.season ? data.season[0].toUpperCase() + data.season.slice(1) : "—",
+      "Phone": data.contact.phone || "Not provided",
+      "Season": seasonLabels[data.season] || "—",
       "Location": PM.location[data.location]?.l || "—",
-      "Location Specifica": locationName || "",
-      "Ospiti": PM.guests[data.guests]?.l || "—",
-      "Stile": PM.style[data.style] || "—",
-      "Servizi": data.services.map(s => PM.services[s]?.l).join(", ") || "Nessuno",
-      "Budget": PM.budget[data.budget]?.l || "Da definire",
-      "Data Matrimonio": data.date === "da-decidere" ? "Da decidere" : data.date || "Non indicata",
-      "Trovato tramite": { google: "Google", instagram: "Instagram", ai: "AI (ChatGPT, Perplexity...)", passaparola: "Passaparola", matrimonio: "Matrimonio.com", altro: "Altro" }[data.referral] || "Non indicato",
-      "Note": data.contact.message || "Nessuna nota",
+      "Specific Venue": locationName || "",
+      "Guests": PM.guests[data.guests]?.l || "—",
+      "Style": PM.style[data.style] || "—",
+      "Services": data.services.map(s => PM.services[s]?.l).join(", ") || "None",
+      "Budget": PM.budget[data.budget]?.l || "To be defined",
+      "Wedding Date": data.date === "da-decidere" ? "To be decided" : data.date || "Not provided",
+      "Found through": { google: "Google", instagram: "Instagram", ai: "AI (ChatGPT, Perplexity...)", wordofmouth: "Word of Mouth", directory: "Wedding Directory", other: "Other" }[data.referral] || "Not provided",
+      "Notes": data.contact.message || "No notes",
       redirect: false,
     };
     try {
@@ -453,11 +455,11 @@ export default function WeddingEstimator() {
       if (responseData.success) {
         setDone(true);
       } else {
-        setSubmitError("Si è verificato un errore. Riprova o contattaci direttamente a gaiacrognale@gmail.com");
+        setSubmitError("An error occurred. Please try again or contact us directly at gaiacrognale@gmail.com");
       }
     } catch (err) {
       console.error("Submit error:", err);
-      setSubmitError("Si è verificato un errore. Riprova o contattaci direttamente a gaiacrognale@gmail.com");
+      setSubmitError("An error occurred. Please try again or contact us directly at gaiacrognale@gmail.com");
     } finally {
       setSending(false);
     }
@@ -486,11 +488,11 @@ export default function WeddingEstimator() {
         <div style={{ color: T.gold, marginBottom: 24, display: "flex", justifyContent: "center" }}>
           <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><rect x="8" y="12" width="40" height="32" rx="3"/><path d="M48 12L28 30 8 12"/></svg>
         </div>
-        <h2 style={{ fontFamily: T.serif, fontSize: 36, fontWeight: 400, color: T.charcoal, margin: "0 0 16px", lineHeight: 1.2 }}>Grazie, {data.contact.name}</h2>
-        <p style={{ fontFamily: T.sans, fontSize: 15, color: T.textSecondary, lineHeight: 1.8, margin: "0 0 32px" }}>Abbiamo ricevuto la vostra richiesta e siamo già entusiasti di iniziare a lavorare insieme. Vi contatteremo entro 24 ore con un preventivo personalizzato.</p>
+        <h2 style={{ fontFamily: T.serif, fontSize: 36, fontWeight: 400, color: T.charcoal, margin: "0 0 16px", lineHeight: 1.2 }}>Thank you, {data.contact.name}</h2>
+        <p style={{ fontFamily: T.sans, fontSize: 15, color: T.textSecondary, lineHeight: 1.8, margin: "0 0 32px" }}>We've received your request and we're already excited to start working together. We'll get back to you within 24 hours with a personalized quote.</p>
         <div style={{ width: 48, height: 1, background: T.gold, margin: "0 auto 32px" }} />
-        <p style={{ fontFamily: T.serif, fontSize: 20, fontStyle: "italic", color: T.textMuted, margin: "0 0 40px" }}>Ogni grande storia d'amore merita un inizio indimenticabile</p>
-        <a href="/" style={{ fontFamily: T.sans, fontSize: 13, letterSpacing: "1px", textTransform: "uppercase", fontWeight: 500, padding: "14px 32px", background: T.charcoal, color: T.ivory, borderRadius: 8, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, transition: "all .3s" }}>{I.arrowL} Torna al Sito</a>
+        <p style={{ fontFamily: T.serif, fontSize: 20, fontStyle: "italic", color: T.textMuted, margin: "0 0 40px" }}>Every great love story deserves an unforgettable beginning</p>
+        <a href="/en/destination-wedding" style={{ fontFamily: T.sans, fontSize: 13, letterSpacing: "1px", textTransform: "uppercase", fontWeight: 500, padding: "14px 32px", background: T.charcoal, color: T.ivory, borderRadius: 8, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, transition: "all .3s" }}>{I.arrowL} Back to Site</a>
       </div>
     </div>
   );
@@ -501,15 +503,15 @@ export default function WeddingEstimator() {
 
       {/* Header */}
       <div style={{ padding: "160px 24px 0", textAlign: "center" }}>
-        <a href="/" style={{ fontFamily: T.sans, fontSize: 12, letterSpacing: "3px", textTransform: "uppercase", color: T.gold, marginBottom: 8, display: "block", textDecoration: "none" }}>Gaia Events</a>
-        <h1 style={{ fontFamily: T.serif, fontSize: "clamp(28px,4vw,38px)", fontWeight: 400, color: T.charcoal, margin: "0 0 6px", letterSpacing: "-.01em" }}>Il Vostro Matrimonio da Sogno</h1>
-        <p style={{ fontFamily: T.sans, fontSize: 14, color: T.textMuted, margin: "0 0 28px" }}>Rispondete a poche domande per ricevere un preventivo personalizzato</p>
+        <a href="/en/destination-wedding" style={{ fontFamily: T.sans, fontSize: 12, letterSpacing: "3px", textTransform: "uppercase", color: T.gold, marginBottom: 8, display: "block", textDecoration: "none" }}>Gaia Events</a>
+        <h1 style={{ fontFamily: T.serif, fontSize: "clamp(28px,4vw,38px)", fontWeight: 400, color: T.charcoal, margin: "0 0 6px", letterSpacing: "-.01em" }}>Your Dream Wedding in Italy</h1>
+        <p style={{ fontFamily: T.sans, fontSize: 14, color: T.textMuted, margin: "0 0 28px" }}>Answer a few questions to receive a personalized estimate</p>
       </div>
 
       {/* Progress */}
       <div style={{ maxWidth: 560, margin: "24px auto 0", padding: "0 24px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-          <span style={{ fontFamily: T.sans, fontSize: 12, color: T.textMuted }}>Passo {step + 1} di {STEPS.length}</span>
+          <span style={{ fontFamily: T.sans, fontSize: 12, color: T.textMuted }}>Step {step + 1} of {STEPS.length}</span>
           <span style={{ fontFamily: T.sans, fontSize: 12, color: T.textMuted }}>{Math.round(progress)}%</span>
         </div>
         <div style={{ height: 2, background: T.beige, borderRadius: 2, overflow: "hidden" }}>
@@ -534,7 +536,7 @@ export default function WeddingEstimator() {
           visibility: step === 0 ? "hidden" : "visible", display: "flex", alignItems: "center", gap: 8,
           background: "transparent", border: "none", padding: "12px 4px", color: T.textSecondary,
           fontFamily: T.sans, fontSize: 13, cursor: "pointer", transition: "all .3s",
-        }}>{I.arrowL} Indietro</button>
+        }}>{I.arrowL} Back</button>
         {step < STEPS.length - 1 ? (
           <button onClick={() => canNext() && goTo(step + 1)} disabled={!canNext()} style={{
             display: "flex", alignItems: "center", gap: 8,
@@ -542,7 +544,7 @@ export default function WeddingEstimator() {
             padding: "14px 32px", color: canNext() ? T.ivory : T.textMuted,
             fontFamily: T.sans, fontSize: 13, fontWeight: 500,
             cursor: canNext() ? "pointer" : "not-allowed", transition: "all .4s cubic-bezier(.22,1,.36,1)",
-          }}>Continua {I.arrowR}</button>
+          }}>Continue {I.arrowR}</button>
         ) : (
           <button onClick={submit} disabled={sending} style={{
             display: "flex", alignItems: "center", gap: 10,
@@ -550,7 +552,7 @@ export default function WeddingEstimator() {
             padding: "16px 36px", color: T.ivory, fontFamily: T.sans, fontSize: 13,
             fontWeight: 600, cursor: sending ? "not-allowed" : "pointer", letterSpacing: "1px", textTransform: "uppercase",
             opacity: sending ? 0.7 : 1, transition: "all .3s",
-          }}>{sending ? <><span style={{ display: "inline-block", width: 16, height: 16, border: "2px solid rgba(255,255,255,0.3)", borderTopColor: "#fff", borderRadius: "50%", animation: "spinBtn .6s linear infinite" }} /> Invio in corso...</> : <>{I.send} Invia Richiesta</>}</button>
+          }}>{sending ? <><span style={{ display: "inline-block", width: 16, height: 16, border: "2px solid rgba(255,255,255,0.3)", borderTopColor: "#fff", borderRadius: "50%", animation: "spinBtn .6s linear infinite" }} /> Sending...</> : <>{I.send} Send Request</>}</button>
         )}
       </div>
 
@@ -561,7 +563,7 @@ export default function WeddingEstimator() {
       </div>}
 
       <div style={{ textAlign: "center", padding: "8px 24px 40px" }}>
-        <p style={{ fontFamily: T.sans, fontSize: 12, color: T.textMuted, margin: 0 }}>Consulenza iniziale gratuita e senza impegno</p>
+        <p style={{ fontFamily: T.sans, fontSize: 12, color: T.textMuted, margin: 0 }}>Free initial consultation, no commitment</p>
       </div>
 
       <style>{`
