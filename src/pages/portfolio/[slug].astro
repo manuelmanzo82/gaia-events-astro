@@ -58,8 +58,8 @@ const formatDate = (dateStr: string) => {
     <!-- Hero -->
     <section data-navbar-theme="dark" class="relative h-[65vh] min-h-[450px] flex items-end overflow-hidden">
       <div class="absolute inset-0 bg-charcoal">
-        {evento.immagineCopertina ? (
-          <img src={evento.immagineCopertina} alt={evento.titolo} class="absolute inset-0 w-full h-full object-cover" />
+        {(evento.immagineHero || evento.immagineCopertina) ? (
+          <img src={evento.immagineHero || evento.immagineCopertina} alt={evento.titolo} class="absolute inset-0 w-full h-full object-cover" />
         ) : (
           <div class="absolute inset-0 flex items-center justify-center">
             <span class="text-white/10 text-xl tracking-widest uppercase select-none">{evento.titolo}</span>

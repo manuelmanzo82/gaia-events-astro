@@ -88,6 +88,7 @@ export const eventoBySlugQuery = `*[_type == "evento" && slug.current == $slug][
   videoUrl,
   descrizione,
   "immagineCopertina": immagineCopertina.asset->url,
+  "immagineHero": immagineHero.asset->url,
   "galleria": galleria[].asset->url,
   inEvidenza
 }`;

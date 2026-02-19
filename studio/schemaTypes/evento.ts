@@ -59,6 +59,13 @@ export default defineType({
       options: {hotspot: true},
     }),
     defineField({
+      name: 'immagineHero',
+      title: 'Immagine Hero (pagina dettaglio)',
+      type: 'image',
+      options: {hotspot: true},
+      description: 'Foto orizzontale/panoramica per l\'hero della pagina evento. Se vuota, usa l\'immagine di copertina.',
+    }),
+    defineField({
       name: 'videoUrl',
       title: 'Video URL',
       type: 'url',
